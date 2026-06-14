@@ -13,10 +13,14 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
 
   <meta
     name="description"
-    content="Professional beauty treatments in Fareham and Portsmouth. Book appointments online with Forever Young Beauty By Layla through Treatwell."
+    content="Professional beauty treatments in Fareham, Portsmouth and Gosport. Book appointments online with Forever Young Beauty By Layla through Treatwell."
   />
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -26,43 +30,51 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
     }
 
     .hero {
-      text-align: center;
-      padding: 60px 20px;
       background: linear-gradient(135deg, #f8d7da, #fff);
+      padding: 80px 20px;
+      text-align: center;
     }
 
-    h1 {
-      margin-bottom: 10px;
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
       color: #c85d7a;
-      font-size: 2.5rem;
+      margin-bottom: 15px;
     }
 
-    h2 {
-      color: #c85d7a;
+    .hero p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.15rem;
     }
 
     .section {
-      max-width: 900px;
+      max-width: 1100px;
       margin: auto;
-      padding: 50px 20px;
+      padding: 70px 20px;
+    }
+
+    .section h2 {
+      text-align: center;
+      color: #c85d7a;
+      margin-bottom: 20px;
     }
 
     .buttons {
       display: flex;
-      gap: 15px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 25px;
+      gap: 15px;
+      margin-top: 30px;
     }
 
     .button {
       display: inline-block;
-      padding: 14px 28px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      color: white;
       background: #c85d7a;
+      color: white;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: bold;
     }
 
     .button:hover {
@@ -71,22 +83,38 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
-      margin-top: 25px;
+      margin-top: 30px;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .review-score {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #c85d7a;
+      margin-bottom: 25px;
+    }
+
+    .highlight {
+      background: white;
+      text-align: center;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
     footer {
+      background: #f1f1f1;
       text-align: center;
       padding: 30px;
-      background: #f1f1f1;
       margin-top: 40px;
     }
   </style>
@@ -101,6 +129,10 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
       Professional beauty treatments delivered with care, expertise and attention to detail.
       Serving clients across Fareham, Portsmouth, Gosport and the surrounding areas.
       Book your appointment online through Treatwell and discover treatments designed to help you look and feel your best.
+    </p>
+
+    <p style="margin-top:20px;font-weight:bold;color:#c85d7a;">
+      ★★★★★ Rated 5.0/5 from over 527 verified Treatwell reviews
     </p>
 
     <div class="buttons">
@@ -121,12 +153,14 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
   <section class="section">
     <h2>Welcome</h2>
 
-    <p>
-      At Forever Young Beauty By Layla, every treatment is tailored to the individual.
-      Whether you're preparing for a special occasion, maintaining your regular beauty routine,
-      or simply taking time for yourself, you'll receive a professional and friendly service
-      focused on achieving the best possible results.
-    </p>
+    <div class="highlight">
+      <p>
+        At Forever Young Beauty By Layla, every treatment is tailored to the individual.
+        Whether you're preparing for a special occasion, maintaining your regular beauty routine,
+        or simply taking time for yourself, you'll receive a professional and friendly service
+        focused on achieving the best possible results.
+      </p>
+    </div>
   </section>
 
   <section class="section">
@@ -159,26 +193,68 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
   </section>
 
   <section class="section">
-    <h2>Beauty Treatments in Fareham</h2>
+    <h2>What Clients Say</h2>
 
-    <p>
-      Forever Young Beauty By Layla provides professional beauty treatments for clients across
-      Fareham, Portsmouth, Gosport and the surrounding areas.
+    <p class="review-score">
+      ★★★★★ 5.0 Rating from 527+ verified Treatwell reviews
     </p>
+
+    <div class="cards">
+
+      <div class="card">
+        <p>
+          "Layla is always excellent. Very professional, thorough and attentive.
+          The treatment is carried out in a calm and relaxing environment."
+        </p>
+        <strong>Verified Treatwell Review</strong>
+      </div>
+
+      <div class="card">
+        <p>
+          "Layla is amazing. I'm a regular now. Her treatments are fantastic and
+          always leave me feeling refreshed and confident."
+        </p>
+        <strong>Regular Client</strong>
+      </div>
+
+      <div class="card">
+        <p>
+          "Friendly, professional and incredibly relaxing. I wouldn't go anywhere else."
+        </p>
+        <strong>Verified Treatwell Review</strong>
+      </div>
+
+    </div>
 
     <div class="buttons">
       <a class="button" href={treatwellUrl} target="_blank">
-        Book Online Now
+        Read More Reviews
       </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Beauty Treatments in Fareham</h2>
+
+    <div class="highlight">
+      <p>
+        Forever Young Beauty By Layla provides professional beauty treatments for clients across
+        Fareham, Portsmouth, Gosport and the surrounding areas.
+      </p>
+
+      <div class="buttons">
+        <a class="button" href={treatwellUrl} target="_blank">
+          Book Online Now
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <h2>Follow Forever Young Beauty By Layla</h2>
 
-    <p>
-      Stay up to date with the latest treatments, client results, beauty tips and special offers
-      by following us on social media.
+    <p style="text-align:center;">
+      Stay up to date with the latest treatments, beauty tips, client results and special offers.
     </p>
 
     <div class="buttons">
@@ -194,8 +270,8 @@ const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
 
   <footer>
     <p>
-      Forever Young Beauty By Layla © 2026<br />
-      Professional Beauty Treatments | Fareham, Portsmouth & Surrounding Areas
+      Forever Young Beauty By Layla © 2026<br>
+      Professional Beauty Treatments | Fareham, Portsmouth & Gosport
     </p>
   </footer>
 
