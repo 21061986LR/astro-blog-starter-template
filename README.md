@@ -1,8 +1,8 @@
 ---
-const treatwellUrl = "https://laylaradestock.mytreatwell.co.uk/";
-const instagramUrl = "https://www.instagram.com/foreveryoungbeauty_bylayla";
-const facebookUrl = "https://www.facebook.com/share/1QMMfoWi3d/";
-const mapsUrl = "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9";
+const logoImage = "/images/Layla logo.jpg";
+const heroImage = "/images/layla-treatment.jpg";
+const hairlineImage = "/images/hairline-treatment.jpg";
+const reviewImage = "/images/Shelley review.jpg";
 ---
 
 <html lang="en">
@@ -10,275 +10,265 @@ const mapsUrl = "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9";
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Forever Young Beauty By Layla | Beauty Treatments in Fareham, Portsmouth & Gosport</title>
+  <title>Forever Young Beauty by Layla | Aesthetics & Beauty Treatments Portsmouth</title>
 
   <meta
     name="description"
-    content="Professional beauty treatments in Fareham, Portsmouth and Gosport. Facials, lashes, brows and beauty treatments. Book online with Forever Young Beauty By Layla through Treatwell."
+    content="Professional aesthetics and beauty treatments in Portsmouth. Anti-wrinkle treatments, dermal fillers, skin rejuvenation and beauty services. Over 500 verified client reviews."
   />
 
   <style>
-    * { box-sizing: border-box; }
-
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #faf7f8;
-      color: #333;
-      line-height: 1.6;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #f8d7da, #fff);
-      padding: 80px 20px;
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    header {
       text-align: center;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
-      width: 170px;
-      height: 170px;
-      object-fit: cover;
+      width: 140px;
       border-radius: 50%;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .hero {
+      background: #f8f8f8;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      margin-bottom: 25px;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 8vw, 4.8rem);
-      color: #c85d7a;
+      font-size: 2.8rem;
       margin-bottom: 15px;
     }
 
     h2 {
       text-align: center;
-      color: #c85d7a;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .hero p {
-      max-width: 850px;
-      margin: auto;
-      font-size: 1.15rem;
-    }
-
-    .section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 70px 20px;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 30px;
+      max-width: 700px;
+      margin: 0 auto 25px;
+      font-size: 1.1rem;
     }
 
     .button {
       display: inline-block;
-      background: #c85d7a;
+      background: #d4af37;
       color: white;
       text-decoration: none;
       padding: 14px 28px;
-      border-radius: 999px;
+      border-radius: 8px;
       font-weight: bold;
+      transition: 0.3s;
     }
 
-    .button:hover { opacity: 0.9; }
+    .button:hover {
+      opacity: 0.9;
+    }
 
-    .cards,
-    .gallery {
+    section {
+      padding: 70px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .services {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
     }
 
-    .card,
-    .highlight {
+    .card {
       background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
     }
 
-    .highlight {
-      text-align: center;
-    }
-
-    .gallery img {
+    .card img {
       width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 18px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      background: white;
+      display: block;
     }
 
-    .review-score {
+    .card-content {
+      padding: 20px;
       text-align: center;
-      font-size: 1.2rem;
+    }
+
+    .reviews {
+      background: #f8f8f8;
+      text-align: center;
+    }
+
+    .reviews img {
+      width: 100%;
+      max-width: 650px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .review-highlight {
+      font-size: 1.3rem;
       font-weight: bold;
-      color: #c85d7a;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact p {
+      margin-bottom: 12px;
     }
 
     footer {
-      background: #f1f1f1;
+      background: #222;
+      color: white;
       text-align: center;
       padding: 30px;
-      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <section class="hero">
-    <img class="logo" src="/images/logo.jpg" alt="Forever Young Beauty By Layla logo" />
+<header>
+  <img src={logoImage} alt="Forever Young Beauty by Layla" class="logo" />
+</header>
 
-    <h1>Forever Young Beauty By Layla</h1>
+<section class="hero">
+  <img src={heroImage} alt="Beauty Treatment by Layla" />
 
-    <p>
-      Professional beauty treatments delivered with care, expertise and attention to detail.
-      Serving clients across Fareham, Portsmouth, Gosport and the surrounding areas.
-      Book your appointment online through Treatwell and discover treatments designed to help you look and feel your best.
-    </p>
+  <h1>Forever Young Beauty by Layla</h1>
 
-    <p style="margin-top:20px;font-weight:bold;color:#c85d7a;">
-      ★★★★★ Rated 5.0/5 from 527+ verified Treatwell reviews
-    </p>
+  <p>
+    Professional aesthetics and beauty treatments in Portsmouth,
+    helping clients look and feel their best through safe,
+    personalised and high-quality treatments.
+  </p>
 
-    <div class="buttons">
-      <a class="button" href={treatwellUrl} target="_blank">Book Your Appointment</a>
-      <a class="button" href={instagramUrl} target="_blank">Instagram</a>
-      <a class="button" href={facebookUrl} target="_blank">Facebook</a>
-    </div>
-  </section>
+  <a
+    href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/"
+    target="_blank"
+    class="button"
+  >
+    Book Online
+  </a>
+</section>
 
-  <section class="section">
-    <h2>Welcome</h2>
+<section>
+  <h2>Popular Treatments</h2>
 
-    <div class="highlight">
-      <p>
-        At Forever Young Beauty By Layla, every treatment is tailored to the individual.
-        Whether you're preparing for a special occasion, maintaining your regular beauty routine,
-        or simply taking time for yourself, you'll receive a professional and friendly service
-        focused on achieving the best possible results.
-      </p>
-    </div>
-  </section>
+  <div class="services">
 
-  <section class="section">
-    <h2>Treatments</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Facial Treatments</h3>
-        <p>Refresh, rejuvenate and enhance your natural glow with professional facial treatments.</p>
-      </div>
-
-      <div class="card">
-        <h3>Lashes & Brows</h3>
-        <p>Beautiful lash and brow treatments designed to enhance your natural features.</p>
-      </div>
-
-      <div class="card">
-        <h3>Beauty Services</h3>
-        <p>View the latest services, pricing and availability through Treatwell.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Gallery</h2>
-
-    <div class="gallery">
-      <img src="/images/facial-treatment.jpg" alt="Facial treatment by Layla" />
-      <img src="/images/hairline-treatment.jpg" alt="Hairline treatment before and after" />
-      <img src="/images/review-shelley.jpg" alt="Client review for Forever Young Beauty By Layla" />
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>What Clients Say</h2>
-
-    <p class="review-score">
-      ★★★★★ 5.0 Rating from 527+ verified Treatwell reviews
-    </p>
-
-    <div class="cards">
-      <div class="card">
+    <div class="card">
+      <img src={heroImage} alt="Beauty Treatments" />
+      <div class="card-content">
+        <h3>Aesthetic Treatments</h3>
         <p>
-          "Layla is always excellent. Very professional, thorough and attentive.
-          The treatment is carried out in a calm and relaxing environment."
-        </p>
-      </div>
-
-      <div class="card">
-        <p>
-          "Layla is amazing. I'm a regular now. Her treatments are fantastic and
-          always leave me feeling refreshed and confident."
-        </p>
-      </div>
-
-      <div class="card">
-        <p>
-          "Friendly, professional and incredibly relaxing. I wouldn't go anywhere else."
+          Advanced aesthetic treatments tailored to enhance your
+          natural beauty and confidence.
         </p>
       </div>
     </div>
 
-    <div class="buttons">
-      <a class="button" href={treatwellUrl} target="_blank">Read More Reviews</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Visit Forever Young Beauty By Layla</h2>
-
-    <div class="highlight">
-      <p>
-        Based at Beauty at Abshot, Abshot Country Club, Titchfield Common,
-        conveniently located for clients across Fareham, Portsmouth, Gosport and surrounding areas.
-      </p>
-
-      <p>
-        Beauty at Abshot<br />
-        Abshot Country Club<br />
-        Little Abshot Road<br />
-        Titchfield Common<br />
-        Fareham<br />
-        PO14 4LN
-      </p>
-
-      <div class="buttons">
-        <a class="button" href={mapsUrl} target="_blank">View on Google Maps</a>
-        <a class="button" href={treatwellUrl} target="_blank">Book Online Now</a>
+    <div class="card">
+      <img src={hairlineImage} alt="Hairline Treatment" />
+      <div class="card-content">
+        <h3>Hairline Treatments</h3>
+        <p>
+          Specialist hairline and skin rejuvenation treatments
+          delivered with care and expertise.
+        </p>
       </div>
     </div>
-  </section>
 
-  <section class="section">
-    <h2>Follow Forever Young Beauty By Layla</h2>
+  </div>
+</section>
 
-    <p style="text-align:center;">
-      Stay up to date with the latest treatments, beauty tips, client results and special offers.
-    </p>
+<section class="reviews">
+  <h2>What Clients Say</h2>
 
-    <div class="buttons">
-      <a class="button" href={instagramUrl} target="_blank">Instagram</a>
-      <a class="button" href={facebookUrl} target="_blank">Facebook</a>
-    </div>
-  </section>
+  <img src={reviewImage} alt="Client Review" />
 
-  <footer>
-    <p>
-      Forever Young Beauty By Layla © 2026<br />
-      Professional Beauty Treatments | Fareham, Portsmouth & Gosport
-    </p>
-  </footer>
+  <p class="review-highlight">
+    ⭐ Over 500 Verified Client Reviews
+  </p>
+
+  <p>
+    Trusted by clients across Portsmouth and Hampshire for
+    professional, friendly and high-quality aesthetic and beauty
+    treatments.
+  </p>
+
+  <br />
+
+  <a
+    href="https://maps.app.goo.gl/JPxvA3GcFrQov9SN9"
+    target="_blank"
+    class="button"
+  >
+    View Google Reviews
+  </a>
+</section>
+
+<section class="contact">
+  <h2>Book Your Appointment</h2>
+
+  <p>
+    Ready to start your journey?
+  </p>
+
+  <p>
+    Book directly through Treatwell or view our latest reviews on Google.
+  </p>
+
+  <br />
+
+  <a
+    href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/"
+    target="_blank"
+    class="button"
+  >
+    Book Now
+  </a>
+</section>
+
+<footer>
+  <p><strong>Forever Young Beauty by Layla</strong></p>
+  <p>Portsmouth, Hampshire</p>
+  <p>Over 500 Verified Client Reviews</p>
+</footer>
 
 </body>
 </html>
