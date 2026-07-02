@@ -24,7 +24,11 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
   />
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: Arial, sans-serif;
@@ -33,7 +37,11 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       line-height: 1.6;
     }
 
-    img, video { display: block; max-width: 100%; }
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+    }
 
     header {
       background: #ffffff;
@@ -42,13 +50,34 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .logo { width: 130px; max-width: 45%; border-radius: 50%; margin: 0 auto; }
+    .logo {
+      width: 130px;
+      max-width: 45%;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
 
-    section { max-width: 1150px; margin: 0 auto; padding: 60px 20px; }
+    section {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
 
-    h1 { font-size: 2.7rem; margin-bottom: 16px; color: #2a2a2a; }
-    h2 { font-size: 2rem; text-align: center; margin-bottom: 28px; }
-    p { font-size: 1.05rem; }
+    h1 {
+      font-size: 2.7rem;
+      margin-bottom: 16px;
+      color: #2a2a2a;
+    }
+
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    p {
+      font-size: 1.05rem;
+    }
 
     .button {
       display: inline-block;
@@ -60,7 +89,10 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       font-weight: bold;
       margin: 6px;
     }
-    .button.secondary { background: #2f2f2f; }
+
+    .button.secondary {
+      background: #2f2f2f;
+    }
 
     .card-img {
       width: 100%;
@@ -75,16 +107,32 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       padding: 55px 20px;
       background: linear-gradient(180deg, #fffaf7, #f7ece7);
     }
-    .hero p { max-width: 720px; margin: 0 auto 26px; }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 26px;
+    }
 
     .treatments,
     .reviews,
-    .visit { text-align: center; }
-    .treatments p { max-width: 720px; margin: 0 auto 26px; }
+    .visit {
+      text-align: center;
+    }
 
-    /* ---------- reels ---------- */
-    .reels-section { text-align: center; }
-    .reels-intro { color: #6b6b6b; margin-bottom: 32px; }
+    .treatments p {
+      max-width: 720px;
+      margin: 0 auto 26px;
+    }
+
+    .reels-section {
+      text-align: center;
+    }
+
+    .reels-intro {
+      color: #6b6b6b;
+      margin-bottom: 32px;
+    }
+
     .reels-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -92,9 +140,14 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       max-width: 860px;
       margin: 0 auto;
     }
+
     @media (max-width: 720px) {
-      .reels-grid { grid-template-columns: 1fr; max-width: 320px; }
+      .reels-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+      }
     }
+
     .reel-card {
       position: relative;
       aspect-ratio: 9 / 16;
@@ -104,7 +157,13 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       cursor: pointer;
     }
-    .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+
+    .reel-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .sound-badge {
       position: absolute;
       right: 12px;
@@ -117,12 +176,27 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       border-radius: 999px;
       pointer-events: none;
     }
-    .reels-follow { margin-top: 32px; color: #6b6b6b; }
-    .reels-follow a { color: #2f2f2f; font-weight: bold; }
 
-    .reviews { background: #f7ece7; }
+    .reels-follow {
+      margin-top: 32px;
+      color: #6b6b6b;
+    }
 
-    .visit address { font-style: normal; color: #6b6b6b; margin-bottom: 26px; }
+    .reels-follow a {
+      color: #2f2f2f;
+      font-weight: bold;
+    }
+
+    .reviews {
+      background: #f7ece7;
+    }
+
+    .visit address {
+      font-style: normal;
+      color: #6b6b6b;
+      margin-bottom: 26px;
+    }
+
     .map-frame {
       max-width: 860px;
       margin: 0 auto 26px;
@@ -131,9 +205,17 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       aspect-ratio: 4 / 3;
     }
-    .map-frame iframe { width: 100%; height: 100%; border: 0; }
+
+    .map-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     @media (min-width: 720px) {
-      .map-frame { aspect-ratio: 16 / 9; }
+      .map-frame {
+        aspect-ratio: 16 / 9;
+      }
     }
 
     footer {
@@ -142,8 +224,16 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       text-align: center;
       padding: 44px 20px;
     }
-    footer p { margin-bottom: 12px; font-size: 0.95rem; }
-    .social-links { margin-bottom: 18px; }
+
+    footer p {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .social-links {
+      margin-bottom: 18px;
+    }
+
     .social-links a {
       color: #fff;
       font-weight: bold;
@@ -151,6 +241,7 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       margin: 0 12px;
       border-bottom: 1px solid #c89b5f;
     }
+
     footer .fine {
       font-size: 0.8rem;
       color: rgba(247, 236, 231, 0.6);
@@ -165,7 +256,6 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
     <img class="logo" src={logoImage} alt="Forever Young Beauty by Layla logo" />
   </header>
 
-  <!-- HERO -->
   <div class="hero">
     <h1>Forever Young Beauty by Layla</h1>
     <p>
@@ -177,7 +267,6 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
     <a class="button secondary" href={googleReviewsUrl} target="_blank" rel="noopener">Read our reviews</a>
   </div>
 
-  <!-- REELS -->
   <section class="reels-section">
     <h2>Fresh from the treatment room</h2>
     <p class="reels-intro">Tap a reel for sound.</p>
@@ -187,21 +276,21 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
         <video muted loop autoplay playsinline preload="metadata" poster="/videos/poster1.jpg">
           <source src="/videos/reel1.mp4" type="video/mp4" />
         </video>
-        <span class="sound-badge">&#128263; Tap for sound</span>
+        <span class="sound-badge">Tap for sound</span>
       </div>
 
       <div class="reel-card">
         <video muted loop autoplay playsinline preload="metadata" poster="/videos/poster2.jpg">
           <source src="/videos/reel2.mp4" type="video/mp4" />
         </video>
-        <span class="sound-badge">&#128263; Tap for sound</span>
+        <span class="sound-badge">Tap for sound</span>
       </div>
 
       <div class="reel-card">
         <video muted loop autoplay playsinline preload="metadata" poster="/videos/poster3.jpg">
           <source src="/videos/reel3.mp4" type="video/mp4" />
         </video>
-        <span class="sound-badge">&#128263; Tap for sound</span>
+        <span class="sound-badge">Tap for sound</span>
       </div>
     </div>
 
@@ -211,7 +300,6 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
     </p>
   </section>
 
-  <!-- TREATMENTS (now below the reels) -->
   <section class="treatments">
     <h2>Treatments</h2>
     <img class="card-img" src={hairlineImage} alt="Hairline treatment" />
@@ -223,14 +311,12 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
     <a class="button" href={treatwellUrl} target="_blank" rel="noopener">See treatments &amp; prices</a>
   </section>
 
-  <!-- REVIEWS -->
   <section class="reviews">
     <h2>What clients say</h2>
     <img class="card-img" src={reviewImage} alt="Five-star client review" />
     <a class="button" href={googleReviewsUrl} target="_blank" rel="noopener">Read more on Google</a>
   </section>
 
-  <!-- FIND US -->
   <section class="visit">
     <h2>Find us</h2>
     <address>
@@ -260,19 +346,22 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
   </footer>
 
   <script>
-    // Reels: autoplay muted only while on screen; tap to toggle sound.
     const cards = document.querySelectorAll('.reel-card');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const video = entry.target.querySelector('video');
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.4 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target.querySelector('video');
+          if (!video) return;
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
 
     cards.forEach((card) => {
       const video = card.querySelector('video');
@@ -280,516 +369,20 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       observer.observe(card);
 
       card.addEventListener('click', () => {
-        // mute all other reels first
         cards.forEach((other) => {
           if (other !== card) {
-            other.querySelector('video').muted = true;
-            other.querySelector('.sound-badge').innerHTML = '&#128263; Tap for sound';
+            const v = other.querySelector('video');
+            const b = other.querySelector('.sound-badge');
+            if (v) v.muted = true;
+            if (b) b.textContent = 'Tap for sound';
           }
         });
         video.muted = !video.muted;
-        badge.innerHTML = video.muted ? '&#128263; Tap for sound' : '&#128266; Sound on';
+        badge.textContent = video.muted ? 'Tap for sound' : 'Sound on';
         if (video.paused) video.play().catch(() => {});
       });
     });
   </script>
 
 </body>
-</html>    h1 { font-size: 2.7rem; margin-bottom: 16px; color: #2a2a2a; }
-
-    h2 { font-size: 2rem; text-align: center; margin-bottom: 28px; }
-
-    p { font-size: 1.05rem; }
-
- 
-
-    .button {
-
-      display: inline-block;
-
-      background: #c89b5f;
-
-      color: white;
-
-      padding: 14px 28px;
-
-      text-decoration: none;
-
-      border-radius: 999px;
-
-      font-weight: bold;
-
-      margin: 6px;
-
-    }
-
-    .button.secondary { background: #2f2f2f; }
-
- 
-
-    .hero {
-
-      text-align: center;
-
-      padding: 55px 20px;
-
-      background: linear-gradient(180deg, #fffaf7, #f7ece7);
-
-    }
-
-    .hero img {
-
-      width: 100%;
-
-      max-width: 520px;
-
-      border-radius: 18px;
-
-      margin: 0 auto 28px;
-
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-
-    }
-
-    .hero p { max-width: 720px; margin: 0 auto 26px; }
-
- 
-
-    .treatments { text-align: center; }
-
-    .treatments img {
-
-      width: 100%;
-
-      max-width: 520px;
-
-      border-radius: 18px;
-
-      margin: 0 auto 28px;
-
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-
-    }
-
-    .treatments p { max-width: 720px; margin: 0 auto 26px; }
-
- 
-
-    .reels-section { text-align: center; background: #fffaf7; }
-
-    .reels-intro { color: #6b6b6b; margin-bottom: 32px; }
-
-    .reels-grid {
-
-      display: grid;
-
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
-      gap: 24px;
-
-      max-width: 860px;
-
-      margin: 0 auto;
-
-    }
-
-    @media (max-width: 720px) {
-
-      .reels-grid { grid-template-columns: 1fr; max-width: 320px; }
-
-    }
-
-    .reel-card {
-
-      position: relative;
-
-      aspect-ratio: 9 / 16;
-
-      border-radius: 16px;
-
-      overflow: hidden;
-
-      background: #2f2f2f;
-
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-
-    }
-
-    .reel-card video { width: 100%; height: 100%; object-fit: cover; }
-
-    .reel-play {
-
-      position: absolute;
-
-      inset: 0;
-
-      width: 100%;
-
-      border: 0;
-
-      background: rgba(0, 0, 0, 0.15);
-
-      color: #fff;
-
-      font-size: 3rem;
-
-      cursor: pointer;
-
-    }
-
-    .reel-play:hover { background: rgba(0, 0, 0, 0.3); }
-
-    .reel-card.playing .reel-play { display: none; }
-
-    .reels-follow { margin-top: 32px; color: #6b6b6b; }
-
-    .reels-follow a { color: #2f2f2f; font-weight: bold; }
-
- 
-
-    .reviews { text-align: center; background: #f7ece7; }
-
-    .reviews img {
-
-      width: 100%;
-
-      max-width: 520px;
-
-      border-radius: 18px;
-
-      margin: 0 auto 28px;
-
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-
-    }
-
- 
-
-    .visit { text-align: center; }
-
-    .visit address { font-style: normal; color: #6b6b6b; margin-bottom: 26px; }
-
-    .map-frame {
-
-      max-width: 860px;
-
-      margin: 0 auto 26px;
-
-      border-radius: 16px;
-
-      overflow: hidden;
-
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-
-      aspect-ratio: 4 / 3;
-
-    }
-
-    .map-frame iframe { width: 100%; height: 100%; border: 0; }
-
-    @media (min-width: 720px) {
-
-      .map-frame { aspect-ratio: 16 / 9; }
-
-    }
-
- 
-
-    footer {
-
-      background: #2f2f2f;
-
-      color: #f7ece7;
-
-      text-align: center;
-
-      padding: 44px 20px;
-
-    }
-
-    footer p { margin-bottom: 12px; font-size: 0.95rem; }
-
-    .social-links { margin-bottom: 18px; }
-
-    .social-links a {
-
-      color: #fff;
-
-      font-weight: bold;
-
-      text-decoration: none;
-
-      margin: 0 12px;
-
-      border-bottom: 1px solid #c89b5f;
-
-    }
-
-    footer .fine {
-
-      font-size: 0.8rem;
-
-      color: rgba(247, 236, 231, 0.6);
-
-      margin-top: 18px;
-
-    }
-
-  </style>
-
-</head>
-
- 
-
-<body>
-
- 
-
-  <header>
-
-    <img class="logo" src={logoImage} alt="Forever Young Beauty by Layla logo" />
-
-  </header>
-
- 
-
-  <div class="hero">
-
-    <h1>Forever Young Beauty by Layla</h1>
-
-    <p>
-
-      Professional beauty and aesthetic treatments in a calm, welcoming
-
-      treatment room — trusted by clients with over 500 five-star reviews.
-
-    </p>
-
-    <img src={heroImage} alt="Beauty treatment at Forever Young Beauty by Layla" />
-
-    <a class="button" href={treatwellUrl} target="_blank" rel="noopener">Book on Treatwell</a>
-
-    <a class="button secondary" href={googleReviewsUrl} target="_blank" rel="noopener">Read our reviews</a>
-
-  </div>
-
- 
-
-  <section class="treatments">
-
-    <h2>Treatments</h2>
-
-    <img src={hairlineImage} alt="Hairline treatment" />
-
-    <p>
-
-      From facials and skin treatments to advanced aesthetics, every
-
-      appointment is tailored to you. Browse the full treatment list and
-
-      prices on Treatwell.
-
-    </p>
-
-    <a class="button" href={treatwellUrl} target="_blank" rel="noopener">See treatments &amp; prices</a>
-
-  </section>
-
- 
-
-  <section class="reels-section">
-
-    <h2>Fresh from the treatment room</h2>
-
-    <p class="reels-intro">A little look behind the door. Tap a reel to play.</p>
-
- 
-
-    <div class="reels-grid">
-
-      <div class="reel-card">
-
-        <video preload="none" poster="/videos/poster1.jpg" playsinline>
-
-          <source src="/videos/reel1.mp4" type="video/mp4" />
-
-        </video>
-
-        <button class="reel-play" aria-label="Play reel one">&#9654;</button>
-
-      </div>
-
- 
-
-      <div class="reel-card">
-
-        <video preload="none" poster="/videos/poster2.jpg" playsinline>
-
-          <source src="/videos/reel2.mp4" type="video/mp4" />
-
-        </video>
-
-        <button class="reel-play" aria-label="Play reel two">&#9654;</button>
-
-      </div>
-
- 
-
-      <div class="reel-card">
-
-        <video preload="none" poster="/videos/poster3.jpg" playsinline>
-
-          <source src="/videos/reel3.mp4" type="video/mp4" />
-
-        </video>
-
-        <button class="reel-play" aria-label="Play reel three">&#9654;</button>
-
-      </div>
-
-    </div>
-
- 
-
-    <p class="reels-follow">
-
-      More on Instagram —
-
-      <a href={instagramUrl} target="_blank" rel="noopener">@foreveryoungbeauty_bylayla</a>
-
-    </p>
-
-  </section>
-
- 
-
-  <section class="reviews">
-
-    <h2>What clients say</h2>
-
-    <img src={reviewImage} alt="Five-star client review" />
-
-    <a class="button" href={googleReviewsUrl} target="_blank" rel="noopener">Read more on Google</a>
-
-  </section>
-
- 
-
-  <section class="visit">
-
-    <h2>Find us</h2>
-
-    <address>
-
-      Beauty at Abshot, Abshot Country Club,<br />
-
-      Little Abshot Road, Titchfield Common, Fareham PO14 4LN
-
-    </address>
-
-    <div class="map-frame">
-
-      <iframe
-
-        title="Map showing Forever Young Beauty by Layla at Abshot Country Club"
-
-        src="https://www.google.com/maps?q=Forever+Young+Beauty+By+Layla,+Abshot+Country+Club,+Little+Abshot+Rd,+Fareham+PO14+4LN&output=embed"
-
-        loading="lazy"
-
-        referrerpolicy="no-referrer-when-downgrade"
-
-        allowfullscreen></iframe>
-
-    </div>
-
-    <a class="button" href={directionsUrl} target="_blank" rel="noopener">Get directions</a>
-
-  </section>
-
- 
-
-  <footer>
-
-    <div class="social-links">
-
-      <a href={instagramUrl} target="_blank" rel="noopener">Instagram</a>
-
-      <a href={facebookUrl} target="_blank" rel="noopener">Facebook</a>
-
-      <a href={treatwellUrl} target="_blank" rel="noopener">Treatwell</a>
-
-    </div>
-
-    <p>Forever Young Beauty by Layla</p>
-
-    <p>Beauty at Abshot, Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham PO14 4LN</p>
-
-    <p class="fine">&copy; 2026 Forever Young Beauty by Layla</p>
-
-  </footer>
-
- 
-
-  <script>
-
-    const reelCards = document.querySelectorAll('.reel-card');
-
-    reelCards.forEach((card) => {
-
-      const video = card.querySelector('video');
-
-      const btn = card.querySelector('.reel-play');
-
- 
-
-      btn.addEventListener('click', () => {
-
-        reelCards.forEach((other) => {
-
-          if (other !== card) {
-
-            other.querySelector('video').pause();
-
-            other.classList.remove('playing');
-
-          }
-
-        });
-
-        card.classList.add('playing');
-
-        video.controls = true;
-
-        video.play();
-
-      });
-
- 
-
-      video.addEventListener('ended', () => {
-
-        card.classList.remove('playing');
-
-        video.controls = false;
-
-        video.load();
-
-      });
-
-    });
-
-  </script>
-
- 
-
-</body>
-
 </html>
-
-```
-
- 
-
- 
-
