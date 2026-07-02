@@ -5,7 +5,7 @@ const hairlineImage = "/images/hairline-treatment.jpg";
 const reviewImage = "/images/Shelley-review.jpg";
 
 const treatwellUrl = "https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/";
-const googleReviewsUrl = "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9";
+const googleReviewsUrl = "https://share.google/GPv3o8ORORk9haA0b";
 const instagramUrl = "https://www.instagram.com/foreveryoungbeauty_bylayla";
 const facebookUrl = "https://www.facebook.com/share/1EFxmM1S14/";
 const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
@@ -247,10 +247,54 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
       color: rgba(247, 236, 231, 0.6);
       margin-top: 18px;
     }
+
+    /* ---------- splash intro ---------- */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: #fffaf7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: splash-hide 2.4s ease forwards;
+      pointer-events: none;
+    }
+
+    .splash img {
+      width: 240px;
+      max-width: 60%;
+      border-radius: 50%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      animation: splash-logo 2.4s ease forwards;
+    }
+
+    @keyframes splash-hide {
+      0%   { opacity: 1; visibility: visible; }
+      70%  { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes splash-logo {
+      0%   { transform: scale(0.7); opacity: 0; }
+      25%  { transform: scale(1); opacity: 1; }
+      70%  { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.15); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .splash {
+        display: none;
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <div class="splash" id="splash">
+    <img src={logoImage} alt="" />
+  </div>
 
   <header>
     <img class="logo" src={logoImage} alt="Forever Young Beauty by Layla logo" />
@@ -295,8 +339,7 @@ const directionsUrl = "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9";
     </div>
 
     <p class="reels-follow">
-      More on Instagram —
-      <a href={instagramUrl} target="_blank" rel="noopener">@foreveryoungbeauty_bylayla</a>
+      <a class="button" href={instagramUrl} target="_blank" rel="noopener">Follow us on Instagram</a>
     </p>
   </section>
 
