@@ -194,7 +194,7 @@ const schema = {
   description:
     "Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Fareham.",
   logo:
-    "https://foreveryoungbeautybylayla.co.uk/images/layla-treatment.jpg",
+    "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
   image:
     "https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg",
   address: {
@@ -1246,6 +1246,72 @@ const currentYear = new Date().getFullYear();
         }
       }
 
+
+      /* Opening sequence: Layla treatment photo, then FYB logo */
+      .opening-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        min-height: 100svh;
+        padding: 18px;
+        overflow: hidden;
+        background: #ffffff;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 2.4s ease, visibility 2.4s ease;
+      }
+
+      .opening-loader.is-leaving {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .opening-slide {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        opacity: 0;
+        transition: opacity 1.35s ease;
+      }
+
+      .opening-slide.is-visible {
+        opacity: 1;
+      }
+
+      .opening-slide img {
+        display: block;
+        width: min(94vw, 760px);
+        height: 85vh;
+        height: 85svh;
+        object-fit: contain;
+        object-position: center;
+      }
+
+      .opening-slide-face img {
+        border-radius: 50%;
+      }
+
+      .opening-slide-logo {
+        background: #ffffff;
+      }
+
+      .opening-slide-logo img {
+        width: min(88vw, 680px);
+        height: min(85vh, 680px);
+        height: min(85svh, 680px);
+        border-radius: 50%;
+      }
+
+      body.loader-active {
+        overflow: hidden;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
@@ -1257,103 +1323,20 @@ const currentYear = new Date().getFullYear();
           transition-duration: 0.01ms !important;
         }
       }
-
-      /* Full-screen welcome image: Layla only */
-      body.is-loading {
-        overflow: hidden;
-      }
-
-      .face-loader {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        display: grid;
-        place-items: center;
-        min-height: 100vh;
-        min-height: 100svh;
-        padding: 3vh 4vw;
-        background: #ffffff;
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 2.4s ease, visibility 2.4s ease;
-      }
-
-      .face-loader.is-fading {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .face-loader-frame {
-        width: min(92vw, 680px);
-        height: 85vh;
-        height: 85svh;
-        overflow: hidden;
-        border-radius: 34px;
-        box-shadow: 0 24px 70px rgba(13, 41, 55, 0.22);
-      }
-
-      .face-loader-frame img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 34%;
-        animation: faceLoaderArrive 1.6s ease both;
-      }
-
-      @keyframes faceLoaderArrive {
-        from {
-          opacity: 0;
-          transform: scale(1.04);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-
-      .brand-text-only {
-        gap: 0;
-      }
-
-      .anchor-target {
-        display: block;
-        position: relative;
-        top: -1px;
-      }
-
-      .hero-content {
-        padding-top: 54px;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      @media (max-width: 600px) {
-        .face-loader {
-          padding: 2.5vh 3vw;
-        }
-
-        .face-loader-frame {
-          width: 94vw;
-          height: 85svh;
-          border-radius: 28px;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .face-loader-frame img {
-          animation: none;
-        }
-      }
     </style>
   </head>
 
-  <body class="is-loading">
-    <div id="face-loader" class="face-loader" aria-hidden="true">
-      <div class="face-loader-frame">
+  <body class="loader-active">
+
+    <div
+      id="opening-loader"
+      class="opening-loader"
+      aria-hidden="true"
+    >
+      <div
+        id="opening-face"
+        class="opening-slide opening-slide-face is-visible"
+      >
         <img
           src="/images/layla-treatment.jpg"
           alt=""
@@ -1361,6 +1344,19 @@ const currentYear = new Date().getFullYear();
           height="1240"
           loading="eager"
           fetchpriority="high"
+        />
+      </div>
+
+      <div
+        id="opening-logo"
+        class="opening-slide opening-slide-logo"
+      >
+        <img
+          src="/images/fyb-logo2.png"
+          alt=""
+          width="1200"
+          height="1200"
+          loading="eager"
         />
       </div>
     </div>
@@ -1377,7 +1373,7 @@ const currentYear = new Date().getFullYear();
 
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand brand-text-only" href="#home">
+        <a class="brand" href="#home">
           <strong>Forever Young Beauty</strong>
         </a>
 
@@ -1441,7 +1437,8 @@ const currentYear = new Date().getFullYear();
     </header>
 
     <main>
-      <span id="home" class="anchor-target" aria-hidden="true"></span>
+
+      <div id="home"></div>
 
       <section class="hero-content">
         <div class="container hero-grid">
@@ -1475,6 +1472,7 @@ const currentYear = new Date().getFullYear();
 
       <section class="section" id="about">
         <div class="container about-grid">
+
           <div>
             <p class="eyebrow">Personalised care</p>
             <h2>Treatments designed around you</h2>
@@ -1884,6 +1882,7 @@ const currentYear = new Date().getFullYear();
       <div class="container">
         <div class="footer-grid">
           <div>
+
             <h3 style="color: white;">
               Forever Young Beauty by Layla
             </h3>
@@ -1954,28 +1953,45 @@ const currentYear = new Date().getFullYear();
       </div>
     </footer>
 
+
     <script is:inline>
       (() => {
-        const loader = document.getElementById("face-loader");
+        const loader = document.getElementById("opening-loader");
+        const face = document.getElementById("opening-face");
+        const logo = document.getElementById("opening-logo");
 
-        if (loader) {
-          const beginFade = () => {
-            window.setTimeout(() => {
-              loader.classList.add("is-fading");
-              document.body.classList.remove("is-loading");
+        if (!loader || !face || !logo) {
+          document.body.classList.remove("loader-active");
+          return;
+        }
 
-              window.setTimeout(() => loader.remove(), 2500);
-            }, 5600);
-          };
+        const startSequence = () => {
+          // Layla remains fully visible first, then crossfades to the logo.
+          window.setTimeout(() => {
+            face.classList.remove("is-visible");
+            logo.classList.add("is-visible");
+          }, 3600);
 
-          if (document.readyState === "complete") {
-            beginFade();
-          } else {
-            window.addEventListener("load", beginFade, { once: true });
-          }
+          // Hold the logo, then slowly fade the entire opening screen away.
+          window.setTimeout(() => {
+            loader.classList.add("is-leaving");
+            document.body.classList.remove("loader-active");
+          }, 7200);
+
+          window.setTimeout(() => {
+            loader.remove();
+          }, 9800);
+        };
+
+        if (document.readyState === "complete") {
+          startSequence();
+        } else {
+          window.addEventListener("load", startSequence, { once: true });
         }
       })();
+    </script>
 
+    <script is:inline>
       (() => {
         const button = document.getElementById("menu-button");
         const navigation =
