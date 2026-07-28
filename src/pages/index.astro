@@ -1,100 +1,914 @@
 ---
-// Forever Young Beauty by Layla — SEO-optimised homepage
-
 const business = {
   name: "Forever Young Beauty by Layla",
-  phone: "+447799890398",
   phoneDisplay: "07799 890398",
-  email: "layla.radestock@hotmail.com",
-  street: "Beauty at Abshot, Abshot Country Club, Little Abshot Road",
-  locality: "Titchfield Common, Fareham",
-  region: "Hampshire",
-  postcode: "PO14 4LN",
-  lat: 50.8482589,
-  lng: -1.2688614,
-  ratingValue: "5.0",
-  reviewCount: "567",
-  url: "https://www.foreveryoungbeautybylayla.co.uk",
-  instagram: "https://www.instagram.com/foreveryoungbeauty_bylayla",
-  facebook: "https://www.facebook.com/foreveryoungbeautybylayla",
-  treatwell: "https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/",
-  googleReviews: "https://share.google/btFZbelPi8zLpwQBJ",
+  phoneInternational: "+447799890398",
+  whatsapp: "447799890398",
+  address: {
+    venue: "Beauty at Abshot",
+    building: "Abshot Country Club",
+    street: "Little Abshot Road",
+    town: "Titchfield Common",
+    city: "Fareham",
+    postcode: "PO14 4LN",
+  },
 };
 
-const title =
-  "Forever Young Beauty by Layla | Beauty Salon Fareham — Facials, Massage & Aesthetics, Titchfield Common";
-const description =
-  "5-star beauty salon at Abshot Country Club, Fareham. CACI facials, dermaplaning, microneedling, massage, waxing & advanced aesthetics. Serving Titchfield, Locks Heath, Whiteley & Park Gate. Over 500 five-star reviews. Book online.";
+const links = {
+  treatwell:
+    "https://widget.treatwell.co.uk/place/forever-young-beauty-by-layla/",
+  instagram:
+    "https://www.instagram.com/foreveryoungbeauty_bylayla/",
+  facebook:
+    "https://www.facebook.com/share/1EFxmM1S14/",
+  whatsapp: `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
+    "Hello Layla, I would like to ask about a treatment."
+  )}`,
+  phone: `tel:${business.phoneInternational}`,
+  maps: "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9",
+};
 
 const treatments = [
   {
-    name: "CACI Non-Surgical Facials",
-    desc: "The celebrity-favourite non-surgical facelift. Microcurrent therapy lifts and tones facial muscles — including the targeted CACI Jowl Lift for a firmer jawline.",
+    category: "Advanced skin",
+    title: "Microneedling with Dermapen",
+    description:
+      "A professional skin treatment designed to support the appearance of texture, tone and overall skin quality.",
   },
   {
-    name: "Dermaplaning",
-    desc: "Instantly smoother, brighter skin. Gentle exfoliation removes dead skin cells and peach fuzz, leaving a flawless base for skincare and make-up.",
+    category: "Advanced skin",
+    title: "Dermaplaning",
+    description:
+      "A gentle exfoliating treatment that removes surface build-up and fine facial hair for smoother-looking skin.",
   },
   {
-    name: "Microneedling & Skin Rejuvenation",
-    desc: "Collagen-boosting treatments for fine lines, acne scarring and uneven texture, alongside LED light therapy, face peels and targeted acne treatments.",
+    category: "Advanced skin",
+    title: "BioRePeel Chemical Peel",
+    description:
+      "A professional resurfacing treatment for clients seeking a fresher, brighter and more even-looking complexion.",
   },
   {
-    name: "Massage Therapy",
-    desc: "Aromatherapy, Swedish, deep tissue, pregnancy and lymphatic drainage massage in a calm, private treatment room. Full body or back, neck and shoulders.",
+    category: "Facials",
+    title: "CACI Non-Surgical Treatments",
+    description:
+      "Technology-led facial options including face lift, jowl lift, eye revive and hydration-focused treatments.",
   },
   {
-    name: "Body Contouring",
-    desc: "Cellulite reduction therapy and radio frequency body treatments to smooth, firm and tighten.",
+    category: "Facials",
+    title: "Radio Frequency Facial",
+    description:
+      "A warming facial treatment designed to support firmer, refreshed and more lifted-looking skin.",
   },
   {
-    name: "Waxing & Tinting",
-    desc: "Full waxing menu for ladies and men — from lip and brow to Hollywood — plus eyebrow and eyelash tinting.",
+    category: "Facials",
+    title: "Celluma LED Light Therapy",
+    description:
+      "LED light therapy incorporated into a personalised facial treatment according to individual skin needs.",
+  },
+  {
+    category: "Facials",
+    title: "Hydra Lift 6-in-1 Facial",
+    description:
+      "A multi-step facial combining complementary techniques for cleansing, hydration and skin renewal.",
+  },
+  {
+    category: "Facials",
+    title: "Luxury and Bespoke Facials",
+    description:
+      "Personalised facial treatments including hydration, purifying, renewal, resurfacing and specialist options.",
+  },
+  {
+    category: "Hair and scalp",
+    title: "Hair Restoration Treatments",
+    description:
+      "Consultation-led scalp and hair treatments for clients concerned about thinning hair or changes in hair density.",
+  },
+  {
+    category: "Hair and scalp",
+    title: "Receding Hairline Treatment",
+    description:
+      "A targeted consultation-led treatment option for clients concerned about the appearance of their hairline.",
+  },
+  {
+    category: "Massage",
+    title: "Massage Therapy",
+    description:
+      "Swedish, deep tissue, aromatherapy, lymphatic drainage, pregnancy and personalised massage options.",
+  },
+  {
+    category: "Massage",
+    title: "Back, Neck and Shoulder Massage",
+    description:
+      "A focused treatment for commonly tense areas, tailored to your preferred pressure and comfort.",
+  },
+  {
+    category: "Body",
+    title: "Body and Cellulite Treatments",
+    description:
+      "Body polishing, back treatments and targeted options designed to support smoother-looking skin.",
+  },
+  {
+    category: "Beauty",
+    title: "Waxing, Brows and Tinting",
+    description:
+      "Professional facial and body waxing, intimate waxing, men’s waxing, eyebrow shaping and tinting.",
+  },
+  {
+    category: "Aesthetics",
+    title: "Consultation-Led Aesthetic Treatments",
+    description:
+      "Selected aesthetic treatments offered following an appropriate consultation, suitability assessment and informed consent.",
+  },
+  {
+    category: "Wellness",
+    title: "B12 Vitamin Injections",
+    description:
+      "Available following appropriate screening and suitability checks. View the current service details on Treatwell.",
   },
 ];
 
-const reviews = [
-  {
-    quote:
-      "Layla is very professional, caring and friendly. She makes sure you are comfortable and relaxed during the treatment. I will definitely be returning on a regular basis.",
-    author: "Corinne",
-    treatment: "CACI Facial",
-    source: "Treatwell verified review",
+const areas = [
+  "Titchfield Common",
+  "Titchfield",
+  "Locks Heath",
+  "Park Gate",
+  "Whiteley",
+  "Warsash",
+  "Sarisbury Green",
+  "Stubbington",
+  "Fareham",
+  "Hamble",
+  "Hedge End",
+  "Gosport",
+  "Southampton",
+  "Portsmouth",
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": ["BeautySalon", "LocalBusiness"],
+  "@id": "https://foreveryoungbeautybylayla.co.uk/#business",
+  name: business.name,
+  url: "https://foreveryoungbeautybylayla.co.uk/",
+  telephone: business.phoneInternational,
+  description:
+    "Beauty, facial, massage, waxing, hair restoration, advanced skin and aesthetic treatments in Titchfield Common, near Fareham.",
+  logo: "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
+  image: [
+    "https://foreveryoungbeautybylayla.co.uk/images/layla-treatment.jpg",
+    "https://foreveryoungbeautybylayla.co.uk/images/caci-before-after.jpg",
+    "https://foreveryoungbeautybylayla.co.uk/images/jawline-before-after.jpg",
+    "https://foreveryoungbeautybylayla.co.uk/images/hair-growth-before-after.jpg",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress:
+      "Beauty at Abshot, Abshot Country Club, Little Abshot Road",
+    addressLocality: "Titchfield Common",
+    addressRegion: "Fareham, Hampshire",
+    postalCode: "PO14 4LN",
+    addressCountry: "GB",
   },
-  {
-    quote:
-      "Layla is amazing! I have had loads of facials over the years, however this was by far the best. Layla is diligent, knowledgeable and is a wonderful therapist. Thank you!",
-    author: "Maxine",
-    treatment: "Facial",
-    source: "Google review",
+  areaServed: areas.map((area) => ({
+    "@type": "Place",
+    name: area,
+  })),
+  sameAs: [links.instagram, links.facebook],
+  potentialAction: {
+    "@type": "ReserveAction",
+    target: links.treatwell,
+    name: "Book an appointment on Treatwell",
   },
-  {
-    quote:
-      "Layla is just wonderful. I've recommended her to so many friends and they are all now also returning customers. 10/10 every visit.",
-    author: "Nicky",
-    treatment: "Pregnancy Massage",
-    source: "Treatwell verified review",
-  },
-  {
-    quote:
-      "Layla is always excellent. She is very professional, thorough and attentive, and the treatment is carried out in a calm, relaxing environment. She is also very good at putting you at ease, which makes the whole experience much more comfortable. I am a regular customer and would highly recommend her.",
-    author: "Terry",
-    treatment: "Men's Waxing",
-    source: "Treatwell verified review",
-  },
-  {
-    quote:
-      "Fabulous facial as always. Layla never rushes you and is very experienced.",
-    author: "Caroline",
-    treatment: "CACI Facial",
-    source: "Treatwell verified review",
-  },
-  {
-    quote:
-      "Great treatment as always, and Layla had a cancellation and kindly fitted me in for a massage last minute which was amazing. I really appreciated her being so accommodating with the last minute request!",
-    author: "Anna",
-    treatment: "Ladies' Waxing",
-    source: "Treatwell verified review",
+};
+
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <title>
+      Beauty, Skin and Aesthetic Treatments Titchfield Common | Forever Young
+      Beauty by Layla
+    </title>
+
+    <meta
+      name="description"
+      content="Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common, near Locks Heath, Park Gate, Whiteley and Fareham. Book online through Treatwell."
+    />
+
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1"
+    />
+
+    <link
+      rel="canonical"
+      href="https://foreveryoungbeautybylayla.co.uk/"
+    />
+
+    <meta name="theme-color" content="#173b4c" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta
+      property="og:site_name"
+      content="Forever Young Beauty by Layla"
+    />
+
+    <meta
+      property="og:title"
+      content="Forever Young Beauty by Layla | Titchfield Common"
+    />
+
+    <meta
+      property="og:description"
+      content="Personalised beauty, facial, massage, hair restoration, skin and aesthetic treatments near Fareham."
+    />
+
+    <meta
+      property="og:url"
+      content="https://foreveryoungbeautybylayla.co.uk/"
+    />
+
+    <meta
+      property="og:image"
+      content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta
+      name="twitter:title"
+      content="Forever Young Beauty by Layla"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Beauty, skin, massage, hair restoration and aesthetic treatments in Titchfield Common."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <style is:global>
+      :root {
+        --navy: #173b4c;
+        --navy-dark: #0d2937;
+        --navy-soft: #31596b;
+        --cream: #f7f3ef;
+        --cream-deep: #ebe3dc;
+        --white: #ffffff;
+        --gold: #b69461;
+        --gold-light: #ddc8a7;
+        --text: #243640;
+        --muted: #68777e;
+        --green: #1f9a5c;
+        --facebook: #1877f2;
+        --treatwell: #ff5c64;
+        --border: rgba(23, 59, 76, 0.12);
+        --shadow: 0 18px 48px rgba(13, 41, 55, 0.14);
+        --radius: 26px;
+        --radius-small: 16px;
+        --page-width: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 92px;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        background: var(--white);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.65;
+      }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+        color: var(--navy);
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 500;
+        line-height: 1.1;
+        text-wrap: balance;
+      }
+
+      h1 {
+        max-width: 830px;
+        margin-bottom: 22px;
+        font-size: clamp(2.7rem, 7vw, 5.7rem);
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        margin-bottom: 18px;
+        font-size: clamp(2.15rem, 5vw, 3.8rem);
+        letter-spacing: -0.035em;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: 1.45rem;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      .container {
+        width: min(calc(100% - 40px), var(--page-width));
+        margin-inline: auto;
+      }
+
+      .section {
+        padding: 90px 0;
+      }
+
+      .section-soft {
+        background: var(--cream);
+      }
+
+      .section-dark {
+        color: var(--white);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(221, 200, 167, 0.14),
+            transparent 36%
+          ),
+          var(--navy);
+      }
+
+      .section-dark h2,
+      .section-dark h3 {
+        color: var(--white);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 15px;
+        color: var(--gold);
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 30px;
+        height: 2px;
+        content: "";
+        background: currentColor;
+      }
+
+      .lead {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.22rem);
+      }
+
+      .section-heading {
+        max-width: 790px;
+        margin: 0 auto 44px;
+        text-align: center;
+      }
+
+      .section-heading .eyebrow {
+        justify-content: center;
+      }
+
+      .section-heading .lead {
+        margin-inline: auto;
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 9999;
+        top: -100px;
+        left: 18px;
+        padding: 12px 18px;
+        color: var(--white);
+        background: var(--navy);
+        border-radius: 10px;
+      }
+
+      .skip-link:focus {
+        top: 18px;
+      }
+
+      .topbar {
+        padding: 9px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        background: var(--navy-dark);
+        font-size: 0.84rem;
+        text-align: center;
+      }
+
+      .topbar a {
+        color: var(--gold-light);
+        font-weight: 800;
+        text-underline-offset: 3px;
+      }
+
+      .site-header {
+        position: sticky;
+        z-index: 1000;
+        top: 0;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(16px);
+      }
+
+      .header-inner {
+        display: flex;
+        min-height: 82px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        color: var(--navy);
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 59px;
+        height: 59px;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+
+      .brand-copy {
+        display: grid;
+        line-height: 1.15;
+      }
+
+      .brand-copy strong {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.08rem;
+      }
+
+      .brand-copy span {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 0.69rem;
+        font-weight: 750;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      .desktop-nav > a:not(.button) {
+        color: var(--navy);
+        font-size: 0.91rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .desktop-nav > a:not(.button):hover {
+        color: var(--gold);
+      }
+
+      .menu-button {
+        display: none;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        padding: 0;
+        color: var(--navy);
+        background: var(--cream);
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .menu-button svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .mobile-nav {
+        display: none;
+        padding: 8px 20px 24px;
+        background: var(--white);
+      }
+
+      .mobile-nav.open {
+        display: grid;
+        gap: 9px;
+      }
+
+      .mobile-nav a {
+        padding: 13px 16px;
+        color: var(--navy);
+        background: var(--cream);
+        border-radius: 12px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 52px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 22px;
+        border: 2px solid transparent;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        font-weight: 850;
+        line-height: 1.15;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(13, 41, 55, 0.19);
+      }
+
+      .button svg {
+        width: 21px;
+        height: 21px;
+        flex: 0 0 auto;
+      }
+
+      .button-primary {
+        color: var(--white);
+        background: var(--navy);
+      }
+
+      .button-treatwell {
+        color: var(--white);
+        background: var(--treatwell);
+      }
+
+      .button-gold {
+        color: var(--navy-dark);
+        background: var(--gold-light);
+      }
+
+      .button-light {
+        color: var(--navy);
+        background: var(--white);
+      }
+
+      .button-whatsapp {
+        color: var(--white);
+        background: var(--green);
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 0 88px;
+        background:
+          radial-gradient(
+            circle at 12% 12%,
+            rgba(221, 200, 167, 0.31),
+            transparent 28%
+          ),
+          linear-gradient(135deg, var(--cream), var(--white) 65%);
+      }
+
+      .hero::after {
+        position: absolute;
+        top: -150px;
+        right: -150px;
+        width: 520px;
+        height: 520px;
+        content: "";
+        background: rgba(23, 59, 76, 0.07);
+        border-radius: 50%;
+      }
+
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        align-items: center;
+        gap: 58px;
+        grid-template-columns: 1.04fr 0.96fr;
+      }
+
+      .hero-copy .lead {
+        margin-bottom: 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 27px;
+      }
+
+      .hero-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        color: var(--navy);
+        font-size: 0.9rem;
+        font-weight: 780;
+      }
+
+      .hero-points span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .hero-points span::before {
+        width: 8px;
+        height: 8px;
+        content: "";
+        background: var(--gold);
+        border-radius: 50%;
+      }
+
+      .hero-image-wrap {
+        position: relative;
+        width: min(100%, 550px);
+        margin-inline: auto;
+      }
+
+      .hero-image-wrap::before {
+        position: absolute;
+        inset: 7% -5% -5% 8%;
+        content: "";
+        background: var(--gold-light);
+        border-radius: 50%;
+        transform: rotate(4deg);
+      }
+
+      .hero-image {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border: 9px solid var(--white);
+        border-radius: 50%;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card {
+        position: absolute;
+        right: -12px;
+        bottom: -18px;
+        max-width: 250px;
+        padding: 18px 20px;
+        color: var(--navy);
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: var(--radius-small);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        display: block;
+        margin-bottom: 4px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.17rem;
+      }
+
+      .hero-card span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .booking-strip {
+        position: relative;
+        z-index: 5;
+        margin-top: -35px;
+      }
+
+      .booking-strip-inner {
+        display: grid;
+        align-items: center;
+        gap: 24px;
+        padding: 28px 31px;
+        color: var(--white);
+        background: var(--navy);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        grid-template-columns: 1fr auto;
+      }
+
+      .booking-strip h2 {
+        margin: 0 0 5px;
+        color: var(--white);
+        font-size: clamp(1.55rem, 3vw, 2.25rem);
+      }
+
+      .booking-strip p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .about-grid {
+        display: grid;
+        align-items: center;
+        gap: 58px;
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+
+      .about-logo {
+        width: min(100%, 490px);
+        margin-inline: auto;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .benefits {
+        display: grid;
+        gap: 13px;
+        margin-top: 27px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .benefits li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .benefits li::before {
+        width: 9px;
+        height: 9px;
+        flex: 0 0 auto;
+        margin-top: 9px;
+        content: "";
+        background: var(--gold);
+        border-radius: 50%;
+      }
+
+      .treatment-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .treatment-card {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        padding: 26px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 19px;
+        box-shadow: 0 8px 24px rgba(23, 59, 76, 0.055);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .treatment-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+      }
+
+      .treatment-category {
+        display: inline-flex;
+        align-self: flex-start;
+        margin-bottom: 15px;
+        padding: 6px 10px;
+        color: var(--navy);
+        background: var(--cream);
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .treatment-card p {
+        flex-grow: 1;
+        margin-bottom: 18px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--navy);
+        font-size: 0.9rem;
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .card-link:hover {
+        color: var(--gold);
+      }
+
+      .treatment-footer {
+        margin-top: 36px;
+        text-align: center;
+      }
+
+      .gallery-grid {
+        display: grid;
+        align-items: start;
+        gap: 22px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-card {
+        overflow: hidden;
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .gallery-card img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+      }
+
+      .gallery-card.square img {
+        aspect-ratio: 1 / 1;
+      }
+
+      .gallery-card.portrait img {
+        aspect-ratio: 4 / 5;
+      }
+
+      .gallery-copy {
+        padding: 22px;
+      }
+
+      .gallery-copy p {
+        margin-bottom: 0;
+        color: var(--mut    source: "Treatwell verified review",
   },
 ];
 
