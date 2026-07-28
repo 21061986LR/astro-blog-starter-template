@@ -3,13 +3,14 @@ const business = {
   name: "Forever Young Beauty by Layla",
   phoneDisplay: "07799 890398",
   phoneInternational: "+447799890398",
-  whatsapp: "447799890398",
+  email: "layla.radestock@hotmail.com",
   address: {
     venue: "Beauty at Abshot",
     building: "Abshot Country Club",
     street: "Little Abshot Road",
     town: "Titchfield Common",
     city: "Fareham",
+    county: "Hampshire",
     postcode: "PO14 4LN",
   },
 };
@@ -17,53 +18,67 @@ const business = {
 const links = {
   treatwell:
     "https://widget.treatwell.co.uk/place/forever-young-beauty-by-layla/",
+  treatwellProfile:
+    "https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/",
   instagram:
     "https://www.instagram.com/foreveryoungbeauty_bylayla/",
   facebook:
     "https://www.facebook.com/share/1EFxmM1S14/",
-  whatsapp: `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
-    "Hello Layla, I would like to ask about a treatment."
-  )}`,
-  phone: `tel:${business.phoneInternational}`,
+  whatsapp:
+    "https://wa.me/447799890398?text=Hello%20Layla%2C%20I%20would%20like%20to%20ask%20about%20a%20treatment.",
+  phone: "tel:+447799890398",
+  email: "mailto:layla.radestock@hotmail.com",
   maps: "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9",
+  googleReviews:
+    "https://www.google.com/search?q=Forever+Young+Beauty+by+Layla+reviews",
 };
+
+const openingHours = [
+  { day: "Monday", hours: "11:00 – 19:30" },
+  { day: "Tuesday", hours: "11:00 – 19:30" },
+  { day: "Wednesday", hours: "Closed" },
+  { day: "Thursday", hours: "11:00 – 19:30" },
+  { day: "Friday", hours: "12:00 – 19:30" },
+  { day: "Saturday", hours: "11:00 – 15:00" },
+  { day: "Sunday", hours: "Closed" },
+];
 
 const treatments = [
   {
     category: "Advanced skin",
     title: "Microneedling with Dermapen",
     description:
-      "A professional skin treatment designed to support the appearance of texture, tone and overall skin quality.",
+      "A professional treatment designed to support smoother-looking skin, improved texture and a refreshed complexion.",
   },
   {
     category: "Advanced skin",
     title: "Dermaplaning",
     description:
-      "A gentle exfoliating treatment that removes surface build-up and fine facial hair for smoother-looking skin.",
+      "Professional exfoliation that removes surface build-up and fine facial hair for smoother-looking skin.",
   },
   {
     category: "Advanced skin",
     title: "BioRePeel Chemical Peel",
     description:
-      "A professional resurfacing treatment for clients seeking a fresher, brighter and more even-looking complexion.",
+      "A resurfacing treatment for clients seeking a brighter, fresher and more even-looking complexion.",
   },
   {
     category: "Facials",
     title: "CACI Non-Surgical Treatments",
     description:
-      "Technology-led facial options including face lift, jowl lift, eye revive and hydration-focused treatments.",
+      "Technology-led treatments including non-surgical face lift, jowl lift, eye revive and hydration options.",
   },
   {
     category: "Facials",
     title: "Radio Frequency Facial",
     description:
-      "A warming facial treatment designed to support firmer, refreshed and more lifted-looking skin.",
+      "A warming facial treatment designed to support firmer, smoother and refreshed-looking skin.",
   },
   {
     category: "Facials",
     title: "Celluma LED Light Therapy",
     description:
-      "LED light therapy incorporated into a personalised facial treatment according to individual skin needs.",
+      "Relaxing LED light therapy tailored to complement professional skincare and individual skin concerns.",
   },
   {
     category: "Facials",
@@ -75,31 +90,31 @@ const treatments = [
     category: "Facials",
     title: "Luxury and Bespoke Facials",
     description:
-      "Personalised facial treatments including hydration, purifying, renewal, resurfacing and specialist options.",
+      "Personalised facial treatments including hydration, purifying, resurfacing and renewal options.",
   },
   {
     category: "Hair and scalp",
     title: "Hair Restoration Treatments",
     description:
-      "Consultation-led scalp and hair treatments for clients concerned about thinning hair or changes in hair density.",
+      "Consultation-led scalp and hair treatments for concerns such as thinning hair and changes in hair density.",
   },
   {
     category: "Hair and scalp",
     title: "Receding Hairline Treatment",
     description:
-      "A targeted consultation-led treatment option for clients concerned about the appearance of their hairline.",
+      "A targeted treatment option for clients concerned about the appearance of their hairline.",
   },
   {
     category: "Massage",
     title: "Massage Therapy",
     description:
-      "Swedish, deep tissue, aromatherapy, lymphatic drainage, pregnancy and personalised massage options.",
+      "Swedish, deep tissue, aromatherapy, lymphatic drainage, pregnancy and bespoke massage options.",
   },
   {
     category: "Massage",
     title: "Back, Neck and Shoulder Massage",
     description:
-      "A focused treatment for commonly tense areas, tailored to your preferred pressure and comfort.",
+      "A focused massage for commonly tense areas, tailored to your comfort and preferred pressure.",
   },
   {
     category: "Body",
@@ -111,19 +126,64 @@ const treatments = [
     category: "Beauty",
     title: "Waxing, Brows and Tinting",
     description:
-      "Professional facial and body waxing, intimate waxing, men’s waxing, eyebrow shaping and tinting.",
+      "Facial and body waxing, intimate waxing, men’s waxing, eyebrow shaping and tinting services.",
   },
   {
     category: "Aesthetics",
     title: "Consultation-Led Aesthetic Treatments",
     description:
-      "Selected aesthetic treatments offered following an appropriate consultation, suitability assessment and informed consent.",
+      "Selected treatments available following an appropriate consultation and suitability assessment.",
   },
   {
     category: "Wellness",
     title: "B12 Vitamin Injections",
     description:
-      "Available following appropriate screening and suitability checks. View the current service details on Treatwell.",
+      "Available following appropriate screening and suitability checks. See Treatwell for current details.",
+  },
+];
+
+const reviews = [
+  {
+    quote:
+      "Layla is very professional, caring and friendly. She makes sure you are comfortable and relaxed during the treatment. I will definitely be returning on a regular basis.",
+    name: "Corinne",
+    treatment: "CACI Facial",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Layla is amazing! I have had loads of facials over the years, however this was by far the best. Layla is diligent, knowledgeable and is a wonderful therapist. Thank you!",
+    name: "Maxine",
+    treatment: "Facial",
+    source: "Google review",
+  },
+  {
+    quote:
+      "Layla is just wonderful. I’ve recommended her to so many friends and they are all now also returning customers. 10/10 every visit.",
+    name: "Nicky",
+    treatment: "Pregnancy Massage",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Layla is always excellent. She is very professional, thorough and attentive, and the treatment is carried out in a calm, relaxing environment. She is also very good at putting you at ease, which makes the whole experience much more comfortable. I am a regular customer and would highly recommend her.",
+    name: "Terry",
+    treatment: "Men’s Waxing",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Fabulous facial as always. Layla never rushes you and is very experienced.",
+    name: "Caroline",
+    treatment: "CACI Facial",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Great treatment as always, and Layla had a cancellation and kindly fitted me in for a massage last minute which was amazing. I really appreciated her being so accommodating with the last minute request!",
+    name: "Anna",
+    treatment: "Ladies’ Waxing",
+    source: "Treatwell verified review",
   },
 ];
 
@@ -151,8 +211,9 @@ const schema = {
   name: business.name,
   url: "https://foreveryoungbeautybylayla.co.uk/",
   telephone: business.phoneInternational,
+  email: business.email,
   description:
-    "Beauty, facial, massage, waxing, hair restoration, advanced skin and aesthetic treatments in Titchfield Common, near Fareham.",
+    "Beauty, facial, massage, waxing, hair restoration, advanced skin and aesthetic treatments in Titchfield Common near Fareham.",
   logo: "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
   image: [
     "https://foreveryoungbeautybylayla.co.uk/images/layla-treatment.jpg",
@@ -173,11 +234,11 @@ const schema = {
     "@type": "Place",
     name: area,
   })),
-  sameAs: [links.instagram, links.facebook],
+  sameAs: [links.instagram, links.facebook, links.treatwellProfile],
   potentialAction: {
     "@type": "ReserveAction",
-    target: links.treatwell,
     name: "Book an appointment on Treatwell",
+    target: links.treatwell,
   },
 };
 
@@ -188,7 +249,6 @@ const currentYear = new Date().getFullYear();
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
@@ -201,7 +261,7 @@ const currentYear = new Date().getFullYear();
 
     <meta
       name="description"
-      content="Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common, near Locks Heath, Park Gate, Whiteley and Fareham. Book online through Treatwell."
+      content="Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Locks Heath, Park Gate, Whiteley and Fareham. Book through Treatwell."
     />
 
     <meta
@@ -218,70 +278,64 @@ const currentYear = new Date().getFullYear();
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_GB" />
-
     <meta
       property="og:site_name"
       content="Forever Young Beauty by Layla"
     />
-
     <meta
       property="og:title"
       content="Forever Young Beauty by Layla | Titchfield Common"
     />
-
     <meta
       property="og:description"
       content="Personalised beauty, facial, massage, hair restoration, skin and aesthetic treatments near Fareham."
     />
-
     <meta
       property="og:url"
       content="https://foreveryoungbeautybylayla.co.uk/"
     />
-
     <meta
       property="og:image"
       content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
     />
 
     <meta name="twitter:card" content="summary_large_image" />
-
     <meta
       name="twitter:title"
       content="Forever Young Beauty by Layla"
     />
-
     <meta
       name="twitter:description"
       content="Beauty, skin, massage, hair restoration and aesthetic treatments in Titchfield Common."
     />
-
     <meta
       name="twitter:image"
       content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema)}
+    ></script>
 
     <style is:global>
       :root {
         --navy: #173b4c;
         --navy-dark: #0d2937;
-        --navy-soft: #31596b;
         --cream: #f7f3ef;
         --cream-deep: #ebe3dc;
         --white: #ffffff;
-        --gold: #b69461;
-        --gold-light: #ddc8a7;
+        --gold: #ad9561;
+        --gold-light: #decba8;
         --text: #243640;
-        --muted: #68777e;
-        --green: #1f9a5c;
+        --muted: #68747b;
+        --green: #1f9257;
         --facebook: #1877f2;
         --treatwell: #ff5c64;
-        --border: rgba(23, 59, 76, 0.12);
-        --shadow: 0 18px 48px rgba(13, 41, 55, 0.14);
-        --radius: 26px;
-        --radius-small: 16px;
+        --border: rgba(23, 59, 76, 0.13);
+        --shadow: 0 18px 46px rgba(13, 41, 55, 0.14);
+        --radius: 25px;
+        --small-radius: 16px;
         --page-width: 1180px;
       }
 
@@ -291,7 +345,7 @@ const currentYear = new Date().getFullYear();
 
       html {
         scroll-behavior: smooth;
-        scroll-padding-top: 92px;
+        scroll-padding-top: 95px;
       }
 
       body {
@@ -299,13 +353,8 @@ const currentYear = new Date().getFullYear();
         color: var(--text);
         background: var(--white);
         font-family:
-          Inter,
-          ui-sans-serif,
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
         line-height: 1.65;
       }
 
@@ -340,11 +389,10 @@ const currentYear = new Date().getFullYear();
         font-family: Georgia, "Times New Roman", serif;
         font-weight: 500;
         line-height: 1.1;
-        text-wrap: balance;
       }
 
       h1 {
-        max-width: 830px;
+        max-width: 850px;
         margin-bottom: 22px;
         font-size: clamp(2.7rem, 7vw, 5.7rem);
         letter-spacing: -0.05em;
@@ -352,7 +400,7 @@ const currentYear = new Date().getFullYear();
 
       h2 {
         margin-bottom: 18px;
-        font-size: clamp(2.15rem, 5vw, 3.8rem);
+        font-size: clamp(2.15rem, 5vw, 3.7rem);
         letter-spacing: -0.035em;
       }
 
@@ -371,7 +419,7 @@ const currentYear = new Date().getFullYear();
       }
 
       .section {
-        padding: 90px 0;
+        padding: 88px 0;
       }
 
       .section-soft {
@@ -383,7 +431,7 @@ const currentYear = new Date().getFullYear();
         background:
           radial-gradient(
             circle at top right,
-            rgba(221, 200, 167, 0.14),
+            rgba(222, 203, 168, 0.15),
             transparent 36%
           ),
           var(--navy);
@@ -400,7 +448,7 @@ const currentYear = new Date().getFullYear();
         gap: 9px;
         margin: 0 0 15px;
         color: var(--gold);
-        font-size: 0.78rem;
+        font-size: 0.79rem;
         font-weight: 850;
         letter-spacing: 0.15em;
         text-transform: uppercase;
@@ -420,7 +468,7 @@ const currentYear = new Date().getFullYear();
       }
 
       .section-heading {
-        max-width: 790px;
+        max-width: 810px;
         margin: 0 auto 44px;
         text-align: center;
       }
@@ -459,7 +507,6 @@ const currentYear = new Date().getFullYear();
       .topbar a {
         color: var(--gold-light);
         font-weight: 800;
-        text-underline-offset: 3px;
       }
 
       .site-header {
@@ -467,7 +514,7 @@ const currentYear = new Date().getFullYear();
         z-index: 1000;
         top: 0;
         border-bottom: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.96);
         backdrop-filter: blur(16px);
       }
 
@@ -501,7 +548,7 @@ const currentYear = new Date().getFullYear();
 
       .brand-copy strong {
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 1.08rem;
+        font-size: 1.06rem;
       }
 
       .brand-copy span {
@@ -516,7 +563,7 @@ const currentYear = new Date().getFullYear();
       .desktop-nav {
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: 24px;
       }
 
       .desktop-nav > a:not(.button) {
@@ -585,20 +632,13 @@ const currentYear = new Date().getFullYear();
         cursor: pointer;
         transition:
           transform 180ms ease,
-          box-shadow 180ms ease,
-          background 180ms ease;
+          box-shadow 180ms ease;
       }
 
       .button:hover,
       .button:focus-visible {
         transform: translateY(-2px);
-        box-shadow: 0 14px 30px rgba(13, 41, 55, 0.19);
-      }
-
-      .button svg {
-        width: 21px;
-        height: 21px;
-        flex: 0 0 auto;
+        box-shadow: 0 14px 30px rgba(13, 41, 55, 0.2);
       }
 
       .button-primary {
@@ -633,21 +673,10 @@ const currentYear = new Date().getFullYear();
         background:
           radial-gradient(
             circle at 12% 12%,
-            rgba(221, 200, 167, 0.31),
+            rgba(222, 203, 168, 0.32),
             transparent 28%
           ),
-          linear-gradient(135deg, var(--cream), var(--white) 65%);
-      }
-
-      .hero::after {
-        position: absolute;
-        top: -150px;
-        right: -150px;
-        width: 520px;
-        height: 520px;
-        content: "";
-        background: rgba(23, 59, 76, 0.07);
-        border-radius: 50%;
+          linear-gradient(135deg, var(--cream), var(--white) 66%);
       }
 
       .hero-grid {
@@ -705,7 +734,6 @@ const currentYear = new Date().getFullYear();
         content: "";
         background: var(--gold-light);
         border-radius: 50%;
-        transform: rotate(4deg);
       }
 
       .hero-image {
@@ -725,8 +753,8 @@ const currentYear = new Date().getFullYear();
         max-width: 250px;
         padding: 18px 20px;
         color: var(--navy);
-        background: rgba(255, 255, 255, 0.97);
-        border-radius: var(--radius-small);
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: var(--small-radius);
         box-shadow: var(--shadow);
       }
 
@@ -768,17 +796,20 @@ const currentYear = new Date().getFullYear();
 
       .booking-strip p {
         margin: 0;
-        color: rgba(255, 255, 255, 0.74);
+        color: rgba(255, 255, 255, 0.75);
       }
 
-      .about-grid {
+      .about-grid,
+      .review-feature,
+      .location-grid {
         display: grid;
         align-items: center;
         gap: 58px;
         grid-template-columns: 0.9fr 1.1fr;
       }
 
-      .about-logo {
+      .about-logo,
+      .review-image {
         width: min(100%, 490px);
         margin-inline: auto;
         border-radius: var(--radius);
@@ -823,15 +854,7 @@ const currentYear = new Date().getFullYear();
         background: var(--white);
         border: 1px solid var(--border);
         border-radius: 19px;
-        box-shadow: 0 8px 24px rgba(23, 59, 76, 0.055);
-        transition:
-          transform 180ms ease,
-          box-shadow 180ms ease;
-      }
-
-      .treatment-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow);
+        box-shadow: 0 8px 24px rgba(23, 59, 76, 0.06);
       }
 
       .treatment-category {
@@ -856,9 +879,6 @@ const currentYear = new Date().getFullYear();
       }
 
       .card-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
         color: var(--navy);
         font-size: 0.9rem;
         font-weight: 900;
@@ -894,10 +914,6 @@ const currentYear = new Date().getFullYear();
         object-fit: cover;
       }
 
-      .gallery-card.square img {
-        aspect-ratio: 1 / 1;
-      }
-
       .gallery-card.portrait img {
         aspect-ratio: 4 / 5;
       }
@@ -908,381 +924,1350 @@ const currentYear = new Date().getFullYear();
 
       .gallery-copy p {
         margin-bottom: 0;
-        color: var(--mut    source: "Treatwell verified review",
-  },
-];
-
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "BeautySalon",
-  "@id": `${business.url}/#salon`,
-  name: business.name,
-  description:
-    "Beauty and aesthetic treatments in Fareham, Hampshire — CACI facials, dermaplaning, microneedling, massage, waxing and advanced aesthetics.",
-  url: business.url,
-  telephone: business.phone,
-  email: business.email,
-  image: `${business.url}/images/layla-treatment.jpg`,
-  logo: `${business.url}/images/fyb-logo.png`,
-  currenciesAccepted: "GBP",
-  paymentAccepted: "Cash, Credit Card, Debit Card",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: business.street,
-    addressLocality: business.locality,
-    addressRegion: business.region,
-    postalCode: business.postcode,
-    addressCountry: "GB",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: business.lat,
-    longitude: business.lng,
-  },
-  hasMap: "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9",
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Thursday"],
-      opens: "11:00",
-      closes: "19:30",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Friday",
-      opens: "12:00",
-      closes: "19:30",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Saturday",
-      opens: "11:00",
-      closes: "15:00",
-    },
-  ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: business.ratingValue,
-    reviewCount: business.reviewCount,
-    bestRating: "5",
-  },
-  areaServed: [
-    "Fareham",
-    "Titchfield",
-    "Titchfield Common",
-    "Locks Heath",
-    "Whiteley",
-    "Park Gate",
-    "Warsash",
-    "Stubbington",
-    "Portsmouth",
-    "Southampton",
-  ].map((name) => ({ "@type": "Place", name })),
-  sameAs: [
-    business.instagram,
-    business.facebook,
-    business.treatwell,
-  ],
-  makesOffer: treatments.map((t) => ({
-    "@type": "Offer",
-    itemOffered: { "@type": "Service", name: t.name, description: t.desc },
-  })),
-};
----
-
-<!doctype html>
-<html lang="en-GB">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={`${business.url}/`} />
-    <meta name="robots" content="index, follow" />
-    <meta name="geo.region" content="GB-HAM" />
-    <meta name="geo.placename" content="Fareham" />
-    <meta name="geo.position" content={`${business.lat};${business.lng}`} />
-
-    <meta property="og:type" content="business.business" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={`${business.url}/`} />
-    <meta property="og:image" content={`${business.url}/images/og-image.jpg`} />
-    <meta property="og:locale" content="en_GB" />
-    <meta property="og:site_name" content={business.name} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${business.url}/images/og-image.jpg`} />
-
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-
-    <style>
-      :root {
-        --navy: #1b3a4c;
-        --navy-deep: #142c3a;
-        --ink: #1b3a4c;
-        --soft: #57606b;
-        --silver: #d1d3d4;
-        --gold: #b09a6e;
-        --gold-dark: #94804f;
-        --mist: #eef1f3;
-        --line: #dce2e7;
-        --paper: #fcfdfd;
+        color: var(--muted);
+        font-size: 0.9rem;
       }
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
-        color: var(--ink);
-        background: var(--paper);
-        line-height: 1.65;
-      }
-      h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
-      img, video { max-width: 100%; display: block; }
-      a { color: var(--gold-dark); }
-      .wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
-      section { padding: 3.5rem 0; }
-      section + section { border-top: 1px solid var(--line); }
-      .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-size: 0.72rem;
-        color: var(--gold-dark);
-        margin-bottom: 0.5rem;
-      }
-      h2 { font-size: 1.75rem; margin-bottom: 1.25rem; }
 
-      .hero { text-align: center; padding: 3rem 0 3.5rem; background: var(--navy); color: var(--silver); }
-      .hero img.logo { width: 150px; margin: 0 auto 1.25rem; }
-      .hero h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); margin-bottom: 0.75rem; color: #fff; }
-      .hero p.lede { max-width: 40rem; margin: 0 auto 1rem; color: var(--silver); }
-      .stars { color: var(--gold); letter-spacing: 0.15em; font-size: 1.05rem; }
-      .rating-line { font-size: 0.9rem; color: var(--silver); margin-bottom: 1.5rem; }
-      .cta-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-      .btn {
-        display: inline-block;
-        padding: 0.8rem 1.6rem;
-        border-radius: 999px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.95rem;
+      .gallery-disclaimer {
+        margin-top: 27px;
+        padding: 18px 20px;
+        color: var(--muted);
+        background: var(--cream);
+        border-radius: var(--small-radius);
+        font-size: 0.83rem;
       }
-      .btn-primary { background: var(--gold); color: var(--navy-deep); }
-      .btn-primary:hover { background: var(--gold-dark); color: #fff; }
-      .hero .btn-ghost { border: 1.5px solid var(--silver); color: var(--silver); }
-      .btn-ghost { border: 1.5px solid var(--navy); color: var(--navy); }
-      .hero-img { margin: 2rem auto 0; max-width: 640px; border-radius: 14px; overflow: hidden; }
 
-      .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-      .card {
-        background: var(--mist);
-        border-radius: 14px;
-        padding: 1.4rem 1.5rem;
+      .review-feature-copy {
+        padding: clamp(30px, 5vw, 50px);
+        color: var(--white);
+        background: var(--navy);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .review-feature-copy h2 {
+        color: var(--white);
+      }
+
+      .review-feature-copy p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .reviews-grid {
+        display: grid;
+        gap: 22px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .review-card {
+        padding: 35px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-top: 5px solid var(--gold);
+        border-radius: var(--radius);
+      }
+
+      .review-card blockquote {
+        margin: 0 0 24px;
+        color: var(--navy);
+        font-size: 1.11rem;
+        font-style: italic;
+        line-height: 1.75;
+      }
+
+      .review-card footer {
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .review-card footer strong {
+        color: var(--navy);
+      }
+
+      .review-links {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
       }
-      .card h3 { font-size: 1.12rem; margin-bottom: 0.4rem; color: var(--navy); }
-      .card p { color: var(--soft); font-size: 0.93rem; flex: 1; }
 
-      .reels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-      .reels video { border-radius: 12px; width: 100%; }
-
-      .reviews { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-      blockquote {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-top: 3px solid var(--gold);
-        border-radius: 14px;
-        padding: 1.4rem 1.5rem;
+      .text-link {
+        color: var(--gold);
+        font-weight: 850;
+        text-underline-offset: 4px;
       }
-      blockquote p { font-style: italic; margin-bottom: 0.9rem; }
-      blockquote footer { font-size: 0.85rem; color: var(--soft); }
 
-      .split { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-      table.hours { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-      table.hours td { padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
-      table.hours td:last-child { text-align: right; color: var(--soft); }
-      .map-embed { border: 0; width: 100%; height: 320px; border-radius: 14px; }
-      address { font-style: normal; color: var(--soft); }
+      .social-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, 1fr);
+      }
 
-      footer.site {
-        background: var(--navy-deep);
-        color: var(--silver);
-        padding: 2.5rem 0;
-        font-size: 0.88rem;
+      .social-card {
+        display: grid;
+        min-height: 175px;
+        align-content: center;
+        justify-items: center;
+        gap: 10px;
+        padding: 26px;
+        color: var(--white);
+        border-radius: var(--radius);
+        text-align: center;
+        text-decoration: none;
+        box-shadow: var(--shadow);
+      }
+
+      .social-card svg {
+        width: 34px;
+        height: 34px;
+      }
+
+      .social-card strong {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.55rem;
+      }
+
+      .social-card span {
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 0.9rem;
+      }
+
+      .social-whatsapp {
+        background: var(--green);
+      }
+
+      .social-instagram {
+        background:
+          linear-gradient(135deg, #6337be, #a92b88 42%, #dc4259 72%, #ed9c38);
+      }
+
+      .social-facebook {
+        background: var(--facebook);
+      }
+
+      .location-grid {
+        align-items: start;
+        grid-template-columns: 1.05fr 0.95fr;
+      }
+
+      .area-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 25px;
+      }
+
+      .area-list span {
+        padding: 9px 13px;
+        color: var(--navy);
+        background: var(--cream);
+        border-radius: 999px;
+        font-size: 0.83rem;
+        font-weight: 800;
+      }
+
+      .location-card {
+        padding: 32px;
+        color: var(--white);
+        background: var(--navy);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .location-card h3 {
+        color: var(--white);
+      }
+
+      .location-card p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .contact-list {
+        display: grid;
+        gap: 18px;
+        margin: 25px 0;
+      }
+
+      .contact-item {
+        color: rgba(255, 255, 255, 0.86);
+        text-decoration: none;
+      }
+
+      .contact-item strong {
+        display: block;
+        color: var(--white);
+      }
+
+      .hours-list {
+        margin: 28px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .hours-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 13px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .hours-row span:last-child {
+        text-align: right;
+      }
+
+      .location-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .faq-list {
+        display: grid;
+        max-width: 870px;
+        gap: 12px;
+        margin-inline: auto;
+      }
+
+      details {
+        padding: 0 22px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--small-radius);
+      }
+
+      summary {
+        position: relative;
+        padding: 21px 40px 21px 0;
+        color: var(--navy);
+        font-weight: 850;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      summary::after {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 29px;
+        height: 29px;
+        display: grid;
+        place-items: center;
+        content: "+";
+        background: var(--cream);
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
+
+      details[open] summary::after {
+        content: "−";
+      }
+
+      details p {
+        padding-right: 30px;
+        padding-bottom: 20px;
+        color: var(--muted);
+      }
+
+      .final-cta {
         text-align: center;
       }
-      footer.site a { color: var(--gold); }
-      footer.site .social { margin-bottom: 1rem; display: flex; gap: 1.25rem; justify-content: center; }
+
+      .final-cta h2 {
+        max-width: 800px;
+        margin-inline: auto;
+      }
+
+      .final-cta .lead {
+        margin: 0 auto 26px;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .final-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .site-footer {
+        padding: 52px 0 100px;
+        color: rgba(255, 255, 255, 0.72);
+        background: var(--navy-dark);
+      }
+
+      .footer-grid {
+        display: grid;
+        gap: 38px;
+        grid-template-columns: 1.25fr 0.75fr 0.75fr;
+      }
+
+      .footer-logo {
+        width: 82px;
+        height: 82px;
+        margin-bottom: 15px;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+
+      .footer-heading {
+        margin-bottom: 14px;
+        color: var(--white);
+        font-size: 0.82rem;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: grid;
+        gap: 8px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.72);
+        text-decoration: none;
+      }
+
+      .copyright {
+        margin-top: 39px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(255, 255, 255, 0.11);
+        font-size: 0.82rem;
+      }
+
+      .mobile-booking-bar {
+        position: fixed;
+        z-index: 1100;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        grid-template-columns: 1fr auto;
+        gap: 9px;
+        padding: 10px 13px;
+        background: rgba(255, 255, 255, 0.98);
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -8px 28px rgba(23, 59, 76, 0.13);
+      }
+
+      .mobile-booking-bar .button {
+        min-height: 49px;
+        padding-inline: 17px;
+      }
+
+      :focus-visible {
+        outline: 3px solid rgba(173, 149, 97, 0.6);
+        outline-offset: 4px;
+      }
+
+      @media (max-width: 1000px) {
+        .desktop-nav {
+          display: none;
+        }
+
+        .menu-button {
+          display: grid;
+        }
+
+        .hero-grid,
+        .about-grid,
+        .review-feature,
+        .location-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy {
+          text-align: center;
+        }
+
+        .hero-copy .lead {
+          margin-inline: auto;
+        }
+
+        .hero-actions,
+        .hero-points {
+          justify-content: center;
+        }
+
+        .treatment-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .social-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-grid > :first-child {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .container {
+          width: min(calc(100% - 28px), var(--page-width));
+        }
+
+        .section {
+          padding: 68px 0;
+        }
+
+        .header-inner {
+          min-height: 72px;
+        }
+
+        .brand img {
+          width: 50px;
+          height: 50px;
+        }
+
+        .brand-copy strong {
+          font-size: 0.96rem;
+        }
+
+        .brand-copy span {
+          display: none;
+        }
+
+        .hero {
+          padding: 52px 0 77px;
+        }
+
+        h1 {
+          font-size: clamp(2.45rem, 13vw, 3.95rem);
+        }
+
+        .hero-actions {
+          display: grid;
+        }
+
+        .hero-actions .button {
+          width: 100%;
+        }
+
+        .hero-card {
+          right: 0;
+          bottom: -28px;
+          max-width: 225px;
+        }
+
+        .booking-strip {
+          margin-top: -7px;
+        }
+
+        .booking-strip-inner {
+          padding: 24px;
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .booking-strip-inner .button {
+          width: 100%;
+        }
+
+        .treatment-grid,
+        .gallery-grid,
+        .reviews-grid,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-grid > :first-child {
+          grid-column: auto;
+        }
+
+        .location-actions,
+        .review-links {
+          display: grid;
+        }
+
+        .location-actions .button,
+        .review-links .button {
+          width: 100%;
+        }
+
+        .mobile-booking-bar {
+          display: grid;
+        }
+
+        .site-footer {
+          padding-bottom: 120px;
+        }
+      }
 
       @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   </head>
 
   <body>
-    <header class="hero">
-      <div class="wrap">
-        <img
-          class="logo"
-          src="/images/fyb-logo.png"
-          alt="FYB by Layla — Forever Young Beauty logo"
-          width="150"
-          height="150"
-        />
-        <h1>Beauty &amp; Aesthetic Treatments in Fareham</h1>
-        <p class="lede">
-          Professional facials, massage and advanced aesthetics in a calm,
-          private treatment room at Abshot Country Club, Titchfield Common —
-          minutes from Locks Heath, Whiteley and Park Gate.
-        </p>
-        <div class="stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
-        <p class="rating-line">
-          Over 500 five-star reviews · Treatwell Top Rated 2024
-          &amp; 2025
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href={business.treatwell}>Book online</a>
-          <a class="btn btn-ghost" href={`tel:${business.phone}`}
-            >Call {business.phoneDisplay}</a
-          >
-        </div>
-        <div class="hero-img">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div class="topbar">
+      Based at Abshot Country Club in Titchfield Common.
+      <a href={links.treatwell} target="_blank" rel="noopener noreferrer">
+        Book online with Treatwell
+      </a>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#home" aria-label="Forever Young Beauty home">
           <img
-            src="/images/layla-treatment.jpg"
-            alt="Facial treatment in progress at Forever Young Beauty by Layla, Fareham"
-            loading="eager"
+            src="/images/fyb-logo2.png"
+            alt="Forever Young Beauty by Layla logo"
+            width="59"
+            height="59"
           />
-        </div>
+
+          <span class="brand-copy">
+            <strong>Forever Young Beauty</strong>
+            <span>By Layla · Titchfield Common</span>
+          </span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#treatments">Treatments</a>
+          <a href="#results">Results</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#location">Find us</a>
+
+          <a
+            class="button button-treatwell"
+            href={links.treatwell}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book on Treatwell
+          </a>
+        </nav>
+
+        <button
+          class="menu-button"
+          id="menu-button"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="mobile-navigation"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
       </div>
+
+      <nav
+        class="mobile-nav"
+        id="mobile-navigation"
+        aria-label="Mobile navigation"
+      >
+        <a href="#about">About</a>
+        <a href="#treatments">Treatments</a>
+        <a href="#results">Before and after</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#location">Find us</a>
+        <a href="#faq">FAQs</a>
+        <a href={links.treatwell} target="_blank" rel="noopener noreferrer">
+          Book on Treatwell
+        </a>
+      </nav>
     </header>
 
-    <section id="treatments">
-      <div class="wrap">
-        <p class="eyebrow">Treatments</p>
-        <h2>Tailored treatments, from everyday beauty to advanced aesthetics</h2>
-        <div class="grid">
-          {
-            treatments.map((t) => (
-              <article class="card">
-                <h3>{t.name}</h3>
-                <p>{t.desc}</p>
-              </article>
-            ))
-          }
-        </div>
-        <p style="margin-top:1.5rem;">
-          <a class="btn btn-primary" href={business.treatwell}
-            >See the full menu &amp; book on Treatwell</a
-          >
-        </p>
-      </div>
-    </section>
+    <main id="main-content">
+      <section class="hero" id="home">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Beauty at Abshot · Titchfield Common</p>
 
-    <section id="fresh">
-      <div class="wrap">
-        <p class="eyebrow">Fresh from the treatment room</p>
-        <h2>See recent results</h2>
-        <div class="reels">
-          <video src="/videos/reel1.mp4" controls preload="metadata" playsinline
-          ></video>
-          <video src="/videos/reel2.mp4" controls preload="metadata" playsinline
-          ></video>
-          <video src="/videos/reel3.mp4" controls preload="metadata" playsinline
-          ></video>
-        </div>
-        <p style="margin-top:1.25rem;">
-          <a href={business.instagram}>Follow @foreveryoungbeauty_bylayla on Instagram</a>
-          for daily results, offers and last-minute availability.
-        </p>
-      </div>
-    </section>
+            <h1>Advanced beauty, skin and wellness treatments</h1>
 
-    <section id="reviews">
-      <div class="wrap">
-        <p class="eyebrow">What clients say</p>
-        <h2>Over 500 five-star reviews</h2>
-        <div class="reviews">
-          {
-            reviews.map((r) => (
-              <blockquote>
-                <p>“{r.quote}”</p>
-                <footer>
-                  {r.author} · {r.treatment} · {r.source}
-                </footer>
-              </blockquote>
-            ))
-          }
-        </div>
-        <p style="margin-top:1.25rem;">
-          <a href={business.googleReviews}>Read our Google reviews</a> ·
-          <a href={business.treatwell}>Read verified reviews on Treatwell</a>
-        </p>
-      </div>
-    </section>
-
-    <section id="find-us">
-      <div class="wrap">
-        <p class="eyebrow">Find us</p>
-        <h2>In the heart of Titchfield Common</h2>
-        <div class="split">
-          <div>
-            <address>
-              <strong>{business.name}</strong><br />
-              Beauty at Abshot, Abshot Country Club<br />
-              Little Abshot Road, Titchfield Common<br />
-              Fareham, Hampshire {business.postcode}
-            </address>
-            <p style="margin:1rem 0;">
-              <a href={`tel:${business.phone}`}>{business.phoneDisplay}</a><br />
-              <a href={`mailto:${business.email}`}>{business.email}</a>
+            <p class="lead">
+              Personalised facials, advanced skin treatments, massage,
+              waxing, hair restoration, body treatments and aesthetics in a
+              calm, welcoming treatment room near Fareham.
             </p>
-            <table class="hours" aria-label="Opening hours">
-              <tr><td>Monday</td><td>11:00 – 19:30</td></tr>
-              <tr><td>Tuesday</td><td>11:00 – 19:30</td></tr>
-              <tr><td>Wednesday</td><td>Closed</td></tr>
-              <tr><td>Thursday</td><td>11:00 – 19:30</td></tr>
-              <tr><td>Friday</td><td>12:00 – 19:30</td></tr>
-              <tr><td>Saturday</td><td>11:00 – 15:00</td></tr>
-              <tr><td>Sunday</td><td>Closed</td></tr>
-            </table>
-            <p style="margin-top:1rem;">
-              <a class="btn btn-ghost" href="https://maps.app.goo.gl/5pksDnVJJNuWunbZ9"
-                >Get directions</a
+
+            <div class="hero-actions">
+              <a
+                class="button button-treatwell"
+                href={links.treatwell}
+                target="_blank"
+                rel="noopener noreferrer"
               >
+                View availability and book
+              </a>
+
+              <a
+                class="button button-whatsapp"
+                href={links.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Message on WhatsApp
+              </a>
+
+              <a class="button button-light" href={links.phone}>
+                Call {business.phoneDisplay}
+              </a>
+            </div>
+
+            <div class="hero-points">
+              <span>Personalised treatments</span>
+              <span>Private treatment room</span>
+              <span>Online booking</span>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img
+              class="hero-image"
+              src="/images/layla-treatment.jpg"
+              alt="Layla carrying out a professional facial treatment at Forever Young Beauty"
+              width="1240"
+              height="1240"
+              fetchpriority="high"
+            />
+
+            <div class="hero-card">
+              <strong>Personal care from Layla</strong>
+              <span>
+                Ask a question before booking or view current availability on
+                Treatwell.
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="booking-strip">
+        <div class="container">
+          <div class="booking-strip-inner">
+            <div>
+              <h2>Ready to book your appointment?</h2>
+              <p>
+                View the current treatment menu and live appointment
+                availability through Treatwell.
+              </p>
+            </div>
+
+            <a
+              class="button button-gold"
+              href={links.treatwell}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Treatwell booking
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <section class="section" id="about">
+        <div class="container about-grid">
+          <div>
+            <img
+              class="about-logo"
+              src="/images/logo-dark.png"
+              alt="Forever Young Beauty by Layla"
+              width="1200"
+              height="1200"
+              loading="lazy"
+            />
+          </div>
+
+          <div>
+            <p class="eyebrow">Personalised care</p>
+            <h2>Treatments designed around you</h2>
+
+            <p class="lead">
+              Forever Young Beauty by Layla offers beauty, massage, facial,
+              waxing, body, hair restoration and advanced skin treatments in a
+              calm private setting.
+            </p>
+
+            <ul class="benefits">
+              <li>
+                Friendly one-to-one appointments with treatments selected
+                around your goals.
+              </li>
+              <li>
+                Convenient location at Abshot Country Club in Titchfield
+                Common.
+              </li>
+              <li>
+                Easy to reach from Locks Heath, Park Gate, Whiteley, Warsash
+                and Fareham.
+              </li>
+              <li>
+                Current treatment options and availability shown through
+                Treatwell.
+              </li>
+              <li>
+                WhatsApp support for questions before your appointment.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft" id="treatments">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Treatment menu</p>
+            <h2>Explore the treatment collections</h2>
+
+            <p class="lead">
+              Prices are not displayed here. Treatwell contains the current
+              treatment choices, appointment lengths and live availability.
             </p>
           </div>
-          <iframe
-            class="map-embed"
-            title="Map showing Forever Young Beauty by Layla at Abshot Country Club, Fareham"
-            src="https://www.google.com/maps?q=Forever+Young+Beauty+By+Layla,+Abshot+Country+Club,+Little+Abshot+Rd,+Fareham+PO14+4LN&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-    </section>
 
-    <footer class="site">
-      <div class="wrap">
-        <div class="social">
-          <a href={business.instagram}>Instagram</a>
-          <a href={business.facebook}>Facebook</a>
-          <a href={business.treatwell}>Treatwell</a>
-          <a href={business.googleReviews}>Google Reviews</a>
+          <div class="treatment-grid">
+            {
+              treatments.map((treatment) => (
+                <article class="treatment-card">
+                  <span class="treatment-category">
+                    {treatment.category}
+                  </span>
+
+                  <h3>{treatment.title}</h3>
+                  <p>{treatment.description}</p>
+
+                  <a
+                    class="card-link"
+                    href={links.treatwell}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View on Treatwell →
+                  </a>
+                </article>
+              ))
+            }
+          </div>
+
+          <div class="treatment-footer">
+            <a
+              class="button button-treatwell"
+              href={links.treatwell}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View the complete treatment menu
+            </a>
+          </div>
         </div>
-        <p>
-          {business.name} · Beauty at Abshot, Abshot Country Club, Little Abshot
-          Road, Titchfield Common, Fareham {business.postcode}
-        </p>
-        <p>
-          Serving Fareham, Titchfield, Locks Heath, Whiteley, Park Gate, Warsash
-          &amp; Stubbington
-        </p>
-        <p>© 2026 {business.name}</p>
+      </section>
+
+      <section class="section" id="results">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Before and after</p>
+            <h2>Real treatment imagery</h2>
+
+            <p class="lead">
+              A selection of treatment and progress photographs supplied by
+              Forever Young Beauty by Layla.
+            </p>
+          </div>
+
+          <div class="gallery-grid">
+            <article class="gallery-card">
+              <img
+                src="/images/caci-before-after.jpg"
+                alt="Facial skin treatment before and after comparison"
+                width="1400"
+                height="1064"
+                loading="lazy"
+              />
+              <div class="gallery-copy">
+                <h3>Facial skin treatment</h3>
+                <p>
+                  A before-and-after example showing changes in the appearance
+                  of the treated skin.
+                </p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="/images/jawline-before-after.jpg"
+                alt="Jawline treatment before and after comparison"
+                width="1228"
+                height="1228"
+                loading="lazy"
+              />
+              <div class="gallery-copy">
+                <h3>Jawline treatment</h3>
+                <p>
+                  An individual treatment result involving the lower face and
+                  jaw area.
+                </p>
+              </div>
+            </article>
+
+            <article class="gallery-card portrait">
+              <img
+                src="/images/hairline-treatment.jpg"
+                alt="Receding hairline treatment before and after comparison"
+                width="1096"
+                height="1373"
+                loading="lazy"
+              />
+              <div class="gallery-copy">
+                <h3>Hairline treatment</h3>
+                <p>
+                  A before-and-after example from a targeted hairline treatment
+                  programme.
+                </p>
+              </div>
+            </article>
+
+            <article class="gallery-card portrait">
+              <img
+                src="/images/hair-growth-before-after.jpg"
+                alt="Scalp hair growth treatment before and after comparison"
+                width="1242"
+                height="1242"
+                loading="lazy"
+              />
+              <div class="gallery-copy">
+                <h3>Scalp and hair treatment</h3>
+                <p>
+                  An individual result showing visible changes in the treated
+                  scalp area.
+                </p>
+              </div>
+            </article>
+
+            <article class="gallery-card portrait">
+              <img
+                src="/images/neck-before-after.jpg"
+                alt="Receding hairline before and after result"
+                width="1096"
+                height="1373"
+                loading="lazy"
+              />
+              <div class="gallery-copy">
+                <h3>Hair restoration progress</h3>
+                <p>
+                  Contact Layla to discuss suitable options for hair or scalp
+                  concerns.
+                </p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="/images/logo-light.png"
+                alt="Forever Young Beauty by Layla branding"
+                width="1200"
+                height="1200"
+                loading="lazy"
+              />
+              <div class="gallery-copy">
+                <h3>Forever Young Beauty</h3>
+                <p>
+                  Personalised beauty, skin and wellness treatments in
+                  Titchfield Common.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="gallery-disclaimer">
+            Photographs show individual client experiences. Results vary and
+            cannot be guaranteed. Some treatments require a consultation,
+            suitability assessment, patch test or screening.
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container review-feature">
+          <div>
+            <img
+              class="review-image"
+              src="/images/Shelley-review.jpg"
+              alt="Client review for Forever Young Beauty by Layla"
+              width="1000"
+              height="1200"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="review-feature-copy">
+            <p class="eyebrow">Client experience</p>
+            <h2>A welcoming and personal treatment experience</h2>
+
+            <p>
+              Layla offers one-to-one appointments with time to discuss your
+              needs, treatment suitability and any questions you may have.
+            </p>
+
+            <p>
+              Current appointment availability can be viewed through
+              Treatwell, while WhatsApp is available for treatment enquiries.
+            </p>
+
+            <a
+              class="button button-gold"
+              href={links.treatwell}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book your appointment
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reviews">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">What clients say</p>
+            <h2>Over 500 five-star reviews</h2>
+
+            <p class="lead">
+              Feedback from clients who have visited Layla for facials,
+              massage, waxing and other treatments.
+            </p>
+          </div>
+
+          <div class="reviews-grid">
+            {
+              reviews.map((review) => (
+                <article class="review-card">
+                  <blockquote>“{review.quote}”</blockquote>
+
+                  <footer>
+                    <strong>{review.name}</strong>
+                    {" · "}
+                    {review.treatment}
+                    {" · "}
+                    {review.source}
+                  </footer>
+                </article>
+              ))
+            }
+          </div>
+
+          <div class="review-links">
+            <a
+              class="button button-primary"
+              href={links.googleReviews}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read Google reviews
+            </a>
+
+            <a
+              class="button button-treatwell"
+              href={links.treatwellProfile}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read verified Treatwell reviews
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Stay connected</p>
+            <h2>Follow, message or book</h2>
+
+            <p class="lead">
+              Ask Layla a question on WhatsApp, see recent content on
+              Instagram and Facebook, or book directly through Treatwell.
+            </p>
+          </div>
+
+          <div class="social-grid">
+            <a
+              class="social-card social-whatsapp"
+              href={links.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Message Forever Young Beauty by Layla on WhatsApp"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12.04 2a9.84 9.84 0 0 0-8.46 14.86L2 22l5.27-1.53A9.95 9.95 0 1 0 12.04 2Zm0 17.98a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.12.91.93-3.04-.2-.31a8 8 0 1 1 6.82 3.75Z"></path>
+              </svg>
+              <strong>WhatsApp</strong>
+              <span>Ask Layla about a treatment</span>
+            </a>
+
+            <a
+              class="social-card social-instagram"
+              href={links.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow Forever Young Beauty by Layla on Instagram"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                ></rect>
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="4"
+                  stroke="currentColor"
+                  stroke-width="2"
+                ></circle>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
+              </svg>
+              <strong>Instagram</strong>
+              <span>View recent treatments and results</span>
+            </a>
+
+            <a
+              class="social-card social-facebook"
+              href={links.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Forever Young Beauty by Layla on Facebook"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M13.6 22v-9h3l.45-3.5H13.6V7.27c0-1.01.28-1.7 1.73-1.7h1.85V2.44a24.9 24.9 0 0 0-2.7-.14c-2.67 0-4.5 1.63-4.5 4.63V9.5H7v3.5h2.98v9h3.62Z"></path>
+              </svg>
+              <strong>Facebook</strong>
+              <span>Follow news and local updates</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="location">
+        <div class="container location-grid">
+          <div>
+            <p class="eyebrow">Find us</p>
+            <h2>In the heart of Titchfield Common</h2>
+
+            <p class="lead">
+              Forever Young Beauty by Layla is based at Abshot Country Club,
+              close to Locks Heath, Park Gate, Whiteley, Warsash, Sarisbury
+              Green, Titchfield and Stubbington.
+            </p>
+
+            <p>
+              Clients also visit from Fareham and the wider Southampton and
+              Portsmouth areas.
+            </p>
+
+            <div class="area-list" aria-label="Areas served">
+              {areas.map((area) => <span>{area}</span>)}
+            </div>
+          </div>
+
+          <div class="location-card">
+            <h3>{business.name}</h3>
+
+            <div class="contact-list">
+              <div class="contact-item">
+                <strong>{business.address.venue}</strong>
+                {business.address.building}<br />
+                {business.address.street}<br />
+                {business.address.town}<br />
+                {business.address.city}, {business.address.county}{" "}
+                {business.address.postcode}
+              </div>
+
+              <a class="contact-item" href={links.phone}>
+                <strong>{business.phoneDisplay}</strong>
+              </a>
+
+              <a class="contact-item" href={links.email}>
+                <strong>{business.email}</strong>
+              </a>
+            </div>
+
+            <div class="hours-list" aria-label="Opening hours">
+              {
+                openingHours.map((item) => (
+                  <div class="hours-row">
+                    <span>{item.day}</span>
+                    <span>{item.hours}</span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div class="location-actions">
+              <a
+                class="button button-light"
+                href={links.maps}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get directions
+              </a>
+
+              <a
+                class="button button-whatsapp"
+                href={links.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp Layla
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft" id="faq">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Frequently asked questions</p>
+            <h2>Planning your appointment</h2>
+          </div>
+
+          <div class="faq-list">
+            <details>
+              <summary>How do I book a treatment?</summary>
+              <p>
+                Select any Book on Treatwell button to view the current
+                treatment menu and available appointment times.
+              </p>
+            </details>
+
+            <details>
+              <summary>Why are prices not shown on this website?</summary>
+              <p>
+                Treatwell contains the current treatment choices and booking
+                information, avoiding outdated prices appearing in more than
+                one place.
+              </p>
+            </details>
+
+            <details>
+              <summary>Can I ask a question before booking?</summary>
+              <p>
+                Yes. Message Layla on WhatsApp using {business.phoneDisplay}
+                with the treatment you are considering.
+              </p>
+            </details>
+
+            <details>
+              <summary>Are treatment results guaranteed?</summary>
+              <p>
+                No. Results vary according to the client, treatment,
+                suitability, skin or hair condition, lifestyle and aftercare.
+              </p>
+            </details>
+
+            <details>
+              <summary>Where is Forever Young Beauty by Layla?</summary>
+              <p>
+                Beauty at Abshot, Abshot Country Club, Little Abshot Road,
+                Titchfield Common, Fareham, PO14 4LN.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark final-cta">
+        <div class="container">
+          <p class="eyebrow">Your appointment</p>
+          <h2>Choose your treatment and book online</h2>
+
+          <p class="lead">
+            View current availability through Treatwell, or message Layla
+            before booking for help choosing a treatment.
+          </p>
+
+          <div class="final-actions">
+            <a
+              class="button button-gold"
+              href={links.treatwell}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book on Treatwell
+            </a>
+
+            <a
+              class="button button-whatsapp"
+              href={links.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Message on WhatsApp
+            </a>
+
+            <a class="button button-light" href={links.phone}>
+              Call {business.phoneDisplay}
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <img
+              class="footer-logo"
+              src="/images/fyb-logo2.png"
+              alt=""
+              width="82"
+              height="82"
+              loading="lazy"
+            />
+
+            <h3 style="color: white; margin-bottom: 10px;">
+              Forever Young Beauty by Layla
+            </h3>
+
+            <p>
+              Beauty, skin, massage, waxing, hair restoration and aesthetic
+              treatments in Titchfield Common near Fareham.
+            </p>
+          </div>
+
+          <div>
+            <div class="footer-heading">Explore</div>
+            <div class="footer-links">
+              <a href="#about">About</a>
+              <a href="#treatments">Treatments</a>
+              <a href="#results">Before and after</a>
+              <a href="#reviews">Reviews</a>
+              <a href="#location">Find us</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footer-heading">Connect</div>
+            <div class="footer-links">
+              <a
+                href={links.treatwell}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Treatwell booking
+              </a>
+              <a
+                href={links.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
+              <a
+                href={links.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Facebook
+              </a>
+              <a
+                href={links.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+              </a>
+              <a href={links.phone}>{business.phoneDisplay}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="copyright">
+          © {currentYear} Forever Young Beauty by Layla. All rights reserved.
+          Treatment suitability and individual results may vary.
+        </div>
       </div>
     </footer>
+
+    <div class="mobile-booking-bar" aria-label="Mobile booking options">
+      <a
+        class="button button-treatwell"
+        href={links.treatwell}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Book on Treatwell
+      </a>
+
+      <a
+        class="button button-whatsapp"
+        href={links.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const menuButton = document.getElementById("menu-button");
+        const mobileNavigation =
+          document.getElementById("mobile-navigation");
+
+        if (!menuButton || !mobileNavigation) return;
+
+        const closeMenu = () => {
+          mobileNavigation.classList.remove("open");
+          document.body.classList.remove("menu-open");
+          menuButton.setAttribute("aria-expanded", "false");
+          menuButton.setAttribute("aria-label", "Open navigation");
+        };
+
+        menuButton.addEventListener("click", () => {
+          const isOpen = mobileNavigation.classList.toggle("open");
+
+          document.body.classList.toggle("menu-open", isOpen);
+          menuButton.setAttribute("aria-expanded", String(isOpen));
+          menuButton.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation" : "Open navigation"
+          );
+        });
+
+        mobileNavigation.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeMenu();
+        });
+      })();
+    </script>
   </body>
 </html>
