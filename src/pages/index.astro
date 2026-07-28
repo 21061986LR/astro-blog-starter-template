@@ -194,7 +194,7 @@ const schema = {
   description:
     "Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Fareham.",
   logo:
-    "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
+    "https://foreveryoungbeautybylayla.co.uk/images/layla-treatment.jpg",
   image:
     "https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg",
   address: {
@@ -596,78 +596,24 @@ const currentYear = new Date().getFullYear();
         background: var(--gold-light);
       }
 
-      /* Opening sequence shown while the page loads. */
-      .loading-screen {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        display: grid;
-        place-items: center;
-        overflow: hidden;
-        min-height: 100vh;
-        min-height: 100svh;
-        padding: 0;
+      .hero-banner-section {
+        padding: 34px 0 52px;
         background: var(--cream);
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 650ms ease, visibility 650ms ease;
       }
 
-      .loading-screen.is-hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .loading-stage {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        height: 100svh;
+      .hero-banner {
         overflow: hidden;
-      }
-
-      .loading-image {
-        position: absolute;
-        inset: 50% auto auto 50%;
-        display: block;
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.96);
-      }
-
-      .loading-face {
-        width: min(88vw, 560px);
-        height: min(88vw, 560px);
-        object-fit: cover;
-        object-position: center;
-        border-radius: 50%;
+        width: 100%;
+        background: var(--navy);
+        border-radius: var(--radius);
         box-shadow: var(--shadow);
-        animation: loadingFace 1.05s ease forwards;
       }
 
-      /* The square brand image fills at least 85% of the phone screen. */
-      .loading-brand-image {
-        width: 100vw;
-        height: 85vh;
-        height: 85svh;
-        min-height: 85vh;
-        min-height: 85svh;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 0;
-        animation: loadingBrand 1.1s 1.05s ease forwards;
-      }
-
-      @keyframes loadingFace {
-        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-        20%, 72% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        100% { opacity: 0; transform: translate(-50%, -50%) scale(1.03); }
-      }
-
-      @keyframes loadingBrand {
-        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
-        22%, 78% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        100% { opacity: 0; transform: translate(-50%, -50%) scale(1.02); }
+      .hero-banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
       }
 
       .hero-content {
@@ -1312,22 +1258,103 @@ const currentYear = new Date().getFullYear();
         }
       }
 
+      /* Full-screen welcome image: Layla only */
+      body.is-loading {
+        overflow: hidden;
+      }
+
+      .face-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        min-height: 100svh;
+        padding: 3vh 4vw;
+        background: #ffffff;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 2.4s ease, visibility 2.4s ease;
+      }
+
+      .face-loader.is-fading {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .face-loader-frame {
+        width: min(92vw, 680px);
+        height: 85vh;
+        height: 85svh;
+        overflow: hidden;
+        border-radius: 34px;
+        box-shadow: 0 24px 70px rgba(13, 41, 55, 0.22);
+      }
+
+      .face-loader-frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 34%;
+        animation: faceLoaderArrive 1.6s ease both;
+      }
+
+      @keyframes faceLoaderArrive {
+        from {
+          opacity: 0;
+          transform: scale(1.04);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .brand-text-only {
+        gap: 0;
+      }
+
+      .anchor-target {
+        display: block;
+        position: relative;
+        top: -1px;
+      }
+
+      .hero-content {
+        padding-top: 54px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      @media (max-width: 600px) {
+        .face-loader {
+          padding: 2.5vh 3vw;
+        }
+
+        .face-loader-frame {
+          width: 94vw;
+          height: 85svh;
+          border-radius: 28px;
+        }
+      }
 
       @media (prefers-reduced-motion: reduce) {
-        .loading-face,
-        .loading-brand-image {
-          animation-duration: 0.01ms;
-          animation-delay: 0ms;
+        .face-loader-frame img {
+          animation: none;
         }
       }
     </style>
   </head>
 
-  <body>
-    <div id="loading-screen" class="loading-screen" aria-hidden="true">
-      <div class="loading-stage">
+  <body class="is-loading">
+    <div id="face-loader" class="face-loader" aria-hidden="true">
+      <div class="face-loader-frame">
         <img
-          class="loading-image loading-face"
           src="/images/layla-treatment.jpg"
           alt=""
           width="1240"
@@ -1335,17 +1362,8 @@ const currentYear = new Date().getFullYear();
           loading="eager"
           fetchpriority="high"
         />
-        <img
-          class="loading-image loading-brand-image"
-          src="/images/og-image.jpg"
-          alt=""
-          width="1200"
-          height="630"
-          loading="eager"
-        />
       </div>
     </div>
-
     <div class="topbar">
       Based at Abshot Country Club in Titchfield Common.
       <a
@@ -1359,13 +1377,7 @@ const currentYear = new Date().getFullYear();
 
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand" href="#home">
-          <img
-            src="/images/fyb-logo2.png"
-            alt="Forever Young Beauty by Layla logo"
-            width="61"
-            height="61"
-          />
+        <a class="brand brand-text-only" href="#home">
           <strong>Forever Young Beauty</strong>
         </a>
 
@@ -1429,7 +1441,9 @@ const currentYear = new Date().getFullYear();
     </header>
 
     <main>
-      <section class="hero-content" id="home">
+      <span id="home" class="anchor-target" aria-hidden="true"></span>
+
+      <section class="hero-content">
         <div class="container hero-grid">
           <div class="hero-copy">
             <p class="eyebrow">
@@ -1461,15 +1475,6 @@ const currentYear = new Date().getFullYear();
 
       <section class="section" id="about">
         <div class="container about-grid">
-          <img
-            class="about-logo"
-            src="/images/logo-dark.png"
-            alt="Forever Young Beauty by Layla"
-            width="1200"
-            height="1200"
-            loading="lazy"
-          />
-
           <div>
             <p class="eyebrow">Personalised care</p>
             <h2>Treatments designed around you</h2>
@@ -1879,15 +1884,6 @@ const currentYear = new Date().getFullYear();
       <div class="container">
         <div class="footer-grid">
           <div>
-            <img
-              class="footer-logo"
-              src="/images/fyb-logo2.png"
-              alt=""
-              width="82"
-              height="82"
-              loading="lazy"
-            />
-
             <h3 style="color: white;">
               Forever Young Beauty by Layla
             </h3>
@@ -1960,22 +1956,27 @@ const currentYear = new Date().getFullYear();
 
     <script is:inline>
       (() => {
-        const loadingScreen = document.getElementById("loading-screen");
+        const loader = document.getElementById("face-loader");
 
-        const dismissLoadingScreen = () => {
-          if (!loadingScreen) return;
-          window.setTimeout(() => {
-            loadingScreen.classList.add("is-hidden");
-            window.setTimeout(() => loadingScreen.remove(), 700);
-          }, 2300);
-        };
+        if (loader) {
+          const beginFade = () => {
+            window.setTimeout(() => {
+              loader.classList.add("is-fading");
+              document.body.classList.remove("is-loading");
 
-        if (document.readyState === "complete") {
-          dismissLoadingScreen();
-        } else {
-          window.addEventListener("load", dismissLoadingScreen, { once: true });
+              window.setTimeout(() => loader.remove(), 2500);
+            }, 5600);
+          };
+
+          if (document.readyState === "complete") {
+            beginFade();
+          } else {
+            window.addEventListener("load", beginFade, { once: true });
+          }
         }
+      })();
 
+      (() => {
         const button = document.getElementById("menu-button");
         const navigation =
           document.getElementById("mobile-navigation");
