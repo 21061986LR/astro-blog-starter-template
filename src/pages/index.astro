@@ -4,15 +4,6 @@ const business = {
   phoneDisplay: "07799 890398",
   phoneInternational: "+447799890398",
   email: "layla.radestock@hotmail.com",
-  address: {
-    venue: "Beauty at Abshot",
-    building: "Abshot Country Club",
-    street: "Little Abshot Road",
-    town: "Titchfield Common",
-    city: "Fareham",
-    county: "Hampshire",
-    postcode: "PO14 4LN",
-  },
 };
 
 const links = {
@@ -33,16 +24,6 @@ const links = {
     "https://www.google.com/search?q=Forever+Young+Beauty+by+Layla+reviews",
 };
 
-const openingHours = [
-  { day: "Monday", hours: "11:00 – 19:30" },
-  { day: "Tuesday", hours: "11:00 – 19:30" },
-  { day: "Wednesday", hours: "Closed" },
-  { day: "Thursday", hours: "11:00 – 19:30" },
-  { day: "Friday", hours: "12:00 – 19:30" },
-  { day: "Saturday", hours: "11:00 – 15:00" },
-  { day: "Sunday", hours: "Closed" },
-];
-
 const treatments = [
   {
     category: "Advanced skin",
@@ -60,7 +41,7 @@ const treatments = [
     category: "Advanced skin",
     title: "BioRePeel Chemical Peel",
     description:
-      "A resurfacing treatment for clients seeking a brighter, fresher and more even-looking complexion.",
+      "A professional resurfacing treatment for a brighter, fresher and more even-looking complexion.",
   },
   {
     category: "Facials",
@@ -90,11 +71,405 @@ const treatments = [
     category: "Facials",
     title: "Luxury and Bespoke Facials",
     description:
-      "Personalised facial treatments including hydration, purifying, resurfacing and renewal options.",
+      "Personalised treatments including hydration, purifying, resurfacing and skin-renewal options.",
   },
   {
     category: "Hair and scalp",
     title: "Hair Restoration Treatments",
+    description:
+      "Consultation-led scalp and hair treatments for concerns such as thinning hair, reduced density and a receding hairline.",
+  },
+  {
+    category: "Massage",
+    title: "Massage Therapy",
+    description:
+      "Swedish, deep tissue, back, neck and shoulder, aromatherapy, lymphatic drainage, pregnancy and bespoke massage options.",
+  },
+  {
+    category: "Body",
+    title: "Body and Cellulite Treatments",
+    description:
+      "Body polishing, back treatments and targeted options designed to support smoother-looking skin.",
+  },
+  {
+    category: "Beauty",
+    title: "Waxing, Brows and Tinting",
+    description:
+      "Facial and body waxing, intimate waxing, men’s waxing, eyebrow shaping and tinting.",
+  },
+  {
+    category: "Aesthetics",
+    title: "Consultation-Led Aesthetic Treatments",
+    description:
+      "Selected treatments available following an appropriate consultation and suitability assessment.",
+  },
+  {
+    category: "Wellness",
+    title: "B12 Vitamin Injections",
+    description:
+      "Available following appropriate screening and suitability checks. See Treatwell for current service details.",
+  },
+];
+
+const reviews = [
+  {
+    quote:
+      "Layla is very professional, caring and friendly. She makes sure you are comfortable and relaxed during the treatment. I will definitely be returning on a regular basis.",
+    name: "Corinne",
+    treatment: "CACI Facial",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Layla is amazing! I have had loads of facials over the years, however this was by far the best. Layla is diligent, knowledgeable and is a wonderful therapist. Thank you!",
+    name: "Maxine",
+    treatment: "Facial",
+    source: "Google review",
+  },
+  {
+    quote:
+      "Layla is just wonderful. I’ve recommended her to so many friends and they are all now also returning customers. 10/10 every visit.",
+    name: "Nicky",
+    treatment: "Pregnancy Massage",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Layla is always excellent. She is very professional, thorough and attentive, and the treatment is carried out in a calm, relaxing environment. She is also very good at putting you at ease, which makes the whole experience much more comfortable. I am a regular customer and would highly recommend her.",
+    name: "Terry",
+    treatment: "Men’s Waxing",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Fabulous facial as always. Layla never rushes you and is very experienced.",
+    name: "Caroline",
+    treatment: "CACI Facial",
+    source: "Treatwell verified review",
+  },
+  {
+    quote:
+      "Great treatment as always, and Layla had a cancellation and kindly fitted me in for a massage last minute which was amazing. I really appreciated her being so accommodating with the last minute request!",
+    name: "Anna",
+    treatment: "Ladies’ Waxing",
+    source: "Treatwell verified review",
+  },
+];
+
+const openingHours = [
+  ["Monday", "11:00 – 19:30"],
+  ["Tuesday", "11:00 – 19:30"],
+  ["Wednesday", "Closed"],
+  ["Thursday", "11:00 – 19:30"],
+  ["Friday", "12:00 – 19:30"],
+  ["Saturday", "11:00 – 15:00"],
+  ["Sunday", "Closed"],
+];
+
+const areas = [
+  "Titchfield Common",
+  "Titchfield",
+  "Locks Heath",
+  "Park Gate",
+  "Whiteley",
+  "Warsash",
+  "Sarisbury Green",
+  "Stubbington",
+  "Fareham",
+  "Hamble",
+  "Hedge End",
+  "Gosport",
+  "Southampton",
+  "Portsmouth",
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": ["BeautySalon", "LocalBusiness"],
+  "@id": "https://foreveryoungbeautybylayla.co.uk/#business",
+  name: business.name,
+  url: "https://foreveryoungbeautybylayla.co.uk/",
+  telephone: business.phoneInternational,
+  email: business.email,
+  description:
+    "Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Fareham.",
+  logo:
+    "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
+  image:
+    "https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress:
+      "Beauty at Abshot, Abshot Country Club, Little Abshot Road",
+    addressLocality: "Titchfield Common",
+    addressRegion: "Fareham, Hampshire",
+    postalCode: "PO14 4LN",
+    addressCountry: "GB",
+  },
+  areaServed: areas.map((area) => ({
+    "@type": "Place",
+    name: area,
+  })),
+  sameAs: [
+    links.instagram,
+    links.facebook,
+    links.treatwellProfile,
+  ],
+  potentialAction: {
+    "@type": "ReserveAction",
+    name: "Book an appointment on Treatwell",
+    target: links.treatwell,
+  },
+};
+
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <title>
+      Beauty and Skin Treatments Titchfield Common | Forever Young Beauty by Layla
+    </title>
+
+    <meta
+      name="description"
+      content="Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Locks Heath, Park Gate, Whiteley and Fareham."
+    />
+
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large"
+    />
+
+    <link
+      rel="canonical"
+      href="https://foreveryoungbeautybylayla.co.uk/"
+    />
+
+    <meta name="theme-color" content="#173b4c" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta
+      property="og:title"
+      content="Forever Young Beauty by Layla"
+    />
+
+    <meta
+      property="og:description"
+      content="Personalised beauty, skin, massage and hair-restoration treatments in Titchfield Common."
+    />
+
+    <meta
+      property="og:url"
+      content="https://foreveryoungbeautybylayla.co.uk/"
+    />
+
+    <meta
+      property="og:image"
+      content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta
+      name="twitter:image"
+      content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema)}
+    ></script>
+
+    <style is:global>
+      :root {
+        --navy: #173b4c;
+        --navy-dark: #0d2937;
+        --cream: #f7f3ed;
+        --white: #ffffff;
+        --gold: #aa925f;
+        --gold-light: #dfcdac;
+        --text: #243a45;
+        --muted: #69757b;
+        --border: rgba(23, 59, 76, 0.14);
+        --green: #20965a;
+        --treatwell: #ff5c65;
+        --facebook: #1877f2;
+        --shadow: 0 16px 42px rgba(13, 41, 55, 0.13);
+        --radius: 26px;
+        --small-radius: 16px;
+        --page-width: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 95px;
+      }
+
+      body {
+        margin: 0;
+        padding-bottom: 0;
+        color: var(--text);
+        background: var(--white);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.65;
+      }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+        color: var(--navy);
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 500;
+        line-height: 1.08;
+      }
+
+      h1 {
+        margin-bottom: 22px;
+        font-size: clamp(2.6rem, 7vw, 5.6rem);
+        letter-spacing: -0.045em;
+      }
+
+      h2 {
+        margin-bottom: 18px;
+        font-size: clamp(2.1rem, 5vw, 3.75rem);
+        letter-spacing: -0.035em;
+      }
+
+      h3 {
+        margin-bottom: 12px;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      .container {
+        width: min(calc(100% - 40px), var(--page-width));
+        margin-inline: auto;
+      }
+
+      .section {
+        padding: 88px 0;
+      }
+
+      .section-soft {
+        background: var(--cream);
+      }
+
+      .section-dark {
+        color: var(--white);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(223, 205, 172, 0.16),
+            transparent 38%
+          ),
+          var(--navy);
+      }
+
+      .section-dark h2,
+      .section-dark h3 {
+        color: var(--white);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 15px;
+        color: var(--gold);
+        font-size: 0.8rem;
+        font-weight: 850;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 32px;
+        height: 2px;
+        content: "";
+        background: currentColor;
+      }
+
+      .lead {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.22rem);
+      }
+
+      .section-heading {
+        max-width: 820px;
+        margin: 0 auto 44px;
+        text-align: center;
+      }
+
+      .section-heading .eyebrow {
+        justify-content: center;
+      }
+
+      .section-heading .lead {
+        margin-inline: auto;
+      }
+
+      .topbar {
+        padding: 9px 18px;
+        color: rgba(255, 255, 255, 0.93);
+        background: var(--navy-dark);
+        font-size: 0.84rem;
+        text-align: center;
+      }
+
+      .topbar a {
+        color: var(--gold-light);
+        font-weight: 850;
+      }
+
+      .site-header {
+        position: sticky;
+        z-index: 1000;
+        top: 0;    title: "Hair Restoration Treatments",
     description:
       "Consultation-led scalp and hair treatments for concerns such as thinning hair and changes in hair density.",
   },
