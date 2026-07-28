@@ -596,24 +596,78 @@ const currentYear = new Date().getFullYear();
         background: var(--gold-light);
       }
 
-      .hero-banner-section {
-        padding: 34px 0 52px;
-        background: var(--cream);
-      }
-
-      .hero-banner {
+      /* Opening sequence shown while the page loads. */
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: grid;
+        place-items: center;
         overflow: hidden;
-        width: 100%;
-        background: var(--navy);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
+        min-height: 100vh;
+        min-height: 100svh;
+        padding: 0;
+        background: var(--cream);
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 650ms ease, visibility 650ms ease;
       }
 
-      .hero-banner img {
+      .loading-screen.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loading-stage {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+      }
+
+      .loading-image {
+        position: absolute;
+        inset: 50% auto auto 50%;
         display: block;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.96);
+      }
+
+      .loading-face {
+        width: min(88vw, 560px);
+        height: min(88vw, 560px);
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+        box-shadow: var(--shadow);
+        animation: loadingFace 1.05s ease forwards;
+      }
+
+      /* The square brand image fills at least 85% of the phone screen. */
+      .loading-brand-image {
+        width: 100vw;
+        height: 85vh;
+        height: 85svh;
+        min-height: 85vh;
+        min-height: 85svh;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 0;
+        animation: loadingBrand 1.1s 1.05s ease forwards;
+      }
+
+      @keyframes loadingFace {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+        20%, 72% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(1.03); }
+      }
+
+      @keyframes loadingBrand {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+        22%, 78% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(1.02); }
       }
 
       .hero-content {
@@ -1257,10 +1311,41 @@ const currentYear = new Date().getFullYear();
           transition-duration: 0.01ms !important;
         }
       }
+
+
+      @media (prefers-reduced-motion: reduce) {
+        .loading-face,
+        .loading-brand-image {
+          animation-duration: 0.01ms;
+          animation-delay: 0ms;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <div id="loading-screen" class="loading-screen" aria-hidden="true">
+      <div class="loading-stage">
+        <img
+          class="loading-image loading-face"
+          src="/images/layla-treatment.jpg"
+          alt=""
+          width="1240"
+          height="1240"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <img
+          class="loading-image loading-brand-image"
+          src="/images/og-image.jpg"
+          alt=""
+          width="1200"
+          height="630"
+          loading="eager"
+        />
+      </div>
+    </div>
+
     <div class="topbar">
       Based at Abshot Country Club in Titchfield Common.
       <a
@@ -1344,22 +1429,7 @@ const currentYear = new Date().getFullYear();
     </header>
 
     <main>
-      <section class="hero-banner-section" id="home">
-        <div class="container">
-          <div class="hero-banner">
-            <img
-              src="/images/og-image.jpg"
-              alt="Forever Young Beauty by Layla — over 500 five-star reviews"
-              width="1200"
-              height="630"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section class="hero-content">
+      <section class="hero-content" id="home">
         <div class="container hero-grid">
           <div class="hero-copy">
             <p class="eyebrow">
@@ -1890,6 +1960,22 @@ const currentYear = new Date().getFullYear();
 
     <script is:inline>
       (() => {
+        const loadingScreen = document.getElementById("loading-screen");
+
+        const dismissLoadingScreen = () => {
+          if (!loadingScreen) return;
+          window.setTimeout(() => {
+            loadingScreen.classList.add("is-hidden");
+            window.setTimeout(() => loadingScreen.remove(), 700);
+          }, 2300);
+        };
+
+        if (document.readyState === "complete") {
+          dismissLoadingScreen();
+        } else {
+          window.addEventListener("load", dismissLoadingScreen, { once: true });
+        }
+
         const button = document.getElementById("menu-button");
         const navigation =
           document.getElementById("mobile-navigation");
