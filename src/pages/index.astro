@@ -20,9 +20,35 @@ const links = {
   phone: "tel:+447799890398",
   email: "mailto:layla.radestock@hotmail.com",
   maps: "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9",
-  googleReviews:
-    "https://www.google.com/search?q=Forever+Young+Beauty+by+Layla+reviews",
+  // Canonical Google Business Profile link, built from the listing's CID
+  // (0xb6bf12f61af5ccef = 13168264683678190831). The ?cid= form is stable and
+  // survives name or address edits, unlike the long /maps/place/... URL and
+  // unlike the previous search-results URL, which passed no signal at all.
+  googleProfile: "https://www.google.com/maps?cid=13168264683678190831",
+  googleReviews: "https://www.google.com/maps?cid=13168264683678190831",
 };
+
+// Confirmed coordinates for the treatment room at Abshot Country Club.
+const geo = {
+  latitude: 50.8485564,
+  longitude: -1.2684209,
+};
+
+/*
+  A correction to what I suggested earlier: I've dropped aggregateRating rather
+  than filling it in.
+
+  Google's structured data policy treats reviews a business collects and
+  publishes about itself as "self-serving", and self-serving reviews are not
+  eligible for review snippets on LocalBusiness or Organization markup. Google
+  sources the stars for a local listing from the Business Profile instead. So
+  the block would very likely have been ignored, and an inflated count is a
+  manual action risk for no upside.
+
+  For reference, the real numbers as they stand: Google shows 5.0 from 9
+  reviews. The "over 500" figure on the page is the Treatwell total, which is
+  fine as visible copy — it just isn't something to assert as schema here.
+*/
 
 const treatments = [
   {
@@ -183,6 +209,59 @@ const areas = [
   "Portsmouth",
 ];
 
+// Deliberately phrased as a floor rather than an exact count, so it stays true
+// as the total climbs and never needs maintaining. Only revisit if the milestone
+// changes (e.g. past 1,000). Treatwell stood at 5.0 from 567 when last checked,
+// July 2026.
+const reviewsClaim = "Over 500 five-star reviews";
+
+// FAQs now live in one place and drive both the visible <details> list and the
+// FAQPage structured data. Google requires the two to match, so keeping a single
+// source of truth stops them drifting apart when copy gets edited.
+const faqs = [
+  {
+    question: "How do I book a treatment?",
+    answer:
+      "Select any Book on Treatwell button to view treatment choices and available appointment times.",
+  },
+  {
+    question: "Can I ask a question before booking?",
+    answer: `Yes. Message Layla on WhatsApp or call ${business.phoneDisplay}.`,
+  },
+  {
+    question: "Are treatment results guaranteed?",
+    answer:
+      "No. Results vary according to the client, treatment, suitability, skin or hair condition, lifestyle and aftercare.",
+  },
+  {
+    question: "Where is the treatment room?",
+    answer:
+      "Beauty at Abshot, Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, PO14 4LN.",
+  },
+  {
+    question: "Is there parking at Abshot Country Club?",
+    answer:
+      "Yes. There is free on-site parking, with the treatment room a short walk from the car park.",
+  },
+  {
+    question: "Which areas do clients travel from?",
+    answer:
+      "Most clients come from Titchfield Common, Locks Heath, Park Gate, Whiteley, Warsash, Sarisbury Green, Stubbington and Fareham, with others travelling from Gosport, Hedge End, Southampton and Portsmouth.",
+  },
+];
+
+// Machine-readable mirror of the openingHours display array above.
+const openingHoursSchema = [
+  { days: ["Monday", "Tuesday", "Thursday"], opens: "11:00", closes: "19:30" },
+  { days: ["Friday"], opens: "12:00", closes: "19:30" },
+  { days: ["Saturday"], opens: "11:00", closes: "15:00" },
+].map((slot) => ({
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: slot.days,
+  opens: slot.opens,
+  closes: slot.closes,
+}));
+
 const schema = {
   "@context": "https://schema.org",
   "@type": ["BeautySalon", "LocalBusiness"],
@@ -195,31 +274,90 @@ const schema = {
     "Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Fareham.",
   logo:
     "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
-  image:
+  image: [
     "https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg",
+    "https://foreveryoungbeautybylayla.co.uk/images/layla-treatment.jpg",
+  ],
   address: {
     "@type": "PostalAddress",
     streetAddress:
       "Beauty at Abshot, Abshot Country Club, Little Abshot Road",
     addressLocality: "Titchfield Common",
-    addressRegion: "Fareham, Hampshire",
+    // addressRegion should be the county alone — the town belongs in
+    // addressLocality, and mixing them can weaken the address match.
+    addressRegion: "Hampshire",
     postalCode: "PO14 4LN",
     addressCountry: "GB",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: geo.latitude,
+    longitude: geo.longitude,
+  },
+  hasMap: links.maps,
+  currenciesAccepted: "GBP",
+  priceRange: "££",
+  openingHoursSpecification: openingHoursSchema,
   areaServed: areas.map((area) => ({
     "@type": "Place",
     name: area,
   })),
+  // Reuses the treatments array, so the service list can never drift out of
+  // sync with what the page actually shows.
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Treatment menu",
+    itemListElement: treatments.map((treatment) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: treatment.title,
+        serviceType: treatment.category,
+        description: treatment.description,
+      },
+      url: links.treatwell,
+    })),
+  },
   sameAs: [
     links.instagram,
     links.facebook,
     links.treatwellProfile,
+    links.googleProfile,
   ],
   potentialAction: {
     "@type": "ReserveAction",
     name: "Book an appointment on Treatwell",
-    target: links.treatwell,
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: links.treatwell,
+      inLanguage: "en-GB",
+      actionPlatform: [
+        "http://schema.org/DesktopWebPlatform",
+        "http://schema.org/MobileWebPlatform",
+      ],
+    },
+    result: {
+      "@type": "Reservation",
+      name: "Treatment booking",
+    },
   },
+};
+
+// Separate FAQPage graph. This is the block that can win an expandable FAQ
+// result in Google, and it only stays valid while the same questions and
+// answers remain visible on the page.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://foreveryoungbeautybylayla.co.uk/#faq",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
 };
 
 const currentYear = new Date().getFullYear();
@@ -234,13 +372,21 @@ const currentYear = new Date().getFullYear();
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
 
-    <title>
-      Beauty and Skin Treatments Titchfield Common | Forever Young Beauty by Layla
-    </title>
+    {/*
+      Title was 76 characters, so Google truncated it, and it led with
+      Titchfield Common — accurate, but a fraction of Fareham's search volume.
+      This is 54 characters and leads with the term people actually type.
+    */}
+    <title>Beauty &amp; Skin Treatments Fareham | Forever Young Beauty</title>
 
+    {/*
+      Description now names the individual treatments people search for and
+      leads with social proof. Not a ranking factor, but it decides whether
+      anyone clicks the result once it's shown.
+    */}
     <meta
       name="description"
-      content="Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Locks Heath, Park Gate, Whiteley and Fareham."
+      content={`Facials, microneedling, dermaplaning, massage, waxing and hair restoration in Titchfield Common, Fareham. ${reviewsClaim}. Book online with Treatwell.`}
     />
 
     <meta
@@ -258,10 +404,17 @@ const currentYear = new Date().getFullYear();
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content="Forever Young Beauty by Layla" />
-    <meta property="og:title" content="Forever Young Beauty by Layla" />
+    <meta
+      property="og:title"
+      content="Forever Young Beauty by Layla | Titchfield Common, Fareham"
+    />
     <meta
       property="og:description"
-      content="Personalised beauty, skin, massage and hair-restoration treatments in Titchfield Common."
+      content={`Personalised facials, advanced skin treatments, massage, waxing and hair restoration at Beauty at Abshot. ${reviewsClaim}.`}
+    />
+    <meta
+      property="og:image:alt"
+      content="Layla carrying out a professional facial treatment at Beauty at Abshot"
     />
     <meta
       property="og:url"
@@ -281,6 +434,11 @@ const currentYear = new Date().getFullYear();
     <script
       type="application/ld+json"
       set:html={JSON.stringify(schema)}
+    ></script>
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(faqSchema)}
     ></script>
 
     <style is:global>
@@ -1470,7 +1628,11 @@ const currentYear = new Date().getFullYear();
               Beauty at Abshot · Titchfield Common
             </p>
 
-            <h1>Advanced beauty, skin and wellness treatments</h1>
+            {/*
+              The H1 previously carried no location at all, which left the
+              single strongest on-page signal doing nothing for local search.
+            */}
+            <h1>Advanced beauty, skin and wellness treatments near Fareham</h1>
 
             <p class="lead">
               Personalised facials, advanced skin treatments, massage,
@@ -1584,12 +1746,24 @@ const currentYear = new Date().getFullYear();
             <h2>Real treatment imagery</h2>
           </div>
 
+          {/*
+            These five images have no width/height, so the browser can't
+            reserve space and the page jumps as they load — that's Cumulative
+            Layout Shift, a live ranking signal. I haven't guessed dimensions,
+            because wrong ones cause more shift than none at all. Run this in
+            the project root and paste the real numbers in:
+
+              identify -format "%f %w %h\n" public/images/*.jpg
+
+            (or, without ImageMagick: `file public/images/*.jpg`)
+          */}
           <div class="gallery-grid">
             <article class="gallery-card">
               <img
                 src="/images/caci-before-after.jpg"
                 alt="Facial skin treatment before and after comparison"
                 loading="lazy"
+                decoding="async"
               />
             </article>
 
@@ -1598,6 +1772,7 @@ const currentYear = new Date().getFullYear();
                 src="/images/jawline-before-after.jpg"
                 alt="Jawline treatment before and after comparison"
                 loading="lazy"
+                decoding="async"
               />
             </article>
 
@@ -1606,6 +1781,7 @@ const currentYear = new Date().getFullYear();
                 src="/images/hairline-treatment.jpg"
                 alt="Receding hairline treatment before and after comparison"
                 loading="lazy"
+                decoding="async"
               />
             </article>
 
@@ -1614,6 +1790,7 @@ const currentYear = new Date().getFullYear();
                 src="/images/hair-growth-before-after.jpg"
                 alt="Scalp hair-growth treatment before and after comparison"
                 loading="lazy"
+                decoding="async"
               />
             </article>
           </div>
@@ -1633,6 +1810,7 @@ const currentYear = new Date().getFullYear();
             src="/images/Shelley-review.jpg"
             alt="Client review for Forever Young Beauty by Layla"
             loading="lazy"
+            decoding="async"
           />
 
           <div class="review-feature-copy">
@@ -1660,7 +1838,7 @@ const currentYear = new Date().getFullYear();
         <div class="container">
           <div class="section-heading">
             <p class="eyebrow">What clients say</p>
-            <h2>Over 500 five-star reviews</h2>
+            <h2>{reviewsClaim}</h2>
 
             <p class="lead">
               Feedback from clients who have visited Layla for facials,
@@ -1828,38 +2006,21 @@ const currentYear = new Date().getFullYear();
             <h2>Planning your appointment</h2>
           </div>
 
+          {/*
+            Rendered from the faqs array so the visible copy and the FAQPage
+            structured data can never disagree. Two extra questions have been
+            added — parking and travel areas — because both are real local
+            search queries and both were previously unanswered.
+          */}
           <div class="faq-list">
-            <details>
-              <summary>How do I book a treatment?</summary>
-              <p>
-                Select any Book on Treatwell button to view treatment choices
-                and available appointment times.
-              </p>
-            </details>
-
-            <details>
-              <summary>Can I ask a question before booking?</summary>
-              <p>
-                Yes. Message Layla on WhatsApp or call
-                {business.phoneDisplay}.
-              </p>
-            </details>
-
-            <details>
-              <summary>Are treatment results guaranteed?</summary>
-              <p>
-                No. Results vary according to the client, treatment,
-                suitability, skin or hair condition, lifestyle and aftercare.
-              </p>
-            </details>
-
-            <details>
-              <summary>Where is the treatment room?</summary>
-              <p>
-                Beauty at Abshot, Abshot Country Club, Little Abshot Road,
-                Titchfield Common, Fareham, PO14 4LN.
-              </p>
-            </details>
+            {
+              faqs.map((faq) => (
+                <details>
+                  <summary>{faq.question}</summary>
+                  <p>{faq.answer}</p>
+                </details>
+              ))
+            }
           </div>
         </div>
       </section>
