@@ -1094,16 +1094,19 @@ const currentYear = new Date().getFullYear();
         bottom: 0;
         left: 0;
         display: none;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr 1fr;
         gap: 9px;
-        padding: 10px 13px;
+        padding: 10px 13px calc(10px + env(safe-area-inset-bottom));
         background: rgba(255, 255, 255, 0.98);
         border-top: 1px solid var(--border);
         box-shadow: 0 -8px 28px rgba(23, 59, 76, 0.14);
       }
 
       .mobile-booking-bar .button {
+        width: 100%;
         min-height: 49px;
+        padding-inline: 10px;
+        white-space: nowrap;
       }
 
       :focus-visible {
@@ -1261,7 +1264,7 @@ const currentYear = new Date().getFullYear();
         background: #ffffff;
         opacity: 1;
         visibility: visible;
-        transition: opacity 2.4s ease, visibility 2.4s ease;
+        transition: opacity 0.7s ease, visibility 0.7s ease;
       }
 
       .opening-loader.is-leaving {
@@ -1277,7 +1280,7 @@ const currentYear = new Date().getFullYear();
         place-items: center;
         padding: 18px;
         opacity: 0;
-        transition: opacity 1.35s ease;
+        transition: opacity 0.65s ease;
       }
 
       .opening-slide.is-visible {
@@ -1306,6 +1309,19 @@ const currentYear = new Date().getFullYear();
         height: min(85vh, 680px);
         height: min(85svh, 680px);
         border-radius: 50%;
+      }
+
+
+
+      .flying-header-logo {
+        position: fixed;
+        z-index: 100000;
+        display: block;
+        border-radius: 50%;
+        object-fit: contain;
+        pointer-events: none;
+        transform-origin: center;
+        will-change: transform, opacity;
       }
 
       body.loader-active {
@@ -1960,6 +1976,26 @@ const currentYear = new Date().getFullYear();
       </div>
     </footer>
 
+    <!-- Fixed mobile booking bar -->
+    <div class="mobile-booking-bar" aria-label="Quick booking options">
+      <a
+        class="button button-treatwell"
+        href={links.treatwell}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Book on Treatwell
+      </a>
+
+      <a
+        class="button button-whatsapp"
+        href={links.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+    </div>
 
     <script is:inline>
       (() => {
@@ -1973,21 +2009,66 @@ const currentYear = new Date().getFullYear();
         }
 
         const startSequence = () => {
-          // Layla remains fully visible first, then crossfades to the logo.
+          // Show Layla for two seconds, then crossfade to the round logo.
           window.setTimeout(() => {
             face.classList.remove("is-visible");
             logo.classList.add("is-visible");
-          }, 3600);
+          }, 2000);
 
-          // Hold the logo, then slowly fade the entire opening screen away.
+          // After two seconds on the logo, fly it into the header.
           window.setTimeout(() => {
-            loader.classList.add("is-leaving");
-            document.body.classList.remove("loader-active");
-          }, 7200);
+            const sourceImage = logo.querySelector("img");
+            const headerImage = document.querySelector(".brand img");
 
-          window.setTimeout(() => {
-            loader.remove();
-          }, 9800);
+            if (sourceImage && headerImage) {
+              const sourceRect = sourceImage.getBoundingClientRect();
+              const targetRect = headerImage.getBoundingClientRect();
+              const flyingLogo = sourceImage.cloneNode(true);
+
+              flyingLogo.className = "flying-header-logo";
+              flyingLogo.style.left = `${sourceRect.left}px`;
+              flyingLogo.style.top = `${sourceRect.top}px`;
+              flyingLogo.style.width = `${sourceRect.width}px`;
+              flyingLogo.style.height = `${sourceRect.height}px`;
+              document.body.appendChild(flyingLogo);
+
+              logo.classList.remove("is-visible");
+              loader.classList.add("is-leaving");
+              document.body.classList.remove("loader-active");
+
+              const translateX = targetRect.left - sourceRect.left;
+              const translateY = targetRect.top - sourceRect.top;
+              const scaleX = targetRect.width / sourceRect.width;
+              const scaleY = targetRect.height / sourceRect.height;
+
+              const animation = flyingLogo.animate(
+                [
+                  {
+                    transform: "translate(0, 0) scale(1)",
+                    opacity: 1,
+                  },
+                  {
+                    transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+                    opacity: 1,
+                  },
+                ],
+                {
+                  duration: 950,
+                  easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                  fill: "forwards",
+                }
+              );
+
+              animation.finished.finally(() => {
+                flyingLogo.remove();
+                loader.remove();
+              });
+            } else {
+              loader.classList.add("is-leaving");
+              document.body.classList.remove("loader-active");
+              window.setTimeout(() => loader.remove(), 800);
+            }
+          }, 4000);
         };
 
         if (document.readyState === "complete") {
