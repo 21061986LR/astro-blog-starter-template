@@ -503,7 +503,12 @@ const currentYear = new Date().getFullYear();
 
       html {
         scroll-behavior: smooth;
-        scroll-padding-top: 95px;
+        /*
+          Anchor targets must clear the sticky top block. This was 95px when
+          only the header stuck; the topbar now sticks with it and wraps to two
+          lines on narrow screens, so the offset has to cover both.
+        */
+        scroll-padding-top: 175px;
       }
 
       body {
@@ -638,7 +643,28 @@ const currentYear = new Date().getFullYear();
         margin-inline: auto;
       }
 
+      /*
+        The whole top block sticks as one unit, matching the fixed booking bar
+        at the bottom. Sticky rather than fixed so it still occupies layout
+        space and nothing needs a compensating padding-top on the body.
+      */
+      .site-top {
+        position: sticky;
+        z-index: 1000;
+        top: 0;
+      }
+
+      /*
+        Flex with wrap means the break falls between the sentence and the link
+        rather than mid-phrase. One line on wide screens, two clean lines on a
+        phone.
+      */
       .topbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: center;
+        gap: 2px 8px;
         padding: 9px 18px;
         color: rgba(255, 255, 255, 0.93);
         background: var(--navy-dark);
@@ -652,9 +678,6 @@ const currentYear = new Date().getFullYear();
       }
 
       .site-header {
-        position: sticky;
-        z-index: 1000;
-        top: 0;
         border-bottom: 1px solid var(--border);
         background: rgba(255, 255, 255, 0.97);
         backdrop-filter: blur(15px);
@@ -1363,6 +1386,26 @@ const currentYear = new Date().getFullYear();
           padding-bottom: 92px;
         }
 
+        /*
+          The topbar is hidden here, not removed. Between the sticky top block
+          and the fixed booking bar, a phone was giving up too much of the
+          viewport to permanent furniture. Nothing is lost: the address appears
+          again in Find Us and in the footer, and the booking link is already
+          the primary button in the bar at the bottom.
+        */
+        .topbar {
+          display: none;
+        }
+
+        /*
+          Anchor offset drops to match — only the header sticks at this width,
+          so the 175px used on desktop would leave a large gap above each
+          section when jumping from the menu.
+        */
+        html {
+          scroll-padding-top: 88px;
+        }
+
         .container {
           width: min(calc(100% - 28px), var(--page-width));
         }
@@ -1474,7 +1517,7 @@ const currentYear = new Date().getFullYear();
 
       .opening-logo img {
         display: block;
-        width: min(62vw, 340px);
+        width: min(88vw, 510px);
         height: auto;
         border-radius: 50%;
         animation: logo-settle 0.7s ease both;
@@ -1531,16 +1574,23 @@ const currentYear = new Date().getFullYear();
         />
       </div>
     </div>
-    <div class="topbar">
-      Based at Abshot Country Club in Titchfield Common.
-      <a
-        href={links.treatwell}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Book online with Treatwell
-      </a>
-    </div>
+    {/*
+      Topbar and header share a sticky wrapper so the whole top block moves as
+      one unit. Sticking them separately would mean hardcoding the topbar's
+      height into the header's `top` value, which breaks the moment the topbar
+      wraps to two lines on a narrow screen.
+    */}
+    <div class="site-top">
+      <div class="topbar">
+        <span>Based at Abshot Country Club in Titchfield Common.</span>
+        <a
+          href={links.treatwell}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Book online with Treatwell
+        </a>
+      </div>
 
     <header class="site-header">
       <div class="container header-inner">
@@ -1612,7 +1662,8 @@ const currentYear = new Date().getFullYear();
           View treatments and book
         </a>
       </nav>
-    </header>
+      </header>
+    </div>
 
     <main>
 
@@ -1622,7 +1673,7 @@ const currentYear = new Date().getFullYear();
         <div class="container hero-grid">
           <div class="hero-copy">
             <p class="eyebrow">
-              Beauty at Abshot · Titchfield Common
+              Forever Young Beauty at Abshot Country Club
             </p>
 
             {/*
@@ -2182,7 +2233,7 @@ const currentYear = new Date().getFullYear();
           "(prefers-reduced-motion: reduce)"
         ).matches;
 
-        const hold = reduceMotion ? 0 : 1100;
+        const hold = reduceMotion ? 0 : 2100;
 
         const start = () => window.setTimeout(dismiss, hold);
 
@@ -2196,8 +2247,10 @@ const currentYear = new Date().getFullYear();
           Safety net. The old sequence only ever started on window.load, so a
           slow or failed image could leave the overlay covering the page
           indefinitely with scrolling locked. This guarantees it clears.
+          Must stay comfortably above `hold`, or it would cut the intro short
+          on slower connections.
         */
-        window.setTimeout(dismiss, 3500);
+        window.setTimeout(dismiss, 4500);
 
         // Let anyone impatient tap or scroll straight past it.
         loader.addEventListener("click", dismiss);
