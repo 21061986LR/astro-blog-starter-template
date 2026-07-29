@@ -711,6 +711,25 @@ const currentYear = new Date().getFullYear();
         font-size: 1.16rem;
       }
 
+      /*
+        Mirrors the lockup inside the round logo: the wordmark with a smaller,
+        letterspaced "by Layla" in gold sitting beneath it.
+      */
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        line-height: 1.15;
+      }
+
+      .brand-suffix {
+        color: var(--gold);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
       .desktop-nav {
         display: flex;
         align-items: center;
@@ -1602,7 +1621,10 @@ const currentYear = new Date().getFullYear();
             height="120"
             loading="eager"
           />
-          <strong>Forever Young Beauty</strong>
+          <span class="brand-text">
+            <strong>Forever Young Beauty</strong>
+            <span class="brand-suffix">by Layla</span>
+          </span>
         </a>
 
         <nav class="desktop-nav" aria-label="Main navigation">
