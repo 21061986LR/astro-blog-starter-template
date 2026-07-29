@@ -208,6 +208,44 @@ const reviews = [
     treatment: "Ladies’ Waxing",
     source: "Treatwell verified review",
   },
+  /*
+    The five below were previously only visible as Instagram graphics. As text
+    they are readable by Google and by screen readers, and they avoid the
+    problem those graphics had: four of them paired a named review with a stock
+    photograph of a person who wasn't the client, which reads as misleading
+    once it sits on a business website rather than a social feed.
+
+    `source` is "Client review" rather than "Treatwell verified review" because
+    the original platform isn't known from the graphics. If Layla can identify
+    where each came from, upgrading the attribution makes them stronger — a
+    named platform is far more persuasive than an unsourced quote. Treatment is
+    left off where the review doesn't state one; don't guess.
+  */
+  {
+    quote: "Wonderful massage. Highly recommended.",
+    name: "Debbie",
+    treatment: "Massage",
+    source: "Client review",
+  },
+  {
+    quote:
+      "Layla listened to my requests and provided the treatment required. A lovely, beneficial facial and arm massage.",
+    name: "Julia",
+    treatment: "Facial and Massage",
+    source: "Client review",
+  },
+  {
+    quote: "Layla was great and patient. Great service all around.",
+    name: "Emma",
+    source: "Client review",
+  },
+  {
+    quote:
+      "I’m really happy with the results. My skin is definitely better than it looks in the last picture, mostly blemishes from previous breakouts, but I am positive the blemishes will fade with frequent treatments.",
+    name: "Stella",
+    treatment: "Skin Treatment",
+    source: "Client review",
+  },
 ];
 
 const openingHours = [
@@ -1098,17 +1136,17 @@ const currentYear = new Date().getFullYear();
 
       .social-grid {
         display: grid;
-        gap: 18px;
+        gap: 14px;
         grid-template-columns: repeat(3, 1fr);
       }
 
       .social-card {
         display: grid;
-        min-height: 175px;
+        min-height: 112px;
         align-content: center;
         justify-items: center;
-        gap: 9px;
-        padding: 26px;
+        gap: 5px;
+        padding: 18px;
         color: var(--white);
         border-radius: var(--radius);
         text-align: center;
@@ -1118,11 +1156,12 @@ const currentYear = new Date().getFullYear();
 
       .social-card strong {
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 1.55rem;
+        font-size: 1.22rem;
       }
 
       .social-card span {
         color: rgba(255, 255, 255, 0.86);
+        font-size: 0.86rem;
       }
 
       .social-whatsapp {
@@ -1142,6 +1181,17 @@ const currentYear = new Date().getFullYear();
 
       .social-facebook {
         background: var(--facebook);
+      }
+
+      /*
+        The two room photographs are different shapes, so they are cropped to a
+        common square here. Without this the grid row is set by the taller
+        portrait image and the landscape one floats in a gap.
+      */
+      .room-grid img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        object-position: center;
       }
 
       .location-grid {
@@ -1387,8 +1437,30 @@ const currentYear = new Date().getFullYear();
           grid-template-columns: repeat(2, 1fr);
         }
 
+        /*
+          Stacked full-width blocks at 175px tall took up most of a phone
+          screen for three links. As compact left-aligned bars they read as
+          navigation rather than billboards, and the whole set fits in view.
+        */
         .social-grid {
+          gap: 10px;
           grid-template-columns: 1fr;
+        }
+
+        .social-card {
+          min-height: 0;
+          justify-items: start;
+          gap: 2px;
+          padding: 13px 18px;
+          text-align: left;
+        }
+
+        .social-card strong {
+          font-size: 1.05rem;
+        }
+
+        .social-card span {
+          font-size: 0.82rem;
         }
 
         .footer-grid {
@@ -1926,8 +1998,12 @@ const currentYear = new Date().getFullYear();
 
                   <footer>
                     <strong>{review.name}</strong>
-                    {" · "}
-                    {review.treatment}
+                    {review.treatment && (
+                      <>
+                        {" · "}
+                        {review.treatment}
+                      </>
+                    )}
                     {" · "}
                     {review.source}
                   </footer>
@@ -1967,16 +2043,6 @@ const currentYear = new Date().getFullYear();
 
           <div class="social-grid">
             <a
-              class="social-card social-whatsapp"
-              href={links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <strong>WhatsApp</strong>
-              <span>Ask Layla about a treatment</span>
-            </a>
-
-            <a
               class="social-card social-instagram"
               href={links.instagram}
               target="_blank"
@@ -1995,6 +2061,67 @@ const currentYear = new Date().getFullYear();
               <strong>Facebook</strong>
               <span>Follow news and local updates</span>
             </a>
+
+            <a
+              class="social-card social-whatsapp"
+              href={links.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>WhatsApp</strong>
+              <span>Ask Layla about a treatment</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/*
+        Interior photography. The site talked repeatedly about a calm, private
+        treatment room but never showed it, which is the single most reassuring
+        thing a first-time client can see before booking.
+
+        Both files are colour-corrected and web-optimised, and their real
+        dimensions are set below so nothing shifts as they load.
+
+        The two photographs are different shapes — one portrait, one landscape
+        — so `.room-grid` crops both to a square with object-fit. If you would
+        rather see them uncropped, delete the aspect-ratio and object-fit lines
+        in .room-grid img and they will fall back to their natural proportions.
+      */}
+      <section class="section section-soft" id="the-room">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">The space</p>
+            <h2>A calm, private treatment room</h2>
+            <p class="lead">
+              Treatments take place in a private room at Beauty at Abshot,
+              inside Abshot Country Club. One client at a time, no busy salon
+              floor, and free parking a short walk from the door.
+            </p>
+          </div>
+
+          <div class="gallery-grid room-grid">
+            <article class="gallery-card">
+              <img
+                src="/images/abshot-entrance.jpg"
+                alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
+                width="1078"
+                height="809"
+                loading="lazy"
+                decoding="async"
+              />
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="/images/treatment-room.jpg"
+                alt="The treatment room, with a couch, treatment lamp and a navy and gold botanical print"
+                width="888"
+                height="1400"
+                loading="lazy"
+                decoding="async"
+              />
+            </article>
           </div>
         </div>
       </section>
