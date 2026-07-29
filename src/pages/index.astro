@@ -410,6 +410,28 @@ const gallery = [
   { type: "video", ...videos[2] },
   { type: "image", ...results[5] },
   { type: "video", ...videos[3] },
+  /*
+    The room photographs close the gallery. Results first, setting last —
+    someone still deciding wants to see outcomes before decor, and finishing on
+    the room leaves them with the calm-and-private impression just before the
+    treatment menu.
+  */
+  {
+    type: "image",
+    src: "/images/treatment-room.jpg",
+    width: 888,
+    height: 1400,
+    alt: "The treatment room, with a couch, treatment lamp and a navy and gold botanical print",
+    caption: "The treatment room",
+  },
+  {
+    type: "image",
+    src: "/images/abshot-entrance.jpg",
+    width: 1078,
+    height: 809,
+    alt: "The etched glass entrance to Beauty at Abshot at Abshot Country Club",
+    caption: "Beauty at Abshot entrance",
+  },
 ];
 
 const openingHours = [
@@ -1410,17 +1432,26 @@ const currentYear = new Date().getFullYear();
       }
 
       /*
-        Clips are portrait, stills are square. Giving video a 3/4 box inside the
-        same carousel keeps each in a sensible shape without cropping either
-        badly — the row height follows the tallest, which is fine at two items
-        per screen.
+        Every slide is the same square, photo or clip. Mixing a 3/4 video box
+        with square stills made the row ragged: different heights, captions at
+        different depths, and a visible jolt on each swipe. Uniform tiles crop
+        the portrait clips a little but the section reads as one gallery rather
+        than a pile of mismatched cards.
       */
       .carousel-slide video.is-clip {
-        aspect-ratio: 3 / 4;
         background: var(--navy-dark);
       }
 
+      /*
+        Captions run from two words to six. A fixed minimum height keeps every
+        tile the same overall depth, so the dots and arrows don't shift as you
+        swipe between a short caption and a long one.
+      */
       .carousel-slide figcaption {
+        display: flex;
+        min-height: 2.9em;
+        align-items: flex-start;
+        justify-content: center;
         margin-top: 9px;
         font-size: 0.86rem;
         text-align: center;
@@ -1501,12 +1532,6 @@ const currentYear = new Date().getFullYear();
         .carousel-track {
           scroll-behavior: auto;
         }
-      }
-
-      .room-grid img {
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        object-position: center;
       }
 
       .location-grid {
@@ -2142,8 +2167,8 @@ const currentYear = new Date().getFullYear();
             <ul class="benefits">
               <li>Friendly one-to-one appointments with Layla.</li>
               <li>
-                A convenient location at Abshot Country Club in Titchfield
-                Common.
+                A private treatment room at Abshot Country Club in Titchfield
+                Common, with free parking on site.
               </li>
               <li>
                 Easy to reach from Locks Heath, Park Gate, Whiteley, Warsash
@@ -2177,8 +2202,9 @@ const currentYear = new Date().getFullYear();
             <p class="eyebrow">Gallery</p>
             <h2>Real treatments, real results</h2>
             <p class="lead">
-              Before and after photographs and short clips from recent
-              appointments. Swipe to browse, and tap any clip to play.
+              Before and after photographs, short clips from recent appointments
+              and a look at the treatment room. Swipe to browse, and tap any
+              clip to play.
             </p>
           </div>
 
@@ -2435,62 +2461,6 @@ const currentYear = new Date().getFullYear();
               <strong>WhatsApp</strong>
               <span>Ask Layla about a treatment</span>
             </a>
-          </div>
-        </div>
-      </section>
-
-      {/*
-        Interior photography. The site talked repeatedly about a calm, private
-        treatment room but never showed it, which is the single most reassuring
-        thing a first-time client can see before booking.
-
-        Both files are colour-corrected and web-optimised, and their real
-        dimensions are set below so nothing shifts as they load.
-
-        The two photographs are different shapes — one portrait, one landscape
-        — so `.room-grid` crops both to a square with object-fit. If you would
-        rather see them uncropped, delete the aspect-ratio and object-fit lines
-        in .room-grid img and they will fall back to their natural proportions.
-      */}
-      {/*
-        Video section. Sits after the still results so the page has its
-        strongest evidence first, and so nothing heavier than a poster image
-        loads above the fold.
-      */}
-      <section class="section section-soft" id="the-room">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">The space</p>
-            <h2>A calm, private treatment room</h2>
-            <p class="lead">
-              Treatments take place in a private room at Beauty at Abshot,
-              inside Abshot Country Club. One client at a time, no busy salon
-              floor, and free parking a short walk from the door.
-            </p>
-          </div>
-
-          <div class="gallery-grid room-grid">
-            <article class="gallery-card">
-              <img
-                src="/images/abshot-entrance.jpg"
-                alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
-                width="1078"
-                height="809"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
-
-            <article class="gallery-card">
-              <img
-                src="/images/treatment-room.jpg"
-                alt="The treatment room, with a couch, treatment lamp and a navy and gold botanical print"
-                width="888"
-                height="1400"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
           </div>
         </div>
       </section>
