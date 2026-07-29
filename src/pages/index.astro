@@ -248,6 +248,109 @@ const reviews = [
   },
 ];
 
+/*
+  Before and after imagery, newest and strongest first.
+
+  The two legacy files have no dimensions because I never had their real pixel
+  sizes. Get them with:  identify -format "%f %w %h\n" public/images/*.jpg
+  Until then those two slides can shift slightly as they load.
+*/
+const results = [
+  {
+    src: "/images/biorepeel-before-after-two-sessions.jpg",
+    width: 1079,
+    height: 1080,
+    alt: "Cheek pigmentation and redness before BioRePeel, after one session and after two sessions",
+    caption: "BioRePeel, across two sessions",
+  },
+  {
+    src: "/images/pigmentation-before-after.jpg",
+    width: 1078,
+    height: 1080,
+    alt: "Reduced pigmentation and more even skin tone across the cheek and eye area after treatment",
+    caption: "Pigmentation and skin tone",
+  },
+  {
+    src: "/images/forehead-lines-before-after.jpg",
+    width: 1078,
+    height: 1080,
+    alt: "Smoother forehead texture and softened fine lines after treatment",
+    caption: "Forehead texture and fine lines",
+  },
+  {
+    src: "/images/eye-area-fine-lines-before-after.jpg",
+    width: 1049,
+    height: 1055,
+    alt: "Softened fine lines and improved texture around the eye area after treatment",
+    caption: "Eye area",
+  },
+  {
+    src: "/images/caci-before-after.jpg",
+    alt: "Facial skin treatment before and after comparison",
+    caption: "CACI facial",
+  },
+  {
+    src: "/images/jawline-before-after.jpg",
+    alt: "Jawline treatment before and after comparison",
+    caption: "Jawline",
+  },
+];
+
+/*
+  Treatment clips, taken from Instagram and re-encoded for the web (18MB down
+  to 1.9MB across the three).
+
+  Self-hosted deliberately, rather than using Instagram's embed. That embed
+  needs over 100KB of Meta JavaScript, loads their tracking on your site — which
+  brings cookie-consent obligations under PECR — and often shows "content
+  unavailable" to logged-out visitors. Self-hosting avoids all three and gives
+  you control over playback.
+
+  Nothing downloads until someone taps play: preload="none" means only the
+  poster image loads with the page.
+
+  Audio was stripped during encoding, since these play silently like social
+  clips. If any of them has a voiceover worth keeping, say so and it can be
+  re-encoded with sound.
+
+  Filenames stay as treatment-clip-N because the files are already uploaded.
+  Descriptive names (collagen-lift-facial.mp4 and so on) would earn a little in
+  image and video search, so worth renaming if you ever re-upload — but it is a
+  marginal gain and not worth breaking working links for.
+
+  Collagen Lift is named in the captions because it maps to a real bookable
+  Treatwell listing (Collagen Lift Radio Frequency). The first clip is
+  deliberately not tied to a named treatment: the device is visible but not
+  identifiable with enough confidence, and naming the wrong one would send
+  people to the wrong booking. Update that caption if Layla confirms it.
+*/
+const videos = [
+  {
+    src: "/videos/treatment-clip-1.mp4",
+    poster: "/videos/treatment-clip-1-poster.jpg",
+    width: 720,
+    height: 1280,
+    caption: "Advanced facial treatment",
+    alt: "Layla carrying out a precise facial treatment across the forehead and brow area with a handheld device, working to marked treatment zones",
+  },
+  {
+    src: "/videos/treatment-clip-2.mp4",
+    poster: "/videos/treatment-clip-2-poster.jpg",
+    width: 720,
+    height: 762,
+    caption: "Collagen Lift facial",
+    alt: "A Collagen Lift treatment being applied across the cheeks, jawline and lower face, ending with a before and after comparison",
+  },
+  {
+    src: "/videos/treatment-clip-3.mp4",
+    poster: "/videos/treatment-clip-3-poster.jpg",
+    width: 484,
+    height: 710,
+    caption: "Collagen Lift, after a course of six",
+    alt: "Close-up before and after comparison of the lower face, chin and neck following a course of six Collagen Lift treatments",
+  },
+];
+
 const openingHours = [
   ["Monday", "11:00 – 19:30"],
   ["Tuesday", "11:00 – 19:30"],
@@ -1188,6 +1291,149 @@ const currentYear = new Date().getFullYear();
         common square here. Without this the grid row is set by the taller
         portrait image and the landscape one floats in a gap.
       */
+      /*
+        Carousel.
+
+        Scroll-snap does the heavy lifting: the track is a horizontally
+        scrollable flex row, and each slide snaps into place. Touch swiping,
+        momentum and keyboard arrow scrolling are all native browser behaviour,
+        so the thing works with JavaScript disabled — the script only adds the
+        arrows and dots on top.
+      */
+      .carousel {
+        position: relative;
+      }
+
+      .carousel-track {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        /* Room for the focus ring and shadows, offset so slides still align. */
+        padding: 4px 4px 6px;
+        margin: -4px -4px -6px;
+        /* Hide the scrollbar; the dots communicate position instead. */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        overscroll-behavior-x: contain;
+      }
+
+      .carousel-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .carousel-track:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      .carousel-slide {
+        flex: 0 0 calc((100% - 32px) / 3);
+        margin: 0;
+        scroll-snap-align: start;
+      }
+
+      .carousel-slide img,
+      .carousel-slide video {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        background: var(--cream);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .carousel-clips .carousel-slide video {
+        aspect-ratio: 3 / 4;
+        background: var(--navy-dark);
+      }
+
+      .carousel-slide figcaption {
+        margin-top: 9px;
+        font-size: 0.86rem;
+        text-align: center;
+        opacity: 0.75;
+      }
+
+      /* Arrows are added by script; hidden until it marks the carousel ready. */
+      .carousel-arrow {
+        position: absolute;
+        top: calc(50% - 18px);
+        z-index: 2;
+        display: none;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        color: var(--navy);
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        box-shadow: var(--shadow);
+        font-size: 1.6rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .carousel.is-ready .carousel-arrow {
+        display: grid;
+      }
+
+      .carousel-arrow:hover {
+        transform: scale(1.06);
+      }
+
+      .carousel-arrow[disabled] {
+        opacity: 0.35;
+        cursor: default;
+        transform: none;
+      }
+
+      .carousel-arrow-prev {
+        left: -14px;
+      }
+
+      .carousel-arrow-next {
+        right: -14px;
+      }
+
+      .carousel-dots {
+        display: none;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .carousel.is-ready .carousel-dots {
+        display: flex;
+      }
+
+      .carousel-dot {
+        width: 9px;
+        height: 9px;
+        padding: 0;
+        background: var(--border);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .carousel-dot[aria-current="true"] {
+        background: var(--gold);
+        transform: scale(1.35);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .carousel-track {
+          scroll-behavior: auto;
+        }
+      }
+
       .room-grid img {
         aspect-ratio: 1 / 1;
         object-fit: cover;
@@ -1495,6 +1741,19 @@ const currentYear = new Date().getFullYear();
         */
         html {
           scroll-padding-top: 88px;
+        }
+
+        /*
+          One-and-a-bit slides visible on a phone. The peek of the next slide
+          is the cue that the row scrolls — without it people often don't
+          realise there's more than one.
+        */
+        .carousel-slide {
+          flex-basis: 78%;
+        }
+
+        .carousel-arrow {
+          display: none !important;
         }
 
         .container {
@@ -1900,43 +2159,61 @@ const currentYear = new Date().getFullYear();
           </div>
 
           {/*
-            These five images have no width/height, so the browser can't
-            reserve space and the page jumps as they load — that's Cumulative
-            Layout Shift, a live ranking signal. I haven't guessed dimensions,
-            because wrong ones cause more shift than none at all. Run this in
-            the project root and paste the real numbers in:
+            Carousel rather than a grid. Six full-size before/afters stacked
+            vertically pushed everything below them a long way down the page on
+            a phone; swiping through them keeps the section to one screen.
 
-              identify -format "%f %w %h\n" public/images/*.jpg
-
-            (or, without ImageMagick: `file public/images/*.jpg`)
+            Built on CSS scroll-snap, so touch swiping is native browser
+            behaviour and works with no JavaScript at all. The arrows and dots
+            are progressive enhancement — the script adds them only if it runs.
           */}
-          <div class="gallery-grid">
-            <article class="gallery-card">
-              <img
-                src="/images/caci-before-after.jpg"
-                alt="Facial skin treatment before and after comparison"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+          <div
+            class="carousel"
+            data-carousel
+            aria-roledescription="carousel"
+            aria-label="Before and after treatment photographs"
+          >
+            <div class="carousel-track" data-carousel-track tabindex="0">
+              {
+                results.map((item, i) => (
+                  <figure
+                    class="carousel-slide"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${i + 1} of ${results.length}`}
+                  >
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      width={item.width}
+                      height={item.height}
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                    <figcaption>{item.caption}</figcaption>
+                  </figure>
+                ))
+              }
+            </div>
 
-            <article class="gallery-card">
-              <img
-                src="/images/jawline-before-after.jpg"
-                alt="Jawline treatment before and after comparison"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+            <button
+              class="carousel-arrow carousel-arrow-prev"
+              type="button"
+              data-carousel-prev
+              aria-label="Previous photograph"
+            >
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+            <button
+              class="carousel-arrow carousel-arrow-next"
+              type="button"
+              data-carousel-next
+              aria-label="Next photograph"
+            >
+              <span aria-hidden="true">&#8250;</span>
+            </button>
 
-            {/*
-              Two hair-restoration before/after cards were removed alongside
-              the treatment itself — advertising results for something that
-              can't be booked is the worse half of the problem, not the better
-              half. The image files are still in public/images if the service
-              comes back: hairline-treatment.jpg and
-              hair-growth-before-after.jpg.
-            */}
+            <div class="carousel-dots" data-carousel-dots></div>
           </div>
 
           <div class="disclaimer">
@@ -2088,6 +2365,98 @@ const currentYear = new Date().getFullYear();
         rather see them uncropped, delete the aspect-ratio and object-fit lines
         in .room-grid img and they will fall back to their natural proportions.
       */}
+      {/*
+        Video section. Sits after the still results so the page has its
+        strongest evidence first, and so nothing heavier than a poster image
+        loads above the fold.
+      */}
+      <section class="section section-soft" id="clips">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">In the room</p>
+            <h2>Treatments in progress</h2>
+            <p class="lead">
+              Short clips from recent appointments. Tap any one to play.
+            </p>
+          </div>
+
+          {/*
+            The third clip is a before/after following a course of six, so this
+            section needs the same disclaimer as the stills — a results claim
+            shouldn't sit on the page unqualified just because it happens to be
+            in video form.
+          */}
+
+          <div
+            class="carousel carousel-clips"
+            data-carousel
+            aria-roledescription="carousel"
+            aria-label="Treatment clips"
+          >
+            <div class="carousel-track" data-carousel-track tabindex="0">
+              {
+                videos.map((video, i) => (
+                  <figure
+                    class="carousel-slide"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${i + 1} of ${videos.length}`}
+                  >
+                    <video
+                      src={video.src}
+                      poster={video.poster}
+                      width={video.width}
+                      height={video.height}
+                      controls
+                      playsinline
+                      preload="none"
+                      aria-label={video.alt}
+                    />
+                    <figcaption>{video.caption}</figcaption>
+                  </figure>
+                ))
+              }
+            </div>
+
+            <button
+              class="carousel-arrow carousel-arrow-prev"
+              type="button"
+              data-carousel-prev
+              aria-label="Previous clip"
+            >
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+            <button
+              class="carousel-arrow carousel-arrow-next"
+              type="button"
+              data-carousel-next
+              aria-label="Next clip"
+            >
+              <span aria-hidden="true">&#8250;</span>
+            </button>
+
+            <div class="carousel-dots" data-carousel-dots></div>
+          </div>
+
+          <div class="disclaimer">
+            Clips show individual client experiences. Results vary and cannot be
+            guaranteed, and some results follow a course of treatments rather
+            than a single appointment.
+          </div>
+
+          <div class="review-buttons">
+            <a
+              class="button button-secondary"
+              href={links.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              See more on Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section class="section section-soft" id="the-room">
         <div class="container">
           <div class="section-heading">
@@ -2439,6 +2808,127 @@ const currentYear = new Date().getFullYear();
 
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeMenu();
+        });
+      })();
+    </script>
+
+    <script is:inline>
+      /*
+        Carousel enhancement.
+
+        The markup is already usable without this: the track is a scroll-snap
+        row, so swiping and keyboard scrolling work natively. This adds arrows
+        and dot indicators, and only reveals them by setting .is-ready — so if
+        the script fails, you get a plain swipeable row rather than dead
+        controls.
+      */
+      (() => {
+        const carousels = document.querySelectorAll("[data-carousel]");
+        if (!carousels.length) return;
+
+        carousels.forEach((carousel) => {
+          const track = carousel.querySelector("[data-carousel-track]");
+          const prev = carousel.querySelector("[data-carousel-prev]");
+          const next = carousel.querySelector("[data-carousel-next]");
+          const dotsHolder = carousel.querySelector("[data-carousel-dots]");
+          const slides = Array.from(
+            track ? track.querySelectorAll(".carousel-slide") : []
+          );
+
+          if (!track || slides.length < 2) return;
+
+          // Build one dot per slide.
+          const dots = slides.map((slide, index) => {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "carousel-dot";
+            dot.setAttribute("aria-label", `Go to item ${index + 1}`);
+            dot.addEventListener("click", () => {
+              track.scrollTo({ left: slide.offsetLeft - track.offsetLeft });
+            });
+            dotsHolder && dotsHolder.appendChild(dot);
+            return dot;
+          });
+
+          const step = () =>
+            slides.length > 1
+              ? slides[1].offsetLeft - slides[0].offsetLeft
+              : track.clientWidth;
+
+          prev &&
+            prev.addEventListener("click", () => {
+              track.scrollBy({ left: -step() });
+            });
+          next &&
+            next.addEventListener("click", () => {
+              track.scrollBy({ left: step() });
+            });
+
+          /*
+            Which slide is "current" is derived from scroll position rather than
+            tracked in a variable, so native swiping, the arrows and the dots
+            can never disagree about where we are.
+          */
+          const sync = () => {
+            const centre = track.scrollLeft + track.clientWidth / 2;
+            let active = 0;
+            let best = Infinity;
+
+            slides.forEach((slide, index) => {
+              const slideCentre =
+                slide.offsetLeft - track.offsetLeft + slide.offsetWidth / 2;
+              const distance = Math.abs(slideCentre - centre);
+              if (distance < best) {
+                best = distance;
+                active = index;
+              }
+            });
+
+            dots.forEach((dot, index) => {
+              if (index === active) {
+                dot.setAttribute("aria-current", "true");
+              } else {
+                dot.removeAttribute("aria-current");
+              }
+            });
+
+            // 2px tolerance: sub-pixel scroll widths otherwise leave the end
+            // arrow enabled when there is nothing left to scroll to.
+            const maxScroll = track.scrollWidth - track.clientWidth;
+            if (prev) prev.disabled = track.scrollLeft <= 2;
+            if (next) next.disabled = track.scrollLeft >= maxScroll - 2;
+          };
+
+          let queued = false;
+          track.addEventListener("scroll", () => {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(() => {
+              queued = false;
+              sync();
+            });
+          });
+
+          window.addEventListener("resize", sync);
+
+          // Pause any playing video when it is scrolled out of view.
+          const players = Array.from(track.querySelectorAll("video"));
+          if (players.length && "IntersectionObserver" in window) {
+            const watcher = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting && !entry.target.paused) {
+                    entry.target.pause();
+                  }
+                });
+              },
+              { root: track, threshold: 0.5 }
+            );
+            players.forEach((player) => watcher.observe(player));
+          }
+
+          carousel.classList.add("is-ready");
+          sync();
         });
       })();
     </script>
