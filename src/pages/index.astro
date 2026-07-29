@@ -50,90 +50,118 @@ const geo = {
   fine as visible copy — it just isn't something to assert as schema here.
 */
 
+/*
+  Treatment categories, reconciled line by line against the Treatwell menu
+  (July 2026).
+
+  Rules for this array:
+
+  1. No prices, no discounts, no durations. Treatwell is the single live source
+     for all three, so the website can never go stale or contradict it.
+  2. Every treatment named in a description must exist as a bookable listing on
+     Treatwell. If it isn't on the menu, it doesn't go here — naming treatments
+     that can't be booked sends people to a dead end and is exactly the problem
+     that got Hair Restoration removed.
+  3. Categories follow Treatwell's own navigation (Face, Body, Massage, Hair
+     Removal, Men's) so the site and the booking menu read as one journey.
+
+  Hair Restoration was removed: it was advertised here with supporting
+  before/after photography, but there is no bookable hair restoration listing
+  on Treatwell. If Layla still offers it by enquiry, it should come back with a
+  WhatsApp CTA rather than a Treatwell one.
+*/
 const treatments = [
   {
-    category: "Advanced skin",
-    title: "Microneedling with Dermapen",
+    category: "Face",
+    title: "Microneedling and Skin Rejuvenation",
     description:
-      "A professional treatment designed to support smoother-looking skin, improved texture and a refreshed complexion.",
+      "Microneedling with Dermapen and plasma channeling, offered following consultation to support skin texture, tone and overall condition.",
   },
   {
-    category: "Advanced skin",
+    category: "Face",
     title: "Dermaplaning",
     description:
       "Professional exfoliation that removes surface build-up and fine facial hair for smoother-looking skin.",
   },
   {
-    category: "Advanced skin",
-    title: "BioRePeel Chemical Peel",
+    category: "Face",
+    title: "Chemical Peels and Resurfacing",
     description:
-      "A professional resurfacing treatment for a brighter, fresher and more even-looking complexion.",
+      "BioRePeel CL3, the MONU+ Resurface and Peel system, and the Revival range of brightening, clarifying and anti-ageing peels.",
   },
   {
-    category: "Facials",
+    category: "Face",
     title: "CACI Non-Surgical Treatments",
     description:
-      "Technology-led treatments including non-surgical face lift, jowl lift, eye revive and hydration options.",
+      "The full CACI range, including non-surgical face lift, jowl lift, eye revive and Hydratone.",
   },
   {
-    category: "Facials",
-    title: "Radio Frequency Facial",
+    category: "Face",
+    title: "Hydrating and Specialist Facials",
     description:
-      "A warming facial treatment designed to support firmer, smoother and refreshed-looking skin.",
+      "Hydra Lift 6-in-1, Hydra Glow Renewal, Sonic Skin Renewal, High Frequency Therapy, purifying, eye revival and bespoke luxe facials.",
   },
   {
-    category: "Facials",
-    title: "Celluma LED Light Therapy",
+    category: "Face",
+    title: "Radiofrequency and LED Light Therapy",
     description:
-      "Relaxing LED light therapy tailored to complement professional skincare and individual skin concerns.",
+      "Collagen Lift radiofrequency treatment and Celluma LED light therapy, used on their own or alongside a facial.",
   },
   {
-    category: "Facials",
-    title: "Hydra Lift 6-in-1 Facial",
+    category: "Men's",
+    title: "Men's Facials and Waxing",
     description:
-      "A multi-step facial combining complementary techniques for cleansing, hydration and skin renewal.",
-  },
-  {
-    category: "Facials",
-    title: "Luxury and Bespoke Facials",
-    description:
-      "Personalised treatments including hydration, purifying, resurfacing and skin-renewal options.",
-  },
-  {
-    category: "Hair and scalp",
-    title: "Hair Restoration Treatments",
-    description:
-      "Consultation-led scalp and hair treatments for concerns such as thinning hair, reduced density and a receding hairline.",
+      "The Masculine Glow-Up facial, built around men's skin and shaving concerns, plus back, chest and combined back and chest waxing.",
   },
   {
     category: "Massage",
     title: "Massage Therapy",
     description:
-      "Swedish, deep tissue, back, neck and shoulder, aromatherapy, lymphatic drainage, pregnancy and bespoke massage options.",
+      "Swedish, deep tissue, back deep tissue, back, neck and shoulder, aromatherapy, lymphatic drainage, trigger point therapy, pregnancy, abdominal, face, hand, foot and bespoke massage, plus the Top to Toe face and body treatment.",
   },
   {
     category: "Body",
-    title: "Body and Cellulite Treatments",
+    title: "Body, Cellulite and Weight-Loss Treatments",
     description:
-      "Body polishing, back treatments and targeted options designed to support smoother-looking skin.",
+      "MONUSpa hot oil and salt scrub polish, the Skin Bliss back treatment, cellulite reduction therapy and anti-cellulite vacuum treatment.",
   },
   {
-    category: "Beauty",
+    category: "Hair removal",
     title: "Waxing, Brows and Tinting",
     description:
-      "Facial and body waxing, intimate waxing, men’s waxing, eyebrow shaping and tinting.",
+      "Facial and body waxing, leg, underarm and forearm waxing, bikini, Brazilian, Playboy and Hollywood waxing, men's waxing, eyebrow shaping and eyebrow and eyelash tinting.",
   },
   {
     category: "Aesthetics",
+    title: "Jalupro Injectable Skin Treatments",
+    description:
+      "Amino acid based injectable treatments for the eye area, lips and face, including Super Hydro V-Lift and Face AART. Booked after a short consultation.",
+  },
+  {
+    /*
+      Deliberately unnamed.
+
+      UK law prohibits advertising prescription-only medicines to the public
+      (Human Medicines Regulations 2012), and botulinum toxin is a POM. The ASA
+      has upheld complaints against clinics for naming it or using terms that
+      clearly point to it. Keep this entry generic — do not add "anti-wrinkle
+      injections", "botox", brand names, prices or before/after imagery for POM
+      treatments here, even though Treatwell lists them.
+
+      Jalupro is a medical device rather than a POM, which is why it sits above
+      as a named treatment. If the aesthetics offering changes, get the wording
+      checked before publishing.
+    */
+    category: "Aesthetics",
     title: "Consultation-Led Aesthetic Treatments",
     description:
-      "Selected treatments available following an appropriate consultation and suitability assessment.",
+      "Selected treatments available following an appropriate consultation and suitability assessment. Please enquire.",
   },
   {
     category: "Wellness",
     title: "B12 Vitamin Injections",
     description:
-      "Available following appropriate screening and suitability checks. See Treatwell for current service details.",
+      "Available following appropriate screening and suitability checks.",
   },
 ];
 
@@ -209,11 +237,12 @@ const areas = [
   "Portsmouth",
 ];
 
-// Deliberately phrased as a floor rather than an exact count, so it stays true
-// as the total climbs and never needs maintaining. Only revisit if the milestone
-// changes (e.g. past 1,000). Treatwell stood at 5.0 from 567 when last checked,
-// July 2026.
-const reviewsClaim = "Over 500 five-star reviews";
+// States the overall rating rather than claiming every individual review is
+// five stars — a 5.0 average and "500 five-star reviews" are not the same
+// assertion, and only the first one is verifiable on Treatwell.
+// "Over 560" is a floor, so it stays true as the total climbs. Treatwell showed
+// 5.0 from 567 when last checked, July 2026. Only revisit at a real milestone.
+const reviewsClaim = "Rated 5.0 on Treatwell from over 560 reviews";
 
 // FAQs now live in one place and drive both the visible <details> list and the
 // FAQPage structured data. Google requires the two to match, so keeping a single
@@ -222,11 +251,16 @@ const faqs = [
   {
     question: "How do I book a treatment?",
     answer:
-      "Select any Book on Treatwell button to view treatment choices and available appointment times.",
+      "Select any View treatments and book button to see the full treatment menu, current prices and available appointment times on Treatwell.",
   },
   {
     question: "Can I ask a question before booking?",
     answer: `Yes. Message Layla on WhatsApp or call ${business.phoneDisplay}.`,
+  },
+  {
+    question: "Do I need a patch test?",
+    answer:
+      "Some treatments do, including tinting and certain skin treatments. Patch tests are free and take about five minutes, and can be booked on Treatwell like any other appointment. If you are not sure whether you need one, message Layla before booking.",
   },
   {
     question: "Are treatment results guaranteed?",
@@ -271,7 +305,7 @@ const schema = {
   telephone: business.phoneInternational,
   email: business.email,
   description:
-    "Facials, advanced skin treatments, massage, waxing, hair restoration, body treatments and aesthetics in Titchfield Common near Fareham.",
+    "Facials, advanced skin treatments, massage, waxing, body treatments and aesthetics in Titchfield Common near Fareham.",
   logo:
     "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
   image: [
@@ -315,6 +349,8 @@ const schema = {
         serviceType: treatment.category,
         description: treatment.description,
       },
+      // No price emitted. Treatwell is the single live source for pricing, so
+      // asserting a figure here would go stale the moment Layla changes one.
       url: links.treatwell,
     })),
   },
@@ -386,7 +422,7 @@ const currentYear = new Date().getFullYear();
     */}
     <meta
       name="description"
-      content={`Facials, microneedling, dermaplaning, massage, waxing and hair restoration in Titchfield Common, Fareham. ${reviewsClaim}. Book online with Treatwell.`}
+      content={`Facials, microneedling, dermaplaning, CACI, massage and waxing in Titchfield Common, Fareham. ${reviewsClaim}. Book online with Treatwell.`}
     />
 
     <meta
@@ -410,7 +446,7 @@ const currentYear = new Date().getFullYear();
     />
     <meta
       property="og:description"
-      content={`Personalised facials, advanced skin treatments, massage, waxing and hair restoration at Beauty at Abshot. ${reviewsClaim}.`}
+      content={`Personalised facials, advanced skin treatments, massage and waxing at Beauty at Abshot. ${reviewsClaim}.`}
     />
     <meta
       property="og:image:alt"
@@ -903,10 +939,15 @@ const currentYear = new Date().getFullYear();
         color: var(--navy);
         background: var(--cream);
         border-radius: 999px;
-        font-size: 0.71rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
         text-transform: uppercase;
+      }
+
+      .treatwell-note {
+        max-width: 60ch;
+        margin: 12px 0 0;
+        font-size: 0.86rem;
+        line-height: 1.6;
+        opacity: 0.75;
       }
 
       .treatment-card p {
@@ -1408,7 +1449,7 @@ const currentYear = new Date().getFullYear();
       }
 
 
-      /* Opening sequence: Layla treatment photo, then FYB logo */
+      /* Opening sequence: round FYB logo, then fade away. */
       .opening-loader {
         position: fixed;
         inset: 0;
@@ -1422,7 +1463,7 @@ const currentYear = new Date().getFullYear();
         background: #ffffff;
         opacity: 1;
         visibility: visible;
-        transition: opacity 0.7s ease, visibility 0.7s ease;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
       }
 
       .opening-loader.is-leaving {
@@ -1431,55 +1472,23 @@ const currentYear = new Date().getFullYear();
         pointer-events: none;
       }
 
-      .opening-slide {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        padding: 18px;
-        opacity: 0;
-        transition: opacity 0.65s ease;
-      }
-
-      .opening-slide.is-visible {
-        opacity: 1;
-      }
-
-      .opening-slide img {
+      .opening-logo img {
         display: block;
-        width: min(94vw, 760px);
-        height: 85vh;
-        height: 85svh;
-        object-fit: contain;
-        object-position: center;
-      }
-
-      .opening-slide-face img {
+        width: min(62vw, 340px);
+        height: auto;
         border-radius: 50%;
+        animation: logo-settle 0.7s ease both;
       }
 
-      .opening-slide-logo {
-        background: #ffffff;
-      }
-
-      .opening-slide-logo img {
-        width: min(88vw, 680px);
-        height: min(85vh, 680px);
-        height: min(85svh, 680px);
-        border-radius: 50%;
-      }
-
-
-
-      .flying-header-logo {
-        position: fixed;
-        z-index: 100000;
-        display: block;
-        border-radius: 50%;
-        object-fit: contain;
-        pointer-events: none;
-        transform-origin: center;
-        will-change: transform, opacity;
+      @keyframes logo-settle {
+        from {
+          opacity: 0;
+          transform: scale(0.94);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
       body.loader-active {
@@ -1496,6 +1505,10 @@ const currentYear = new Date().getFullYear();
         *::after {
           transition-duration: 0.01ms !important;
         }
+
+        .opening-logo img {
+          animation: none;
+        }
       }
     </style>
   </head>
@@ -1507,30 +1520,14 @@ const currentYear = new Date().getFullYear();
       class="opening-loader"
       aria-hidden="true"
     >
-      <div
-        id="opening-face"
-        class="opening-slide opening-slide-face is-visible"
-      >
-        <img
-          src="/images/layla-treatment.jpg"
-          alt=""
-          width="1240"
-          height="1240"
-          loading="eager"
-          fetchpriority="high"
-        />
-      </div>
-
-      <div
-        id="opening-logo"
-        class="opening-slide opening-slide-logo"
-      >
+      <div class="opening-logo">
         <img
           src="/images/fyb-logo2.png"
           alt=""
           width="1200"
           height="1200"
           loading="eager"
+          fetchpriority="high"
         />
       </div>
     </div>
@@ -1571,7 +1568,7 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
           >
-            Book on Treatwell
+            View treatments and book
           </a>
         </nav>
 
@@ -1612,7 +1609,7 @@ const currentYear = new Date().getFullYear();
           target="_blank"
           rel="noopener noreferrer"
         >
-          Book on Treatwell
+          View treatments and book
         </a>
       </nav>
     </header>
@@ -1636,7 +1633,7 @@ const currentYear = new Date().getFullYear();
 
             <p class="lead">
               Personalised facials, advanced skin treatments, massage,
-              waxing, hair restoration, body treatments and aesthetics in a
+              waxing, body treatments and aesthetics in a
               calm, welcoming treatment room near Fareham.
             </p>
 
@@ -1650,6 +1647,7 @@ const currentYear = new Date().getFullYear();
               width="1240"
               height="1240"
               loading="eager"
+              fetchpriority="high"
             />
           </div>
         </div>
@@ -1664,7 +1662,7 @@ const currentYear = new Date().getFullYear();
 
             <p class="lead">
               Forever Young Beauty by Layla offers facial, massage, waxing,
-              body, hair restoration and advanced skin treatments in a calm,
+              body and advanced skin treatments in a calm,
               private setting.
             </p>
 
@@ -1698,7 +1696,17 @@ const currentYear = new Date().getFullYear();
 
             <p class="lead">
               Choose from personalised facial, skin, massage, beauty, body,
-              hair-restoration, aesthetic and wellness treatments.
+              aesthetic and wellness treatments.
+            </p>
+
+            {/*
+              Points every pricing, duration and availability question at
+              Treatwell, which is what keeps this page from ever being wrong.
+            */}
+            <p class="treatwell-note">
+              For the latest treatment menu, availability and prices, please
+              view the live booking menu on Treatwell. Patch tests are free
+              where a treatment needs one.
             </p>
           </div>
 
@@ -1719,7 +1727,7 @@ const currentYear = new Date().getFullYear();
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    View on Treatwell →
+                    View treatments and book →
                   </a>
                 </article>
               ))
@@ -1776,23 +1784,14 @@ const currentYear = new Date().getFullYear();
               />
             </article>
 
-            <article class="gallery-card">
-              <img
-                src="/images/hairline-treatment.jpg"
-                alt="Receding hairline treatment before and after comparison"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
-
-            <article class="gallery-card">
-              <img
-                src="/images/hair-growth-before-after.jpg"
-                alt="Scalp hair-growth treatment before and after comparison"
-                loading="lazy"
-                decoding="async"
-              />
-            </article>
+            {/*
+              Two hair-restoration before/after cards were removed alongside
+              the treatment itself — advertising results for something that
+              can't be booked is the worse half of the problem, not the better
+              half. The image files are still in public/images if the service
+              comes back: hairline-treatment.jpg and
+              hair-growth-before-after.jpg.
+            */}
           </div>
 
           <div class="disclaimer">
@@ -2042,7 +2041,7 @@ const currentYear = new Date().getFullYear();
               target="_blank"
               rel="noopener noreferrer"
             >
-              Book on Treatwell
+              View treatments and book
             </a>
 
             <a
@@ -2072,7 +2071,7 @@ const currentYear = new Date().getFullYear();
             </h3>
 
             <p>
-              Beauty, skin, massage, waxing, hair restoration and aesthetic
+              Beauty, skin, massage, waxing and aesthetic
               treatments in Titchfield Common near Fareham.
             </p>
           </div>
@@ -2145,7 +2144,7 @@ const currentYear = new Date().getFullYear();
         target="_blank"
         rel="noopener noreferrer"
       >
-        Book on Treatwell
+        View treatments and book
       </a>
 
       <a
@@ -2161,82 +2160,48 @@ const currentYear = new Date().getFullYear();
     <script is:inline>
       (() => {
         const loader = document.getElementById("opening-loader");
-        const face = document.getElementById("opening-face");
-        const logo = document.getElementById("opening-logo");
+        const body = document.body;
 
-        if (!loader || !face || !logo) {
-          document.body.classList.remove("loader-active");
+        if (!loader) {
+          body.classList.remove("loader-active");
           return;
         }
 
-        const startSequence = () => {
-          // Show Layla for two seconds, then crossfade to the round logo.
-          window.setTimeout(() => {
-            face.classList.remove("is-visible");
-            logo.classList.add("is-visible");
-          }, 2000);
+        let dismissed = false;
 
-          // After two seconds on the logo, fly it into the header.
-          window.setTimeout(() => {
-            const sourceImage = logo.querySelector("img");
-            const headerImage = document.querySelector(".brand img");
-
-            if (sourceImage && headerImage) {
-              const sourceRect = sourceImage.getBoundingClientRect();
-              const targetRect = headerImage.getBoundingClientRect();
-              const flyingLogo = sourceImage.cloneNode(true);
-
-              flyingLogo.className = "flying-header-logo";
-              flyingLogo.style.left = `${sourceRect.left}px`;
-              flyingLogo.style.top = `${sourceRect.top}px`;
-              flyingLogo.style.width = `${sourceRect.width}px`;
-              flyingLogo.style.height = `${sourceRect.height}px`;
-              document.body.appendChild(flyingLogo);
-
-              logo.classList.remove("is-visible");
-              loader.classList.add("is-leaving");
-              document.body.classList.remove("loader-active");
-
-              const translateX = targetRect.left - sourceRect.left;
-              const translateY = targetRect.top - sourceRect.top;
-              const scaleX = targetRect.width / sourceRect.width;
-              const scaleY = targetRect.height / sourceRect.height;
-
-              const animation = flyingLogo.animate(
-                [
-                  {
-                    transform: "translate(0, 0) scale(1)",
-                    opacity: 1,
-                  },
-                  {
-                    transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
-                    opacity: 1,
-                  },
-                ],
-                {
-                  duration: 950,
-                  easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-                  fill: "forwards",
-                }
-              );
-
-              animation.finished.finally(() => {
-                flyingLogo.remove();
-                loader.remove();
-              });
-            } else {
-              loader.classList.add("is-leaving");
-              document.body.classList.remove("loader-active");
-              window.setTimeout(() => loader.remove(), 800);
-            }
-          }, 4000);
+        const dismiss = () => {
+          if (dismissed) return;
+          dismissed = true;
+          loader.classList.add("is-leaving");
+          body.classList.remove("loader-active");
+          window.setTimeout(() => loader.remove(), 700);
         };
 
+        // Respect a reduced-motion preference by skipping the hold entirely.
+        const reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        const hold = reduceMotion ? 0 : 1100;
+
+        const start = () => window.setTimeout(dismiss, hold);
+
         if (document.readyState === "complete") {
-          startSequence();
+          start();
         } else {
-          window.addEventListener("load", startSequence, { once: true });
+          window.addEventListener("load", start, { once: true });
         }
+
+        /*
+          Safety net. The old sequence only ever started on window.load, so a
+          slow or failed image could leave the overlay covering the page
+          indefinitely with scrolling locked. This guarantees it clears.
+        */
+        window.setTimeout(dismiss, 3500);
+
+        // Let anyone impatient tap or scroll straight past it.
+        loader.addEventListener("click", dismiss);
+        window.addEventListener("keydown", dismiss, { once: true });
       })();
     </script>
 
