@@ -78,6 +78,22 @@ const treatments = [
       "Microneedling with Dermapen and plasma channeling, offered following consultation to support skin texture, tone and overall condition.",
   },
   {
+    /*
+      Plaxel Plasma is offered but not yet listed on Treatwell, so this card
+      deliberately routes to WhatsApp instead of the booking widget. Sending
+      people to Treatwell for something that isn't on it is the dead end that
+      got Hair Restoration removed.
+
+      Switch enquiryOnly to false once the Treatwell listing exists, and the
+      card reverts to the standard booking button on its own.
+    */
+    category: "Face",
+    title: "Plaxel Plasma",
+    description:
+      "A plasma pen treatment for the upper eye area and fine lines, offered following consultation and a suitability assessment. New, and currently booked by enquiry rather than online.",
+    enquiryOnly: true,
+  },
+  {
     category: "Face",
     title: "Dermaplaning",
     description:
@@ -313,6 +329,14 @@ const results = [
   clips. If any of them has a voiceover worth keeping, say so and it can be
   re-encoded with sound.
 
+  Captions name Plaxel Plasma and Collagen Lift because both are real
+  treatments Layla offers. Deliberately no efficacy claims here: the Instagram
+  captions talk about skin tightening, lifting and reducing hooding, and claims
+  like those need substantiation under the CAP Code. The ASA has ruled against
+  clinics over plasma and fibroblast claims specifically. Describing what the
+  treatment is carries no such risk; describing what it will achieve does. Keep
+  the outcome talk on Instagram, or get it substantiated before it goes here.
+
   Filenames stay as treatment-clip-N because the files are already uploaded.
   Descriptive names (collagen-lift-facial.mp4 and so on) would earn a little in
   image and video search, so worth renaming if you ever re-upload — but it is a
@@ -330,8 +354,8 @@ const videos = [
     poster: "/videos/treatment-clip-1-poster.jpg",
     width: 720,
     height: 1280,
-    caption: "Advanced facial treatment",
-    alt: "Layla carrying out a precise facial treatment across the forehead and brow area with a handheld device, working to marked treatment zones",
+    caption: "Plaxel Plasma, upper eye area",
+    alt: "Layla carrying out a Plaxel Plasma treatment across the brow and upper eye area, working to marked treatment points",
   },
   {
     src: "/videos/treatment-clip-2.mp4",
@@ -348,6 +372,22 @@ const videos = [
     height: 710,
     caption: "Collagen Lift, after a course of six",
     alt: "Close-up before and after comparison of the lower face, chin and neck following a course of six Collagen Lift treatments",
+  },
+  {
+    src: "/videos/treatment-clip-4.mp4",
+    poster: "/videos/treatment-clip-4-poster.jpg",
+    width: 720,
+    height: 1280,
+    caption: "Plaxel Plasma treatment",
+    alt: "A Plaxel Plasma treatment in progress in the treatment room at Beauty at Abshot",
+  },
+  {
+    src: "/videos/treatment-clip-5.mp4",
+    poster: "/videos/treatment-clip-5-poster.jpg",
+    width: 720,
+    height: 1280,
+    caption: "Microneedling with Dermapen",
+    alt: "A microneedling treatment being carried out across the cheek with a Dermapen handpiece",
   },
 ];
 
@@ -490,9 +530,11 @@ const schema = {
         serviceType: treatment.category,
         description: treatment.description,
       },
-      // No price emitted. Treatwell is the single live source for pricing, so
-      // asserting a figure here would go stale the moment Layla changes one.
-      url: links.treatwell,
+      // Enquiry-only treatments point at the site rather than Treatwell, so the
+      // markup never advertises a booking URL that has no listing behind it.
+      url: treatment.enquiryOnly
+        ? "https://foreveryoungbeautybylayla.co.uk/#treatments"
+        : links.treatwell,
     })),
   },
   sameAs: [
@@ -2125,14 +2167,29 @@ const currentYear = new Date().getFullYear();
                   <h3>{treatment.title}</h3>
                   <p>{treatment.description}</p>
 
-                  <a
-                    class="card-link"
-                    href={links.treatwell}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View treatments and book →
-                  </a>
+                  {
+                    treatment.enquiryOnly ? (
+                      <a
+                        class="card-link"
+                        href={`https://wa.me/447799890398?text=${encodeURIComponent(
+                          `Hello Layla, I would like to ask about ${treatment.title}.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ask Layla about this treatment →
+                      </a>
+                    ) : (
+                      <a
+                        class="card-link"
+                        href={links.treatwell}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View treatments and book →
+                      </a>
+                    )
+                  }
                 </article>
               ))
             }
