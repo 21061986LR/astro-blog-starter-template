@@ -391,6 +391,27 @@ const videos = [
   },
 ];
 
+/*
+  One combined gallery: before/after stills and treatment clips in a single
+  carousel, rather than two separate sections further apart on the page.
+
+  Videos are interleaved rather than grouped at the end, so someone swiping
+  through hits motion early and keeps going.
+*/
+const gallery = [
+  { type: "image", ...results[0] },
+  { type: "video", ...videos[4] },
+  { type: "image", ...results[1] },
+  { type: "image", ...results[2] },
+  { type: "video", ...videos[1] },
+  { type: "image", ...results[3] },
+  { type: "video", ...videos[0] },
+  { type: "image", ...results[4] },
+  { type: "video", ...videos[2] },
+  { type: "image", ...results[5] },
+  { type: "video", ...videos[3] },
+];
+
 const openingHours = [
   ["Monday", "11:00 – 19:30"],
   ["Tuesday", "11:00 – 19:30"],
@@ -1388,7 +1409,13 @@ const currentYear = new Date().getFullYear();
         box-shadow: var(--shadow);
       }
 
-      .carousel-clips .carousel-slide video {
+      /*
+        Clips are portrait, stills are square. Giving video a 3/4 box inside the
+        same carousel keeps each in a sensible shape without cropping either
+        badly — the row height follows the tallest, which is fine at two items
+        per screen.
+      */
+      .carousel-slide video.is-clip {
         aspect-ratio: 3 / 4;
         background: var(--navy-dark);
       }
@@ -2003,7 +2030,7 @@ const currentYear = new Date().getFullYear();
         <nav class="desktop-nav" aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#treatments">Treatments</a>
-          <a href="#results">Results</a>
+          <a href="#gallery">Gallery</a>
           <a href="#reviews">Reviews</a>
           <a href="#location">Find us</a>
 
@@ -2044,7 +2071,7 @@ const currentYear = new Date().getFullYear();
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#treatments">Treatments</a>
-        <a href="#results">Before and after</a>
+        <a href="#gallery">Gallery</a>
         <a href="#reviews">Reviews</a>
         <a href="#location">Find us</a>
         <a href="#faq">FAQs</a>
@@ -2134,6 +2161,113 @@ const currentYear = new Date().getFullYear();
         </div>
       </section>
 
+      {/*
+        Combined gallery: before/after stills and treatment clips together,
+        placed above the treatment menu so the evidence comes before the list.
+
+        Videos declare a <source> with an explicit type rather than a src
+        attribute on <video>, and preload="metadata" rather than "none". Both
+        make playback more reliable on mobile browsers — with preload="none"
+        some Android builds will show the poster but refuse to start without a
+        second tap.
+      */}
+      <section class="section" id="gallery">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Gallery</p>
+            <h2>Real treatments, real results</h2>
+            <p class="lead">
+              Before and after photographs and short clips from recent
+              appointments. Swipe to browse, and tap any clip to play.
+            </p>
+          </div>
+
+          <div
+            class="carousel"
+            data-carousel
+            aria-roledescription="carousel"
+            aria-label="Treatment photographs and clips"
+          >
+            <div class="carousel-track" data-carousel-track tabindex="0">
+              {
+                gallery.map((item, i) => (
+                  <figure
+                    class="carousel-slide"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${i + 1} of ${gallery.length}`}
+                  >
+                    {
+                      item.type === "video" ? (
+                        <video
+                          class="is-clip"
+                          poster={item.poster}
+                          width={item.width}
+                          height={item.height}
+                          controls
+                          playsinline
+                          preload="metadata"
+                          aria-label={item.alt}
+                        >
+                          <source src={item.src} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          width={item.width}
+                          height={item.height}
+                          loading={i === 0 ? "eager" : "lazy"}
+                          decoding="async"
+                        />
+                      )
+                    }
+                    <figcaption>{item.caption}</figcaption>
+                  </figure>
+                ))
+              }
+            </div>
+
+            <button
+              class="carousel-arrow carousel-arrow-prev"
+              type="button"
+              data-carousel-prev
+              aria-label="Previous item"
+            >
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+            <button
+              class="carousel-arrow carousel-arrow-next"
+              type="button"
+              data-carousel-next
+              aria-label="Next item"
+            >
+              <span aria-hidden="true">&#8250;</span>
+            </button>
+
+            <div class="carousel-dots" data-carousel-dots></div>
+          </div>
+
+          <div class="disclaimer">
+            Photographs and clips show individual client experiences. Results
+            vary and cannot be guaranteed, and some results follow a course of
+            treatments rather than a single appointment. Some treatments require
+            consultation, screening, suitability assessment or a patch test.
+          </div>
+
+          <div class="review-buttons">
+            <a
+              class="button button-secondary"
+              href={links.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              See more on Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section class="section section-soft" id="treatments">
         <div class="container">
           <div class="section-heading">
@@ -2203,110 +2337,6 @@ const currentYear = new Date().getFullYear();
               rel="noopener noreferrer"
             >
               View the complete treatment menu
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="results">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Before and after</p>
-            <h2>Real treatment imagery</h2>
-          </div>
-
-          {/*
-            Carousel rather than a grid. Six full-size before/afters stacked
-            vertically pushed everything below them a long way down the page on
-            a phone; swiping through them keeps the section to one screen.
-
-            Built on CSS scroll-snap, so touch swiping is native browser
-            behaviour and works with no JavaScript at all. The arrows and dots
-            are progressive enhancement — the script adds them only if it runs.
-          */}
-          <div
-            class="carousel"
-            data-carousel
-            aria-roledescription="carousel"
-            aria-label="Before and after treatment photographs"
-          >
-            <div class="carousel-track" data-carousel-track tabindex="0">
-              {
-                results.map((item, i) => (
-                  <figure
-                    class="carousel-slide"
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${i + 1} of ${results.length}`}
-                  >
-                    <img
-                      src={item.src}
-                      alt={item.alt}
-                      width={item.width}
-                      height={item.height}
-                      loading={i === 0 ? "eager" : "lazy"}
-                      decoding="async"
-                    />
-                    <figcaption>{item.caption}</figcaption>
-                  </figure>
-                ))
-              }
-            </div>
-
-            <button
-              class="carousel-arrow carousel-arrow-prev"
-              type="button"
-              data-carousel-prev
-              aria-label="Previous photograph"
-            >
-              <span aria-hidden="true">&#8249;</span>
-            </button>
-            <button
-              class="carousel-arrow carousel-arrow-next"
-              type="button"
-              data-carousel-next
-              aria-label="Next photograph"
-            >
-              <span aria-hidden="true">&#8250;</span>
-            </button>
-
-            <div class="carousel-dots" data-carousel-dots></div>
-          </div>
-
-          <div class="disclaimer">
-            Photographs show individual client experiences. Results vary and
-            cannot be guaranteed. Some treatments require consultation,
-            screening, suitability assessment or a patch test.
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-soft">
-        <div class="container review-feature">
-          <img
-            class="review-image"
-            src="/images/Shelley-review.jpg"
-            alt="Client review for Forever Young Beauty by Layla"
-            loading="lazy"
-            decoding="async"
-          />
-
-          <div class="review-feature-copy">
-            <p class="eyebrow">Client experience</p>
-            <h2>A welcoming and personal treatment experience</h2>
-
-            <p>
-              Layla offers one-to-one appointments with time to discuss your
-              needs, treatment suitability and any questions you may have.
-            </p>
-
-            <a
-              class="button button-gold"
-              href={links.treatwell}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book your appointment
             </a>
           </div>
         </div>
@@ -2427,93 +2457,6 @@ const currentYear = new Date().getFullYear();
         strongest evidence first, and so nothing heavier than a poster image
         loads above the fold.
       */}
-      <section class="section section-soft" id="clips">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">In the room</p>
-            <h2>Treatments in progress</h2>
-            <p class="lead">
-              Short clips from recent appointments. Tap any one to play.
-            </p>
-          </div>
-
-          {/*
-            The third clip is a before/after following a course of six, so this
-            section needs the same disclaimer as the stills — a results claim
-            shouldn't sit on the page unqualified just because it happens to be
-            in video form.
-          */}
-
-          <div
-            class="carousel carousel-clips"
-            data-carousel
-            aria-roledescription="carousel"
-            aria-label="Treatment clips"
-          >
-            <div class="carousel-track" data-carousel-track tabindex="0">
-              {
-                videos.map((video, i) => (
-                  <figure
-                    class="carousel-slide"
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${i + 1} of ${videos.length}`}
-                  >
-                    <video
-                      src={video.src}
-                      poster={video.poster}
-                      width={video.width}
-                      height={video.height}
-                      controls
-                      playsinline
-                      preload="none"
-                      aria-label={video.alt}
-                    />
-                    <figcaption>{video.caption}</figcaption>
-                  </figure>
-                ))
-              }
-            </div>
-
-            <button
-              class="carousel-arrow carousel-arrow-prev"
-              type="button"
-              data-carousel-prev
-              aria-label="Previous clip"
-            >
-              <span aria-hidden="true">&#8249;</span>
-            </button>
-            <button
-              class="carousel-arrow carousel-arrow-next"
-              type="button"
-              data-carousel-next
-              aria-label="Next clip"
-            >
-              <span aria-hidden="true">&#8250;</span>
-            </button>
-
-            <div class="carousel-dots" data-carousel-dots></div>
-          </div>
-
-          <div class="disclaimer">
-            Clips show individual client experiences. Results vary and cannot be
-            guaranteed, and some results follow a course of treatments rather
-            than a single appointment.
-          </div>
-
-          <div class="review-buttons">
-            <a
-              class="button button-secondary"
-              href={links.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              See more on Instagram
-            </a>
-          </div>
-        </div>
-      </section>
-
       <section class="section section-soft" id="the-room">
         <div class="container">
           <div class="section-heading">
@@ -2708,7 +2651,7 @@ const currentYear = new Date().getFullYear();
             <div class="footer-links">
               <a href="#about">About</a>
               <a href="#treatments">Treatments</a>
-              <a href="#results">Before and after</a>
+              <a href="#gallery">Gallery</a>
               <a href="#reviews">Reviews</a>
               <a href="#location">Find us</a>
             </div>
