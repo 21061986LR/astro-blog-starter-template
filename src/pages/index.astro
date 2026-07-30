@@ -1805,6 +1805,16 @@ const currentYear = new Date().getFullYear();
           gap: 24px;
         }
 
+        /*
+          Capping the photograph's width is what actually gets it on screen. At
+          full container width it renders around 330px tall on a phone, so the
+          bottom half sits below the fold. Smaller means the whole image is
+          visible, which reads better than a large partial one.
+        */
+        .hero-photo-wrap {
+          max-width: 250px;
+        }
+
         .hero-copy {
           text-align: center;
         }
