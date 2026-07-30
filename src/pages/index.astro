@@ -864,6 +864,8 @@ const currentYear = new Date().getFullYear();
 
       .hero-intro .eyebrow {
         margin: 0;
+        /* Slightly tighter than the global eyebrow so the row stays compact. */
+        line-height: 1.45;
       }
 
       .hero-thumb {
@@ -1106,7 +1108,13 @@ const currentYear = new Date().getFullYear();
       }
 
       .hero-content {
-        padding: 64px 0 80px;
+        /*
+          Deliberately tight at the top. The sticky header already occupies
+          roughly 88px before this section starts, so generous padding here
+          pushes the headline and lead copy below the fold on a phone — the
+          first screen ends up mostly empty gradient.
+        */
+        padding: 34px 0 72px;
         background:
           radial-gradient(
             circle at 10% 10%,
@@ -1907,11 +1915,18 @@ const currentYear = new Date().getFullYear();
         }
 
         .hero-content {
-          padding: 51px 0 75px;
+          padding: 20px 0 56px;
         }
 
+        /*
+          13vw made the headline enormous on a phone — five lines, filling the
+          screen on its own and pushing the lead copy and buttons out of sight.
+          11vw keeps it dominant but leaves room for the sentence underneath,
+          which is what actually tells someone what the business does.
+        */
         h1 {
-          font-size: clamp(2.45rem, 13vw, 3.9rem);
+          margin-bottom: 16px;
+          font-size: clamp(2.1rem, 11vw, 3.4rem);
         }
 
         .hero-actions {
