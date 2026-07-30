@@ -1145,6 +1145,22 @@ const currentYear = new Date().getFullYear();
         background: var(--green);
       }
 
+      /*
+        Shares the gradient with .social-instagram so both Instagram calls to
+        action read as the same thing. The gallery button was navy, which made
+        two links to the same place look like two different destinations.
+      */
+      .button-instagram {
+        color: var(--white);
+        background: linear-gradient(
+          135deg,
+          #6337be,
+          #a92b88 42%,
+          #dc4259 72%,
+          #ed9c38
+        );
+      }
+
       .button-light {
         color: var(--navy);
         background: var(--white);
@@ -2448,7 +2464,7 @@ const currentYear = new Date().getFullYear();
 
           <div class="review-buttons">
             <a
-              class="button button-primary"
+              class="button button-instagram"
               href={links.instagram}
               target="_blank"
               rel="noopener noreferrer"
