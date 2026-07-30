@@ -2564,6 +2564,7 @@ const currentYear = new Date().getFullYear();
                     {" · "}
                     {review.source}
                   </footer>
+
                 </article>
               ))
             }
@@ -2863,6 +2864,24 @@ const currentYear = new Date().getFullYear();
       </a>
     </div>
 
+    {/*
+      One shared lightbox, driven by data attributes on any button that wants
+      it. Native <dialog> rather than a hand-built overlay: it handles focus
+      trapping, Escape to close and the backdrop for free, which is a lot of
+      accessibility work not to have to write or maintain.
+    */}
+    <dialog class="lightbox" data-lightbox aria-label="Enlarged photograph">
+      <button
+        class="lightbox-close"
+        type="button"
+        data-lightbox-close
+        aria-label="Close photograph"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <img data-lightbox-image src="" alt="" />
+    </dialog>
+
     <script is:inline>
       (() => {
         const loader = document.getElementById("opening-loader");
@@ -3116,22 +3135,5 @@ const currentYear = new Date().getFullYear();
         });
       })();
     </script>
-    {/*
-      One shared lightbox, driven by data attributes on any button that wants
-      it. Native <dialog> rather than a hand-built overlay: it handles focus
-      trapping, Escape to close and the backdrop for free, which is a lot of
-      accessibility work not to have to write or maintain.
-    */}
-    <dialog class="lightbox" data-lightbox aria-label="Enlarged photograph">
-      <button
-        class="lightbox-close"
-        type="button"
-        data-lightbox-close
-        aria-label="Close photograph"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <img data-lightbox-image src="" alt="" />
-    </dialog>
   </body>
 </html>
