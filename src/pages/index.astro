@@ -1340,28 +1340,6 @@ const currentYear = new Date().getFullYear();
         text-align: center;
       }
 
-      .gallery-grid {
-        display: grid;
-        align-items: start;
-        gap: 22px;
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .gallery-card {
-        overflow: hidden;
-        background: transparent;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-
-      .gallery-card img {
-        display: block;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        background: var(--cream);
-      }
-
       .disclaimer {
         margin-top: 27px;
         padding: 18px 20px;
@@ -1385,12 +1363,6 @@ const currentYear = new Date().getFullYear();
 
       .review-feature-copy p {
         color: rgba(255, 255, 255, 0.8);
-      }
-
-      .reviews-grid {
-        display: grid;
-        gap: 22px;
-        grid-template-columns: repeat(2, 1fr);
       }
 
       .review-card {
@@ -1543,6 +1515,29 @@ const currentYear = new Date().getFullYear();
       */
       .carousel-slide video.is-clip {
         background: var(--navy-dark);
+      }
+
+      /*
+        Review slides are text, so they need width rather than a square box —
+        two per screen on desktop, one and a peek on mobile. align-items:
+        stretch on the track makes every card match the tallest, so the row
+        stays level whatever the quote length.
+      */
+      .carousel-reviews .carousel-track {
+        align-items: stretch;
+      }
+
+      .carousel-reviews .carousel-slide {
+        flex-basis: calc((100% - 16px) / 2);
+        padding: 30px;
+      }
+
+      .carousel-reviews blockquote {
+        margin: 0 0 16px;
+      }
+
+      .carousel-reviews footer {
+        margin-top: auto;
       }
 
       /*
@@ -1972,6 +1967,11 @@ const currentYear = new Date().getFullYear();
           flex-basis: 78%;
         }
 
+        .carousel-reviews .carousel-slide {
+          flex-basis: 86%;
+          padding: 26px;
+        }
+
         .carousel-arrow {
           display: none !important;
         }
@@ -2048,8 +2048,6 @@ const currentYear = new Date().getFullYear();
         }
 
         .treatment-grid,
-        .gallery-grid,
-        .reviews-grid,
         .footer-grid {
           grid-template-columns: 1fr;
         }
@@ -2450,7 +2448,7 @@ const currentYear = new Date().getFullYear();
 
           <div class="review-buttons">
             <a
-              class="button button-secondary"
+              class="button button-primary"
               href={links.instagram}
               target="_blank"
               rel="noopener noreferrer"
@@ -2547,27 +2545,66 @@ const currentYear = new Date().getFullYear();
             </p>
           </div>
 
-          <div class="reviews-grid">
-            {
-              reviews.map((review) => (
-                <article class="review-card">
-                  <blockquote>“{review.quote}”</blockquote>
+          {/*
+            Reviews as a carousel rather than a stacked grid. Ten cards down a
+            phone screen is a very long scroll for content most people skim,
+            and burying the Find us and FAQ sections behind it costs more than
+            the reviews gain. Swiping keeps all ten without the page length.
 
-                  <footer>
-                    <strong>{review.name}</strong>
-                    {review.treatment && (
-                      <>
-                        {" · "}
-                        {review.treatment}
-                      </>
-                    )}
-                    {" · "}
-                    {review.source}
-                  </footer>
+            Same component as the gallery, so it inherits the arrows, dots,
+            keyboard support and scroll-snap.
+          */}
+          <div
+            class="carousel carousel-reviews"
+            data-carousel
+            aria-roledescription="carousel"
+            aria-label="Client reviews"
+          >
+            <div class="carousel-track" data-carousel-track tabindex="0">
+              {
+                reviews.map((review, i) => (
+                  <article
+                    class="carousel-slide review-card"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${i + 1} of ${reviews.length}`}
+                  >
+                    <blockquote>“{review.quote}”</blockquote>
 
-                </article>
-              ))
-            }
+                    <footer>
+                      <strong>{review.name}</strong>
+                      {review.treatment && (
+                        <>
+                          {" · "}
+                          {review.treatment}
+                        </>
+                      )}
+                      {" · "}
+                      {review.source}
+                    </footer>
+                  </article>
+                ))
+              }
+            </div>
+
+            <button
+              class="carousel-arrow carousel-arrow-prev"
+              type="button"
+              data-carousel-prev
+              aria-label="Previous review"
+            >
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+            <button
+              class="carousel-arrow carousel-arrow-next"
+              type="button"
+              data-carousel-next
+              aria-label="Next review"
+            >
+              <span aria-hidden="true">&#8250;</span>
+            </button>
+
+            <div class="carousel-dots" data-carousel-dots></div>
           </div>
 
           <div class="review-buttons">
