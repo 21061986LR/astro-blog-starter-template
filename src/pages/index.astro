@@ -181,6 +181,42 @@ const treatments = [
   },
 ];
 
+/*
+  Grouped for display only. The array above stays flat and stays the single
+  source of truth, so keeping the site in step with Treatwell is still a matter
+  of editing one list.
+
+  Order follows Treatwell's own navigation, same as the categories themselves.
+  A category added above but not listed here would silently vanish from the
+  page, so anything unrecognised is appended rather than dropped.
+*/
+const treatmentGroupNotes = {
+  Face: "Facials, resurfacing and skin rejuvenation",
+  "Men's": "Facials and waxing for men",
+  Aesthetics: "Consultation and suitability assessment required",
+  Body: "Polishing, contouring and back treatments",
+  "Hair removal": "Waxing, brows and tinting",
+  Massage: "Therapeutic and relaxation",
+  Wellness: "Screening and suitability checks apply",
+};
+
+const treatmentGroupOrder = Object.keys(treatmentGroupNotes);
+
+const treatmentCategories = [
+  ...treatmentGroupOrder,
+  ...[...new Set(treatments.map((treatment) => treatment.category))].filter(
+    (category) => !treatmentGroupOrder.includes(category)
+  ),
+];
+
+const treatmentGroups = treatmentCategories
+  .map((category) => ({
+    category,
+    note: treatmentGroupNotes[category] ?? "",
+    items: treatments.filter((treatment) => treatment.category === category),
+  }))
+  .filter((group) => group.items.length > 0);
+
 const reviews = [
   {
     quote:
@@ -410,28 +446,6 @@ const gallery = [
   { type: "video", ...videos[2] },
   { type: "image", ...results[5] },
   { type: "video", ...videos[3] },
-  /*
-    The room photographs close the gallery. Results first, setting last —
-    someone still deciding wants to see outcomes before decor, and finishing on
-    the room leaves them with the calm-and-private impression just before the
-    treatment menu.
-  */
-  {
-    type: "image",
-    src: "/images/treatment-room.jpg",
-    width: 888,
-    height: 1400,
-    alt: "The treatment room, with a couch, treatment lamp and a navy and gold botanical print",
-    caption: "The treatment room",
-  },
-  {
-    type: "image",
-    src: "/images/abshot-entrance.jpg",
-    width: 1078,
-    height: 809,
-    alt: "The etched glass entrance to Beauty at Abshot at Abshot Country Club",
-    caption: "Beauty at Abshot entrance",
-  },
 ];
 
 const openingHours = [
@@ -1182,32 +1196,90 @@ const currentYear = new Date().getFullYear();
         border-radius: 50%;
       }
 
-      .treatment-grid {
-        display: grid;
-        gap: 19px;
-        grid-template-columns: repeat(3, 1fr);
+      .treatment-groups {
+        border-top: 1px solid var(--border);
       }
 
-      .treatment-card {
+      .treatment-group {
+        border-bottom: 1px solid var(--border);
+      }
+
+      /*
+        Right padding leaves room for the shared +/− circle, which is
+        positioned against the summary's right edge.
+      */
+      .treatment-group-summary {
         display: flex;
-        min-height: 100%;
+        min-height: 44px;
+        align-items: center;
+        gap: 12px;
+        padding: 19px 40px 19px 2px;
+      }
+
+      .treatment-group-text {
+        display: flex;
+        min-width: 0;
+        flex: 1 1 auto;
         flex-direction: column;
-        padding: 27px;
+        gap: 3px;
+      }
+
+      .treatment-group-label {
+        color: var(--navy);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.32rem;
+        line-height: 1.2;
+      }
+
+      .treatment-group-note {
+        color: var(--muted);
+        font-size: 0.83rem;
+        line-height: 1.4;
+      }
+
+      .treatment-group-count {
+        flex: 0 0 auto;
+        padding: 4px 10px;
+        color: var(--gold);
         background: var(--white);
         border: 1px solid var(--border);
-        border-radius: 20px;
-        box-shadow: 0 8px 23px rgba(23, 59, 76, 0.06);
+        border-radius: 999px;
+        font-size: 0.74rem;
+        letter-spacing: 0.06em;
       }
 
-      .treatment-category {
-        display: inline-flex;
-        align-self: flex-start;
-        margin-bottom: 16px;
-        padding: 7px 11px;
-        color: var(--navy);
-        background: var(--cream);
-        border-radius: 999px;
-        text-transform: uppercase;
+      .treatment-list {
+        display: grid;
+        margin: 0;
+        padding: 0 0 14px;
+        gap: 4px;
+        list-style: none;
+      }
+
+      .treatment-row {
+        padding: 15px 4px 17px 15px;
+        background: var(--white);
+        border-left: 2px solid transparent;
+        border-radius: 0 var(--small-radius) var(--small-radius) 0;
+        transition: border-color 0.15s ease;
+      }
+
+      .treatment-row:hover,
+      .treatment-row:focus-within {
+        border-left-color: var(--gold);
+      }
+
+      .treatment-row h3 {
+        margin: 0;
+        font-size: 1.04rem;
+        line-height: 1.25;
+      }
+
+      .treatment-row p {
+        margin: 5px 0 9px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.55;
       }
 
       .treatwell-note {
@@ -1218,11 +1290,16 @@ const currentYear = new Date().getFullYear();
         opacity: 0.75;
       }
 
-      .treatment-card p {
-        flex-grow: 1;
-        margin-bottom: 18px;
-        color: var(--muted);
-        font-size: 0.93rem;
+      /*
+        Two columns of rows inside an open group once there is room. The groups
+        themselves stay full width so the category headings remain a single
+        scannable column at every size.
+      */
+      @media (min-width: 760px) {
+        .treatment-list {
+          gap: 4px 26px;
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
 
       .card-link {
@@ -1432,26 +1509,17 @@ const currentYear = new Date().getFullYear();
       }
 
       /*
-        Every slide is the same square, photo or clip. Mixing a 3/4 video box
-        with square stills made the row ragged: different heights, captions at
-        different depths, and a visible jolt on each swipe. Uniform tiles crop
-        the portrait clips a little but the section reads as one gallery rather
-        than a pile of mismatched cards.
+        Clips are portrait, stills are square. Giving video a 3/4 box inside the
+        same carousel keeps each in a sensible shape without cropping either
+        badly — the row height follows the tallest, which is fine at two items
+        per screen.
       */
       .carousel-slide video.is-clip {
+        aspect-ratio: 3 / 4;
         background: var(--navy-dark);
       }
 
-      /*
-        Captions run from two words to six. A fixed minimum height keeps every
-        tile the same overall depth, so the dots and arrows don't shift as you
-        swipe between a short caption and a long one.
-      */
       .carousel-slide figcaption {
-        display: flex;
-        min-height: 2.9em;
-        align-items: flex-start;
-        justify-content: center;
         margin-top: 9px;
         font-size: 0.86rem;
         text-align: center;
@@ -1534,6 +1602,12 @@ const currentYear = new Date().getFullYear();
         }
       }
 
+      .room-grid img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        object-position: center;
+      }
+
       .location-grid {
         align-items: start;
         grid-template-columns: 1.05fr 0.95fr;
@@ -1608,7 +1682,17 @@ const currentYear = new Date().getFullYear();
         margin-inline: auto;
       }
 
-      details {
+      /*
+        Scoped to .faq-list deliberately. These were bare element selectors, so
+        the card-style box and its padding landed on every <details> on the
+        page — including the treatment accordion, which sets its own layout and
+        was inheriting a 22px inline padding and a border it never asked for.
+
+        The +/− control below stays shared on purpose: the two accordions
+        should open the same way, so the affordance is defined once and both
+        use it.
+      */
+      .faq-list details {
         padding: 0 22px;
         background: var(--white);
         border: 1px solid var(--border);
@@ -1617,11 +1701,14 @@ const currentYear = new Date().getFullYear();
 
       summary {
         position: relative;
-        padding: 21px 40px 21px 0;
         color: var(--navy);
         font-weight: 850;
         cursor: pointer;
         list-style: none;
+      }
+
+      .faq-list summary {
+        padding: 21px 40px 21px 0;
       }
 
       summary::-webkit-details-marker {
@@ -1646,7 +1733,7 @@ const currentYear = new Date().getFullYear();
         content: "−";
       }
 
-      details p {
+      .faq-list details p {
         padding-bottom: 20px;
         color: var(--muted);
       }
@@ -1771,10 +1858,6 @@ const currentYear = new Date().getFullYear();
 
         .hero-actions {
           justify-content: center;
-        }
-
-        .treatment-grid {
-          grid-template-columns: repeat(2, 1fr);
         }
 
         /*
@@ -1909,7 +1992,6 @@ const currentYear = new Date().getFullYear();
           width: 100%;
         }
 
-        .treatment-grid,
         .gallery-grid,
         .reviews-grid,
         .footer-grid {
@@ -2167,8 +2249,8 @@ const currentYear = new Date().getFullYear();
             <ul class="benefits">
               <li>Friendly one-to-one appointments with Layla.</li>
               <li>
-                A private treatment room at Abshot Country Club in Titchfield
-                Common, with free parking on site.
+                A convenient location at Abshot Country Club in Titchfield
+                Common.
               </li>
               <li>
                 Easy to reach from Locks Heath, Park Gate, Whiteley, Warsash
@@ -2202,9 +2284,8 @@ const currentYear = new Date().getFullYear();
             <p class="eyebrow">Gallery</p>
             <h2>Real treatments, real results</h2>
             <p class="lead">
-              Before and after photographs, short clips from recent appointments
-              and a look at the treatment room. Swipe to browse, and tap any
-              clip to play.
+              Before and after photographs and short clips from recent
+              appointments. Swipe to browse, and tap any clip to play.
             </p>
           </div>
 
@@ -2316,41 +2397,73 @@ const currentYear = new Date().getFullYear();
             </p>
           </div>
 
-          <div class="treatment-grid">
+          {/*
+            Collapsed by category rather than listed as fourteen cards. On a
+            phone the card list ran to roughly eight screens, which buried the
+            complete-menu button and the reviews below it.
+
+            Every treatment name still renders into the page. Content inside
+            <details> is indexed normally under mobile-first indexing, so
+            collapsing costs nothing in search, and the categories double as
+            the headings people actually scan by.
+
+            The shared name attribute makes the groups mutually exclusive in
+            browsers that support it, and does nothing in those that don't —
+            in which case several can sit open at once, which is harmless.
+          */}
+          <div class="treatment-groups">
             {
-              treatments.map((treatment) => (
-                <article class="treatment-card">
-                  <span class="treatment-category">
-                    {treatment.category}
-                  </span>
+              treatmentGroups.map((group, index) => (
+                <details
+                  class="treatment-group"
+                  name="treatment-groups"
+                  open={index === 0}
+                >
+                  <summary class="treatment-group-summary">
+                    <span class="treatment-group-text">
+                      <span class="treatment-group-label">
+                        {group.category}
+                      </span>
 
-                  <h3>{treatment.title}</h3>
-                  <p>{treatment.description}</p>
+                      <span class="treatment-group-note">{group.note}</span>
+                    </span>
 
-                  {
-                    treatment.enquiryOnly ? (
-                      <a
-                        class="card-link"
-                        href={`https://wa.me/447799890398?text=${encodeURIComponent(
-                          `Hello Layla, I would like to ask about ${treatment.title}.`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Ask Layla about this treatment →
-                      </a>
-                    ) : (
-                      <a
-                        class="card-link"
-                        href={links.treatwell}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View treatments and book →
-                      </a>
-                    )
-                  }
-                </article>
+                    <span class="treatment-group-count">
+                      {group.items.length}
+                    </span>
+                  </summary>
+
+                  <ul class="treatment-list">
+                    {group.items.map((treatment) => (
+                      <li class="treatment-row">
+                        <h3>{treatment.title}</h3>
+                        <p>{treatment.description}</p>
+
+                        {treatment.enquiryOnly ? (
+                          <a
+                            class="card-link"
+                            href={`https://wa.me/447799890398?text=${encodeURIComponent(
+                              `Hello Layla, I would like to ask about ${treatment.title}.`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Ask Layla about this treatment →
+                          </a>
+                        ) : (
+                          <a
+                            class="card-link"
+                            href={links.treatwell}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View treatments and book →
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               ))
             }
           </div>
@@ -2461,6 +2574,62 @@ const currentYear = new Date().getFullYear();
               <strong>WhatsApp</strong>
               <span>Ask Layla about a treatment</span>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/*
+        Interior photography. The site talked repeatedly about a calm, private
+        treatment room but never showed it, which is the single most reassuring
+        thing a first-time client can see before booking.
+
+        Both files are colour-corrected and web-optimised, and their real
+        dimensions are set below so nothing shifts as they load.
+
+        The two photographs are different shapes — one portrait, one landscape
+        — so `.room-grid` crops both to a square with object-fit. If you would
+        rather see them uncropped, delete the aspect-ratio and object-fit lines
+        in .room-grid img and they will fall back to their natural proportions.
+      */}
+      {/*
+        Video section. Sits after the still results so the page has its
+        strongest evidence first, and so nothing heavier than a poster image
+        loads above the fold.
+      */}
+      <section class="section section-soft" id="the-room">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">The space</p>
+            <h2>A calm, private treatment room</h2>
+            <p class="lead">
+              Treatments take place in a private room at Beauty at Abshot,
+              inside Abshot Country Club. One client at a time, no busy salon
+              floor, and free parking a short walk from the door.
+            </p>
+          </div>
+
+          <div class="gallery-grid room-grid">
+            <article class="gallery-card">
+              <img
+                src="/images/abshot-entrance.jpg"
+                alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
+                width="1078"
+                height="809"
+                loading="lazy"
+                decoding="async"
+              />
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="/images/treatment-room.jpg"
+                alt="The treatment room, with a couch, treatment lamp and a navy and gold botanical print"
+                width="888"
+                height="1400"
+                loading="lazy"
+                decoding="async"
+              />
+            </article>
           </div>
         </div>
       </section>
