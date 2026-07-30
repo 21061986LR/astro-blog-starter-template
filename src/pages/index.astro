@@ -868,6 +868,74 @@ const currentYear = new Date().getFullYear();
         line-height: 1.45;
       }
 
+      /*
+        The thumbnail is a button, so its native chrome has to be stripped —
+        but the focus ring is kept, since it is the only affordance a keyboard
+        user gets.
+      */
+      .hero-thumb-button {
+        flex: 0 0 auto;
+        padding: 0;
+        background: none;
+        border: 0;
+        border-radius: 50%;
+        cursor: zoom-in;
+        line-height: 0;
+        transition: transform 0.2s ease;
+      }
+
+      .hero-thumb-button:hover {
+        transform: scale(1.05);
+      }
+
+      .hero-thumb-button:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      .lightbox {
+        max-width: min(94vw, 900px);
+        max-height: 92vh;
+        padding: 0;
+        overflow: visible;
+        background: transparent;
+        border: 0;
+      }
+
+      .lightbox::backdrop {
+        background: rgba(11, 31, 43, 0.82);
+        backdrop-filter: blur(3px);
+      }
+
+      .lightbox img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 92vh;
+        object-fit: contain;
+        border-radius: var(--radius);
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -14px;
+        right: -14px;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        color: var(--navy);
+        background: var(--white);
+        border: 0;
+        border-radius: 50%;
+        box-shadow: var(--shadow);
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
       .hero-thumb {
         flex: 0 0 auto;
         width: 76px;
@@ -1567,6 +1635,10 @@ const currentYear = new Date().getFullYear();
         .carousel-track {
           scroll-behavior: auto;
         }
+
+        .hero-thumb-button:hover {
+          transform: none;
+        }
       }
 
       .location-grid {
@@ -2199,15 +2271,23 @@ const currentYear = new Date().getFullYear();
                 Forever Young Beauty at Abshot Country Club
               </p>
 
-              <img
-                class="hero-thumb"
-                src="/images/abshot-entrance.jpg"
-                alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
-                width="1078"
-                height="809"
-                loading="eager"
-                decoding="async"
-              />
+              <button
+                class="hero-thumb-button"
+                type="button"
+                data-lightbox-src="/images/abshot-entrance.jpg"
+                data-lightbox-alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
+                aria-label="View a larger photograph of the entrance to Beauty at Abshot"
+              >
+                <img
+                  class="hero-thumb"
+                  src="/images/abshot-entrance.jpg"
+                  alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
+                  width="1078"
+                  height="809"
+                  loading="eager"
+                  decoding="async"
+                />
+              </button>
             </div>
 
             {/*
@@ -2989,5 +3069,69 @@ const currentYear = new Date().getFullYear();
         });
       })();
     </script>
+
+    <script is:inline>
+      /*
+        Lightbox. Any element carrying data-lightbox-src opens the shared
+        dialog with that image, so adding more later needs no extra script.
+
+        <dialog>.showModal() gives focus trapping and Escape-to-close for free.
+        The only thing it doesn't handle is clicking the backdrop, which is
+        below — the dialog fills its own box, so a click landing outside the
+        image bounds is a backdrop click.
+      */
+      (() => {
+        const dialog = document.querySelector("[data-lightbox]");
+        const image = dialog && dialog.querySelector("[data-lightbox-image]");
+        const triggers = document.querySelectorAll("[data-lightbox-src]");
+
+        if (!dialog || !image || !triggers.length) return;
+
+        // No <dialog> support: leave the thumbnails as plain, inert images
+        // rather than wiring up buttons that would do nothing.
+        if (typeof dialog.showModal !== "function") return;
+
+        triggers.forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            image.src = trigger.dataset.lightboxSrc;
+            image.alt = trigger.dataset.lightboxAlt || "";
+            dialog.showModal();
+          });
+        });
+
+        const close = () => dialog.close();
+
+        const closeButton = dialog.querySelector("[data-lightbox-close]");
+        closeButton && closeButton.addEventListener("click", close);
+
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) close();
+        });
+
+        // Drop the source on close so a large image isn't held in memory, and
+        // so the next open never flashes the previous picture.
+        dialog.addEventListener("close", () => {
+          image.removeAttribute("src");
+          image.alt = "";
+        });
+      })();
+    </script>
+    {/*
+      One shared lightbox, driven by data attributes on any button that wants
+      it. Native <dialog> rather than a hand-built overlay: it handles focus
+      trapping, Escape to close and the backdrop for free, which is a lot of
+      accessibility work not to have to write or maintain.
+    */}
+    <dialog class="lightbox" data-lightbox aria-label="Enlarged photograph">
+      <button
+        class="lightbox-close"
+        type="button"
+        data-lightbox-close
+        aria-label="Close photograph"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <img data-lightbox-image src="" alt="" />
+    </dialog>
   </body>
 </html>
