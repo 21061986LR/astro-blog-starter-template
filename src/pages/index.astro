@@ -1796,6 +1796,15 @@ const currentYear = new Date().getFullYear();
           grid-template-columns: 1fr;
         }
 
+        /*
+          The 54px column gap becomes a row gap once these collapse to one
+          column, leaving a large blank band between the hero copy and the
+          photograph. Much tighter is right when stacked.
+        */
+        .hero-grid {
+          gap: 24px;
+        }
+
         .hero-copy {
           text-align: center;
         }
@@ -1924,9 +1933,14 @@ const currentYear = new Date().getFullYear();
           11vw keeps it dominant but leaves room for the sentence underneath,
           which is what actually tells someone what the business does.
         */
+        /*
+          Headline sized to fit three lines rather than four or five. Every line
+          it loses is roughly 50px of Layla's photograph brought above the fold,
+          and the photograph does more selling than a fourth line of type.
+        */
         h1 {
-          margin-bottom: 16px;
-          font-size: clamp(2.1rem, 11vw, 3.4rem);
+          margin-bottom: 14px;
+          font-size: clamp(1.85rem, 8.6vw, 2.8rem);
         }
 
         .hero-actions {
