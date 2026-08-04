@@ -363,6 +363,23 @@ const schema = {
       blockquote footer { font-size: 0.85rem; color: var(--soft); }
 
       /* Hours + contact */
+      .studio {
+        display: grid; gap: 0.9rem;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .studio img {
+        width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+        border-radius: 12px;
+      }
+      @media (max-width: 640px) {
+        .studio { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .studio img { border-radius: 9px; }
+      }
+      .band {
+        width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+        border-radius: 14px; margin-bottom: 1.75rem;
+      }
+
       .split { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
       table.hours { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
       table.hours td { padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
@@ -537,10 +554,48 @@ const schema = {
     </section>
 
     <!-- FIND US -->
+    <section id="studio">
+      <div class="wrap">
+        <p class="eyebrow">Inside the studio</p>
+        <h2>A calm, private treatment room</h2>
+        <div class="studio">
+          <img
+            src="/images/welcome-tall.jpg"
+            alt="Entrance to Beauty at Abshot, Abshot Country Club"
+            loading="lazy"
+            width="720"
+            height="1280"
+          />
+          <img
+            src="/images/room-tall.jpg"
+            alt="Treatment room at Forever Young Beauty by Layla"
+            loading="lazy"
+            width="720"
+            height="1280"
+          />
+          <img
+            src="/images/room-portrait-1.jpg"
+            alt="Treatment bed and skincare equipment"
+            loading="lazy"
+            width="1080"
+            height="1480"
+          />
+        </div>
+      </div>
+    </section>
+
     <section id="find-us">
       <div class="wrap">
         <p class="eyebrow">Find us</p>
         <h2>In the heart of Titchfield Common</h2>
+        <img
+          class="band"
+          src="/images/room-wide.jpg"
+          alt="The treatment room at Abshot Country Club, Titchfield Common"
+          loading="lazy"
+          width="720"
+          height="405"
+        />
         <div class="split">
           <div>
             <address>
