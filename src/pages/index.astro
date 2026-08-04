@@ -298,8 +298,32 @@ const schema = {
       .card p { color: var(--soft); font-size: 0.93rem; flex: 1; }
 
       /* Reels */
+      /* shared row for social / review buttons */
+      .btn-row {
+        display: flex; gap: 0.7rem; flex-wrap: wrap;
+        margin-top: 1.4rem;
+      }
+      .btn-row .btn { font-size: 0.9rem; padding: 0.7rem 1.35rem; }
+      .btn-gold-ghost {
+        border: 1.5px solid var(--gold); color: var(--gold-dark);
+        background: #fff;
+      }
+      .btn-gold-ghost:hover { background: var(--gold); color: var(--navy-deep); }
+
+      /* five-star lockup used as a section mark */
+      .star-mark {
+        display: block; color: var(--gold);
+        font-size: clamp(1.6rem, 5vw, 2.1rem);
+        letter-spacing: 0.12em; line-height: 1;
+        margin-bottom: 0.6rem;
+      }
+
       .reels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-      .reels video { border-radius: 12px; width: 100%; }
+      .reels video {
+        border-radius: 12px; width: 100%;
+        aspect-ratio: 9 / 16; object-fit: cover;
+        background: var(--navy); display: block;
+      }
 
       /* Reviews */
       .reviews { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -425,17 +449,35 @@ const schema = {
         <p class="eyebrow">Fresh from the treatment room</p>
         <h2>See recent results</h2>
         <div class="reels">
-          <video src="/videos/reel1.mp4" controls preload="none" playsinline
-          ></video>
-          <video src="/videos/reel2.mp4" controls preload="none" playsinline
-          ></video>
-          <video src="/videos/reel3.mp4" controls preload="none" playsinline
-          ></video>
+          <video
+            src="/videos/reel1.mp4"
+            poster="/images/poster1.jpg"
+            controls
+            preload="none"
+            playsinline
+            aria-label="LED light therapy treatment"></video>
+          <video
+            src="/videos/reel2.mp4"
+            poster="/images/poster2.jpg"
+            controls
+            preload="none"
+            playsinline
+            aria-label="Advanced skin treatment"></video>
+          <video
+            src="/videos/reel3.mp4"
+            poster="/images/poster3.jpg"
+            controls
+            preload="none"
+            playsinline
+            aria-label="Facial and skincare treatment"></video>
         </div>
-        <p style="margin-top:1.25rem;">
-          <a href={business.instagram}>Follow @foreveryoungbeauty_bylayla on Instagram</a>
-          for daily results, offers and last-minute availability.
+        <p style="margin-top:1.25rem; color: var(--soft);">
+          Daily results, offers and last-minute availability.
         </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={business.instagram}>Follow on Instagram</a>
+          <a class="btn btn-ghost" href={business.facebook}>Find us on Facebook</a>
+        </div>
       </div>
     </section>
 
@@ -443,6 +485,7 @@ const schema = {
     <section id="reviews">
       <div class="wrap">
         <p class="eyebrow">What clients say</p>
+        <span class="star-mark" aria-hidden="true">★★★★★</span>
         <h2>Over 500 five-star reviews</h2>
         <div class="reviews">
           {
@@ -456,10 +499,14 @@ const schema = {
             ))
           }
         </div>
-        <p style="margin-top:1.25rem;">
-          <a href={business.googleReviews}>Read our Google reviews</a> ·
-          <a href={business.treatwell}>Read verified reviews on Treatwell</a>
-        </p>
+        <div class="btn-row">
+          <a class="btn btn-gold-ghost" href={business.googleReviews}
+            >Read our Google reviews</a
+          >
+          <a class="btn btn-gold-ghost" href={business.treatwell}
+            >Verified reviews on Treatwell</a
+          >
+        </div>
       </div>
     </section>
 
