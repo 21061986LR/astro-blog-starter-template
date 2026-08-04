@@ -1,3192 +1,528 @@
 ---
+// Forever Young Beauty by Layla — SEO-optimised homepage
+
 const business = {
   name: "Forever Young Beauty by Layla",
+  phone: "+447799890398",
   phoneDisplay: "07799 890398",
-  phoneInternational: "+447799890398",
   email: "layla.radestock@hotmail.com",
+  street: "Beauty at Abshot, Abshot Country Club, Little Abshot Road",
+  locality: "Titchfield Common, Fareham",
+  region: "Hampshire",
+  postcode: "PO14 4LN",
+  lat: 50.8482589,
+  lng: -1.2688614,
+  ratingValue: "5.0",
+  reviewCount: "567",
+  url: "https://www.foreveryoungbeautybylayla.co.uk",
+  instagram: "https://www.instagram.com/foreveryoungbeauty_bylayla",
+  facebook: "https://www.facebook.com/foreveryoungbeautybylayla",
+  treatwell: "https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/",
+  googleReviews: "https://share.google/btFZbelPi8zLpwQBJ",
 };
 
-const links = {
-  treatwell:
-    "https://widget.treatwell.co.uk/place/forever-young-beauty-by-layla/",
-  treatwellProfile:
-    "https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/",
-  instagram:
-    "https://www.instagram.com/foreveryoungbeauty_bylayla/",
-  facebook:
-    "https://www.facebook.com/share/1EFxmM1S14/",
-  whatsapp:
-    "https://wa.me/447799890398?text=Hello%20Layla%2C%20I%20would%20like%20to%20ask%20about%20a%20treatment.",
-  phone: "tel:+447799890398",
-  email: "mailto:layla.radestock@hotmail.com",
-  maps: "https://maps.app.goo.gl/JPxvA3GcFrQov9SN9",
-  // Canonical Google Business Profile link, built from the listing's CID
-  // (0xb6bf12f61af5ccef = 13168264683678190831). The ?cid= form is stable and
-  // survives name or address edits, unlike the long /maps/place/... URL and
-  // unlike the previous search-results URL, which passed no signal at all.
-  googleProfile: "https://www.google.com/maps?cid=13168264683678190831",
-  googleReviews: "https://www.google.com/maps?cid=13168264683678190831",
-};
+const title =
+  "Forever Young Beauty by Layla | Beauty Salon Fareham — Facials, Massage & Aesthetics, Titchfield Common";
+const description =
+  "5-star beauty salon at Abshot Country Club, Fareham. CACI facials, dermaplaning, microneedling, massage, waxing & advanced aesthetics. Serving Titchfield, Locks Heath, Whiteley & Park Gate. Over 500 five-star reviews. Book online.";
 
-// Confirmed coordinates for the treatment room at Abshot Country Club.
-const geo = {
-  latitude: 50.8485564,
-  longitude: -1.2684209,
-};
-
-/*
-  A correction to what I suggested earlier: I've dropped aggregateRating rather
-  than filling it in.
-
-  Google's structured data policy treats reviews a business collects and
-  publishes about itself as "self-serving", and self-serving reviews are not
-  eligible for review snippets on LocalBusiness or Organization markup. Google
-  sources the stars for a local listing from the Business Profile instead. So
-  the block would very likely have been ignored, and an inflated count is a
-  manual action risk for no upside.
-
-  For reference, the real numbers as they stand: Google shows 5.0 from 9
-  reviews. The "over 500" figure on the page is the Treatwell total, which is
-  fine as visible copy — it just isn't something to assert as schema here.
-*/
-
-/*
-  Treatment categories, reconciled line by line against the Treatwell menu
-  (July 2026).
-
-  Rules for this array:
-
-  1. No prices, no discounts, no durations. Treatwell is the single live source
-     for all three, so the website can never go stale or contradict it.
-  2. Every treatment named in a description must exist as a bookable listing on
-     Treatwell. If it isn't on the menu, it doesn't go here — naming treatments
-     that can't be booked sends people to a dead end and is exactly the problem
-     that got Hair Restoration removed.
-  3. Categories follow Treatwell's own navigation (Face, Body, Massage, Hair
-     Removal, Men's) so the site and the booking menu read as one journey.
-
-  Hair Restoration was removed: it was advertised here with supporting
-  before/after photography, but there is no bookable hair restoration listing
-  on Treatwell. If Layla still offers it by enquiry, it should come back with a
-  WhatsApp CTA rather than a Treatwell one.
-*/
 const treatments = [
   {
-    category: "Face",
-    title: "Microneedling and Skin Rejuvenation",
-    description:
-      "Microneedling with Dermapen and plasma channeling, offered following consultation to support skin texture, tone and overall condition.",
+    name: "CACI Non-Surgical Facials",
+    desc: "The celebrity-favourite non-surgical facelift. Microcurrent therapy lifts and tones facial muscles — including the targeted CACI Jowl Lift for a firmer jawline.",
   },
   {
-    /*
-      Plaxel Plasma is offered but not yet listed on Treatwell, so this card
-      deliberately routes to WhatsApp instead of the booking widget. Sending
-      people to Treatwell for something that isn't on it is the dead end that
-      got Hair Restoration removed.
-
-      Switch enquiryOnly to false once the Treatwell listing exists, and the
-      card reverts to the standard booking button on its own.
-    */
-    category: "Face",
-    title: "Plaxel Plasma",
-    description:
-      "A plasma pen treatment for the upper eye area and fine lines, offered following consultation and a suitability assessment. New, and currently booked by enquiry rather than online.",
-    enquiryOnly: true,
+    name: "Dermaplaning",
+    desc: "Instantly smoother, brighter skin. Gentle exfoliation removes dead skin cells and peach fuzz, leaving a flawless base for skincare and make-up.",
   },
   {
-    category: "Face",
-    title: "Dermaplaning",
-    description:
-      "Professional exfoliation that removes surface build-up and fine facial hair for smoother-looking skin.",
+    name: "Microneedling & Skin Rejuvenation",
+    desc: "Collagen-boosting treatments for fine lines, acne scarring and uneven texture, alongside LED light therapy, face peels and targeted acne treatments.",
   },
   {
-    category: "Face",
-    title: "Chemical Peels and Resurfacing",
-    description:
-      "BioRePeel CL3, the MONU+ Resurface and Peel system, and the Revival range of brightening, clarifying and anti-ageing peels.",
+    name: "Massage Therapy",
+    desc: "Aromatherapy, Swedish, deep tissue, pregnancy and lymphatic drainage massage in a calm, private treatment room. Full body or back, neck and shoulders.",
   },
   {
-    category: "Face",
-    title: "CACI Non-Surgical Treatments",
-    description:
-      "The full CACI range, including non-surgical face lift, jowl lift, eye revive and Hydratone.",
+    name: "Body Contouring",
+    desc: "Cellulite reduction therapy and radio frequency body treatments to smooth, firm and tighten.",
   },
   {
-    category: "Face",
-    title: "Hydrating and Specialist Facials",
-    description:
-      "Hydra Lift 6-in-1, Hydra Glow Renewal, Sonic Skin Renewal, High Frequency Therapy, purifying, eye revival and bespoke luxe facials.",
-  },
-  {
-    category: "Face",
-    title: "Radiofrequency and LED Light Therapy",
-    description:
-      "Collagen Lift radiofrequency treatment and Celluma LED light therapy, used on their own or alongside a facial.",
-  },
-  {
-    category: "Men's",
-    title: "Men's Facials and Waxing",
-    description:
-      "The Masculine Glow-Up facial, built around men's skin and shaving concerns, plus back, chest and combined back and chest waxing.",
-  },
-  {
-    category: "Massage",
-    title: "Massage Therapy",
-    description:
-      "Swedish, deep tissue, back deep tissue, back, neck and shoulder, aromatherapy, lymphatic drainage, trigger point therapy, pregnancy, abdominal, face, hand, foot and bespoke massage, plus the Top to Toe face and body treatment.",
-  },
-  {
-    category: "Body",
-    title: "Body, Cellulite and Weight-Loss Treatments",
-    description:
-      "MONUSpa hot oil and salt scrub polish, the Skin Bliss back treatment, cellulite reduction therapy and anti-cellulite vacuum treatment.",
-  },
-  {
-    category: "Hair removal",
-    title: "Waxing, Brows and Tinting",
-    description:
-      "Facial and body waxing, leg, underarm and forearm waxing, bikini, Brazilian, Playboy and Hollywood waxing, men's waxing, eyebrow shaping and eyebrow and eyelash tinting.",
-  },
-  {
-    category: "Aesthetics",
-    title: "Jalupro Injectable Skin Treatments",
-    description:
-      "Amino acid based injectable treatments for the eye area, lips and face, including Super Hydro V-Lift and Face AART. Booked after a short consultation.",
-  },
-  {
-    /*
-      Deliberately unnamed.
-
-      UK law prohibits advertising prescription-only medicines to the public
-      (Human Medicines Regulations 2012), and botulinum toxin is a POM. The ASA
-      has upheld complaints against clinics for naming it or using terms that
-      clearly point to it. Keep this entry generic — do not add "anti-wrinkle
-      injections", "botox", brand names, prices or before/after imagery for POM
-      treatments here, even though Treatwell lists them.
-
-      Jalupro is a medical device rather than a POM, which is why it sits above
-      as a named treatment. If the aesthetics offering changes, get the wording
-      checked before publishing.
-    */
-    category: "Aesthetics",
-    title: "Consultation-Led Aesthetic Treatments",
-    description:
-      "Selected treatments available following an appropriate consultation and suitability assessment. Please enquire.",
-  },
-  {
-    category: "Wellness",
-    title: "B12 Vitamin Injections",
-    description:
-      "Available following appropriate screening and suitability checks.",
+    name: "Waxing & Tinting",
+    desc: "Full waxing menu for ladies and men — from lip and brow to Hollywood — plus eyebrow and eyelash tinting.",
   },
 ];
 
+// Real verified reviews supplied from the salon's own Treatwell listing
+// and Google Business Profile (July 2026).
 const reviews = [
   {
     quote:
       "Layla is very professional, caring and friendly. She makes sure you are comfortable and relaxed during the treatment. I will definitely be returning on a regular basis.",
-    name: "Corinne",
+    author: "Corinne",
     treatment: "CACI Facial",
     source: "Treatwell verified review",
   },
   {
     quote:
       "Layla is amazing! I have had loads of facials over the years, however this was by far the best. Layla is diligent, knowledgeable and is a wonderful therapist. Thank you!",
-    name: "Maxine",
+    author: "Maxine",
     treatment: "Facial",
     source: "Google review",
   },
   {
     quote:
-      "Layla is just wonderful. I’ve recommended her to so many friends and they are all now also returning customers. 10/10 every visit.",
-    name: "Nicky",
+      "Layla is just wonderful. I've recommended her to so many friends and they are all now also returning customers. 10/10 every visit.",
+    author: "Nicky",
     treatment: "Pregnancy Massage",
     source: "Treatwell verified review",
   },
   {
     quote:
       "Layla is always excellent. She is very professional, thorough and attentive, and the treatment is carried out in a calm, relaxing environment. She is also very good at putting you at ease, which makes the whole experience much more comfortable. I am a regular customer and would highly recommend her.",
-    name: "Terry",
-    treatment: "Men’s Waxing",
+    author: "Terry",
+    treatment: "Men's Waxing",
     source: "Treatwell verified review",
   },
   {
     quote:
       "Fabulous facial as always. Layla never rushes you and is very experienced.",
-    name: "Caroline",
+    author: "Caroline",
     treatment: "CACI Facial",
     source: "Treatwell verified review",
   },
   {
     quote:
       "Great treatment as always, and Layla had a cancellation and kindly fitted me in for a massage last minute which was amazing. I really appreciated her being so accommodating with the last minute request!",
-    name: "Anna",
-    treatment: "Ladies’ Waxing",
+    author: "Anna",
+    treatment: "Ladies' Waxing",
     source: "Treatwell verified review",
   },
-  /*
-    The five below were previously only visible as Instagram graphics. As text
-    they are readable by Google and by screen readers, and they avoid the
-    problem those graphics had: four of them paired a named review with a stock
-    photograph of a person who wasn't the client, which reads as misleading
-    once it sits on a business website rather than a social feed.
-
-    `source` is "Client review" rather than "Treatwell verified review" because
-    the original platform isn't known from the graphics. If Layla can identify
-    where each came from, upgrading the attribution makes them stronger — a
-    named platform is far more persuasive than an unsourced quote. Treatment is
-    left off where the review doesn't state one; don't guess.
-  */
-  {
-    quote: "Wonderful massage. Highly recommended.",
-    name: "Debbie",
-    treatment: "Massage",
-    source: "Client review",
-  },
-  {
-    quote:
-      "Layla listened to my requests and provided the treatment required. A lovely, beneficial facial and arm massage.",
-    name: "Julia",
-    treatment: "Facial and Massage",
-    source: "Client review",
-  },
-  {
-    quote: "Layla was great and patient. Great service all around.",
-    name: "Emma",
-    source: "Client review",
-  },
-  {
-    quote:
-      "I’m really happy with the results. My skin is definitely better than it looks in the last picture, mostly blemishes from previous breakouts, but I am positive the blemishes will fade with frequent treatments.",
-    name: "Stella",
-    treatment: "Skin Treatment",
-    source: "Client review",
-  },
 ];
-
-/*
-  Before and after imagery, newest and strongest first.
-
-  The two legacy files have no dimensions because I never had their real pixel
-  sizes. Get them with:  identify -format "%f %w %h\n" public/images/*.jpg
-  Until then those two slides can shift slightly as they load.
-*/
-const results = [
-  {
-    src: "/images/biorepeel-before-after-two-sessions.jpg",
-    width: 1079,
-    height: 1080,
-    alt: "Cheek pigmentation and redness before BioRePeel, after one session and after two sessions",
-    caption: "BioRePeel, across two sessions",
-  },
-  {
-    src: "/images/pigmentation-before-after.jpg",
-    width: 1078,
-    height: 1080,
-    alt: "Reduced pigmentation and more even skin tone across the cheek and eye area after treatment",
-    caption: "Pigmentation and skin tone",
-  },
-  {
-    src: "/images/forehead-lines-before-after.jpg",
-    width: 1078,
-    height: 1080,
-    alt: "Smoother forehead texture and softened fine lines after treatment",
-    caption: "Forehead texture and fine lines",
-  },
-  {
-    src: "/images/eye-area-fine-lines-before-after.jpg",
-    width: 1049,
-    height: 1055,
-    alt: "Softened fine lines and improved texture around the eye area after treatment",
-    caption: "Eye area",
-  },
-  {
-    src: "/images/caci-before-after.jpg",
-    alt: "Facial skin treatment before and after comparison",
-    caption: "CACI facial",
-  },
-  {
-    src: "/images/jawline-before-after.jpg",
-    alt: "Jawline treatment before and after comparison",
-    caption: "Jawline",
-  },
-];
-
-/*
-  Treatment clips, taken from Instagram and re-encoded for the web (18MB down
-  to 1.9MB across the three).
-
-  Self-hosted deliberately, rather than using Instagram's embed. That embed
-  needs over 100KB of Meta JavaScript, loads their tracking on your site — which
-  brings cookie-consent obligations under PECR — and often shows "content
-  unavailable" to logged-out visitors. Self-hosting avoids all three and gives
-  you control over playback.
-
-  Nothing downloads until someone taps play: preload="none" means only the
-  poster image loads with the page.
-
-  Audio was stripped during encoding, since these play silently like social
-  clips. If any of them has a voiceover worth keeping, say so and it can be
-  re-encoded with sound.
-
-  Captions name Plaxel Plasma and Collagen Lift because both are real
-  treatments Layla offers. Deliberately no efficacy claims here: the Instagram
-  captions talk about skin tightening, lifting and reducing hooding, and claims
-  like those need substantiation under the CAP Code. The ASA has ruled against
-  clinics over plasma and fibroblast claims specifically. Describing what the
-  treatment is carries no such risk; describing what it will achieve does. Keep
-  the outcome talk on Instagram, or get it substantiated before it goes here.
-
-  Filenames stay as treatment-clip-N because the files are already uploaded.
-  Descriptive names (collagen-lift-facial.mp4 and so on) would earn a little in
-  image and video search, so worth renaming if you ever re-upload — but it is a
-  marginal gain and not worth breaking working links for.
-
-  Collagen Lift is named in the captions because it maps to a real bookable
-  Treatwell listing (Collagen Lift Radio Frequency). The first clip is
-  deliberately not tied to a named treatment: the device is visible but not
-  identifiable with enough confidence, and naming the wrong one would send
-  people to the wrong booking. Update that caption if Layla confirms it.
-*/
-const videos = [
-  {
-    src: "/videos/treatment-clip-1.mp4",
-    poster: "/videos/treatment-clip-1-poster.jpg",
-    width: 720,
-    height: 1280,
-    caption: "Plaxel Plasma, upper eye area",
-    alt: "Layla carrying out a Plaxel Plasma treatment across the brow and upper eye area, working to marked treatment points",
-  },
-  {
-    src: "/videos/treatment-clip-2.mp4",
-    poster: "/videos/treatment-clip-2-poster.jpg",
-    width: 720,
-    height: 762,
-    caption: "Collagen Lift facial",
-    alt: "A Collagen Lift treatment being applied across the cheeks, jawline and lower face, ending with a before and after comparison",
-  },
-  {
-    src: "/videos/treatment-clip-3.mp4",
-    poster: "/videos/treatment-clip-3-poster.jpg",
-    width: 484,
-    height: 710,
-    caption: "Collagen Lift, after a course of six",
-    alt: "Close-up before and after comparison of the lower face, chin and neck following a course of six Collagen Lift treatments",
-  },
-  {
-    src: "/videos/treatment-clip-4.mp4",
-    poster: "/videos/treatment-clip-4-poster.jpg",
-    width: 720,
-    height: 1280,
-    caption: "Plaxel Plasma treatment",
-    alt: "A Plaxel Plasma treatment in progress in the treatment room at Beauty at Abshot",
-  },
-  {
-    src: "/videos/treatment-clip-5.mp4",
-    poster: "/videos/treatment-clip-5-poster.jpg",
-    width: 720,
-    height: 1280,
-    caption: "Microneedling with Dermapen",
-    alt: "A microneedling treatment being carried out across the cheek with a Dermapen handpiece",
-  },
-];
-
-/*
-  One combined gallery: before/after stills and treatment clips in a single
-  carousel, rather than two separate sections further apart on the page.
-
-  Videos are interleaved rather than grouped at the end, so someone swiping
-  through hits motion early and keeps going.
-*/
-const gallery = [
-  { type: "image", ...results[0] },
-  { type: "video", ...videos[4] },
-  { type: "image", ...results[1] },
-  { type: "image", ...results[2] },
-  { type: "video", ...videos[1] },
-  { type: "image", ...results[3] },
-  { type: "video", ...videos[0] },
-  { type: "image", ...results[4] },
-  { type: "video", ...videos[2] },
-  { type: "image", ...results[5] },
-  { type: "video", ...videos[3] },
-  /*
-    The room photographs close the gallery. Results first, setting last —
-    someone still deciding wants to see outcomes before decor, and finishing on
-    the room leaves them with the calm-and-private impression just before the
-    treatment menu.
-  */
-  {
-    type: "image",
-    src: "/images/treatment-room.jpg",
-    width: 888,
-    height: 1400,
-    alt: "The treatment room, with a couch, treatment lamp and a navy and gold botanical print",
-    caption: "The treatment room",
-  },
-  {
-    type: "image",
-    src: "/images/abshot-entrance.jpg",
-    width: 1078,
-    height: 809,
-    alt: "The etched glass entrance to Beauty at Abshot at Abshot Country Club",
-    caption: "Beauty at Abshot entrance",
-  },
-];
-
-const openingHours = [
-  ["Monday", "11:00 – 19:30"],
-  ["Tuesday", "11:00 – 19:30"],
-  ["Wednesday", "Closed"],
-  ["Thursday", "11:00 – 19:30"],
-  ["Friday", "12:00 – 19:30"],
-  ["Saturday", "11:00 – 15:00"],
-  ["Sunday", "Closed"],
-];
-
-const areas = [
-  "Titchfield Common",
-  "Titchfield",
-  "Locks Heath",
-  "Park Gate",
-  "Whiteley",
-  "Warsash",
-  "Sarisbury Green",
-  "Stubbington",
-  "Fareham",
-  "Hamble",
-  "Hedge End",
-  "Gosport",
-  "Southampton",
-  "Portsmouth",
-];
-
-// States the overall rating rather than claiming every individual review is
-// five stars — a 5.0 average and "500 five-star reviews" are not the same
-// assertion, and only the first one is verifiable on Treatwell.
-// "Over 560" is a floor, so it stays true as the total climbs. Treatwell showed
-// 5.0 from 567 when last checked, July 2026. Only revisit at a real milestone.
-const reviewsClaim = "Rated 5.0 on Treatwell from over 560 reviews";
-
-// FAQs now live in one place and drive both the visible <details> list and the
-// FAQPage structured data. Google requires the two to match, so keeping a single
-// source of truth stops them drifting apart when copy gets edited.
-const faqs = [
-  {
-    question: "How do I book a treatment?",
-    answer:
-      "Select any View treatments and book button to see the full treatment menu, current prices and available appointment times on Treatwell.",
-  },
-  {
-    question: "Can I ask a question before booking?",
-    answer: `Yes. Message Layla on WhatsApp or call ${business.phoneDisplay}.`,
-  },
-  {
-    question: "Do I need a patch test?",
-    answer:
-      "Some treatments do, including tinting and certain skin treatments. Patch tests are free and take about five minutes, and can be booked on Treatwell like any other appointment. If you are not sure whether you need one, message Layla before booking.",
-  },
-  {
-    question: "Are treatment results guaranteed?",
-    answer:
-      "No. Results vary according to the client, treatment, suitability, skin or hair condition, lifestyle and aftercare.",
-  },
-  {
-    question: "Where is the treatment room?",
-    answer:
-      "Beauty at Abshot, Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, PO14 4LN.",
-  },
-  {
-    question: "Is there parking at Abshot Country Club?",
-    answer:
-      "Yes. There is free on-site parking, with the treatment room a short walk from the car park.",
-  },
-  {
-    question: "Which areas do clients travel from?",
-    answer:
-      "Most clients come from Titchfield Common, Locks Heath, Park Gate, Whiteley, Warsash, Sarisbury Green, Stubbington and Fareham, with others travelling from Gosport, Hedge End, Southampton and Portsmouth.",
-  },
-];
-
-// Machine-readable mirror of the openingHours display array above.
-const openingHoursSchema = [
-  { days: ["Monday", "Tuesday", "Thursday"], opens: "11:00", closes: "19:30" },
-  { days: ["Friday"], opens: "12:00", closes: "19:30" },
-  { days: ["Saturday"], opens: "11:00", closes: "15:00" },
-].map((slot) => ({
-  "@type": "OpeningHoursSpecification",
-  dayOfWeek: slot.days,
-  opens: slot.opens,
-  closes: slot.closes,
-}));
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": ["BeautySalon", "LocalBusiness"],
-  "@id": "https://foreveryoungbeautybylayla.co.uk/#business",
+  "@type": "BeautySalon",
+  "@id": `${business.url}/#salon`,
   name: business.name,
-  url: "https://foreveryoungbeautybylayla.co.uk/",
-  telephone: business.phoneInternational,
-  email: business.email,
   description:
-    "Facials, advanced skin treatments, massage, waxing, body treatments and aesthetics in Titchfield Common near Fareham.",
-  logo:
-    "https://foreveryoungbeautybylayla.co.uk/images/fyb-logo2.png",
-  image: [
-    "https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg",
-    "https://foreveryoungbeautybylayla.co.uk/images/layla-treatment.jpg",
-  ],
+    "Beauty and aesthetic treatments in Fareham, Hampshire — CACI facials, dermaplaning, microneedling, massage, waxing and advanced aesthetics.",
+  url: business.url,
+  telephone: business.phone,
+  email: business.email,
+  image: `${business.url}/images/hero-layla.jpg`,
+  logo: `${business.url}/images/fyb-logo.png`,
+  currenciesAccepted: "GBP",
+  paymentAccepted: "Cash, Credit Card, Debit Card",
   address: {
     "@type": "PostalAddress",
-    streetAddress:
-      "Beauty at Abshot, Abshot Country Club, Little Abshot Road",
-    addressLocality: "Titchfield Common",
-    // addressRegion should be the county alone — the town belongs in
-    // addressLocality, and mixing them can weaken the address match.
-    addressRegion: "Hampshire",
-    postalCode: "PO14 4LN",
+    streetAddress: business.street,
+    addressLocality: business.locality,
+    addressRegion: business.region,
+    postalCode: business.postcode,
     addressCountry: "GB",
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: geo.latitude,
-    longitude: geo.longitude,
+    latitude: business.lat,
+    longitude: business.lng,
   },
-  hasMap: links.maps,
-  currenciesAccepted: "GBP",
-  priceRange: "££",
-  openingHoursSpecification: openingHoursSchema,
-  areaServed: areas.map((area) => ({
-    "@type": "Place",
-    name: area,
-  })),
-  // Reuses the treatments array, so the service list can never drift out of
-  // sync with what the page actually shows.
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Treatment menu",
-    itemListElement: treatments.map((treatment) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: treatment.title,
-        serviceType: treatment.category,
-        description: treatment.description,
-      },
-      // Enquiry-only treatments point at the site rather than Treatwell, so the
-      // markup never advertises a booking URL that has no listing behind it.
-      url: treatment.enquiryOnly
-        ? "https://foreveryoungbeautybylayla.co.uk/#treatments"
-        : links.treatwell,
-    })),
-  },
-  sameAs: [
-    links.instagram,
-    links.facebook,
-    links.treatwellProfile,
-    links.googleProfile,
+  hasMap: "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Thursday"],
+      opens: "11:00",
+      closes: "19:30",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Friday",
+      opens: "12:00",
+      closes: "19:30",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "11:00",
+      closes: "15:00",
+    },
   ],
-  potentialAction: {
-    "@type": "ReserveAction",
-    name: "Book an appointment on Treatwell",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: links.treatwell,
-      inLanguage: "en-GB",
-      actionPlatform: [
-        "http://schema.org/DesktopWebPlatform",
-        "http://schema.org/MobileWebPlatform",
-      ],
-    },
-    result: {
-      "@type": "Reservation",
-      name: "Treatment booking",
-    },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: business.ratingValue,
+    reviewCount: business.reviewCount,
+    bestRating: "5",
   },
-};
-
-// Separate FAQPage graph. This is the block that can win an expandable FAQ
-// result in Google, and it only stays valid while the same questions and
-// answers remain visible on the page.
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "@id": "https://foreveryoungbeautybylayla.co.uk/#faq",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
+  areaServed: [
+    "Fareham",
+    "Titchfield",
+    "Titchfield Common",
+    "Locks Heath",
+    "Whiteley",
+    "Park Gate",
+    "Warsash",
+    "Stubbington",
+    "Portsmouth",
+    "Southampton",
+  ].map((name) => ({ "@type": "Place", name })),
+  sameAs: [
+    business.instagram,
+    business.facebook,
+    business.treatwell,
+  ],
+  makesOffer: treatments.map((t) => ({
+    "@type": "Offer",
+    itemOffered: { "@type": "Service", name: t.name, description: t.desc },
   })),
 };
-
-const currentYear = new Date().getFullYear();
 ---
 
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={`${business.url}/`} />
+    <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="GB-HAM" />
+    <meta name="geo.placename" content="Fareham" />
+    <meta name="geo.position" content={`${business.lat};${business.lng}`} />
 
-    {/*
-      Title was 76 characters, so Google truncated it, and it led with
-      Titchfield Common — accurate, but a fraction of Fareham's search volume.
-      This is 54 characters and leads with the term people actually type.
-    */}
-    <title>Beauty &amp; Skin Treatments Fareham | Forever Young Beauty</title>
-
-    {/*
-      Description now names the individual treatments people search for and
-      leads with social proof. Not a ranking factor, but it decides whether
-      anyone clicks the result once it's shown.
-    */}
-    <meta
-      name="description"
-      content={`Facials, microneedling, dermaplaning, CACI, massage and waxing in Titchfield Common, Fareham. ${reviewsClaim}. Book online with Treatwell.`}
-    />
-
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1"
-    />
-
-    <link
-      rel="canonical"
-      href="https://foreveryoungbeautybylayla.co.uk/"
-    />
-
-    <meta name="theme-color" content="#173b4c" />
-
-    <meta property="og:type" content="website" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="business.business" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${business.url}/`} />
+    <meta property="og:image" content={`${business.url}/images/og-image.jpg`} />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:site_name" content="Forever Young Beauty by Layla" />
-    <meta
-      property="og:title"
-      content="Forever Young Beauty by Layla | Titchfield Common, Fareham"
-    />
-    <meta
-      property="og:description"
-      content={`Personalised facials, advanced skin treatments, massage and waxing at Beauty at Abshot. ${reviewsClaim}.`}
-    />
-    <meta
-      property="og:image:alt"
-      content="Layla carrying out a professional facial treatment at Beauty at Abshot"
-    />
-    <meta
-      property="og:url"
-      content="https://foreveryoungbeautybylayla.co.uk/"
-    />
-    <meta
-      property="og:image"
-      content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
-    />
+    <meta property="og:site_name" content={business.name} />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:image"
-      content="https://foreveryoungbeautybylayla.co.uk/images/og-image.jpg"
-    />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${business.url}/images/og-image.jpg`} />
 
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(schema)}
-    ></script>
+    <!-- LocalBusiness structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(faqSchema)}
-    ></script>
-
-    <style is:global>
+    <style>
       :root {
-        --navy: #173b4c;
-        --navy-dark: #0d2937;
-        --cream: #f7f3ed;
-        --white: #ffffff;
-        --gold: #aa925f;
-        --gold-light: #dfcdac;
-        --text: #243a45;
-        --muted: #69757b;
-        --border: rgba(23, 59, 76, 0.14);
-        --green: #20965a;
-        --treatwell: #ff5c65;
-        --facebook: #1877f2;
-        --shadow: 0 16px 42px rgba(13, 41, 55, 0.13);
-        --radius: 26px;
-        --small-radius: 16px;
-        --page-width: 1180px;
+        --navy: #1b3a4c;
+        --navy-deep: #142c3a;
+        --ink: #1b3a4c;
+        --soft: #57606b;
+        --silver: #d1d3d4;
+        --gold: #b09a6e;
+        --gold-dark: #94804f;
+        --mist: #eef1f3;
+        --line: #dce2e7;
+        --paper: #fcfdfd;
       }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        /*
-          Anchor targets must clear the sticky top block. This was 95px when
-          only the header stuck; the topbar now sticks with it and wraps to two
-          lines on narrow screens, so the offset has to cover both.
-        */
-        scroll-padding-top: 175px;
-      }
-
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
-        margin: 0;
-        color: var(--text);
-        background: var(--white);
-        font-family:
-          Inter,
-          ui-sans-serif,
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
+        font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--paper);
         line-height: 1.65;
       }
-
-      body.menu-open {
-        overflow: hidden;
-      }
-
-      img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-      }
-
-      a {
-        color: inherit;
-      }
-
-      button {
-        font: inherit;
-      }
-
-      h1,
-      h2,
-      h3 {
-        margin-top: 0;
-        color: var(--navy);
-        font-family: Georgia, "Times New Roman", serif;
-        font-weight: 500;
-        line-height: 1.08;
-      }
-
-      h1 {
-        margin-bottom: 22px;
-        font-size: clamp(2.6rem, 7vw, 5.6rem);
-        letter-spacing: -0.045em;
-      }
-
-      h2 {
-        margin-bottom: 18px;
-        font-size: clamp(2.1rem, 5vw, 3.75rem);
-        letter-spacing: -0.035em;
-      }
-
-      h3 {
-        margin-bottom: 12px;
-        font-size: 1.5rem;
-      }
-
-      p {
-        margin-top: 0;
-      }
-
-      .container {
-        width: min(calc(100% - 40px), var(--page-width));
-        margin-inline: auto;
-      }
-
-      .section {
-        padding: 88px 0;
-      }
-
-      .section-soft {
-        background: var(--cream);
-      }
-
-      .section-dark {
-        color: var(--white);
-        background:
-          radial-gradient(
-            circle at top right,
-            rgba(223, 205, 172, 0.16),
-            transparent 38%
-          ),
-          var(--navy);
-      }
-
-      .section-dark h2,
-      .section-dark h3 {
-        color: var(--white);
-      }
-
+      h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
+      img, video { max-width: 100%; display: block; }
+      a { color: var(--gold-dark); }
+      .wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+      section { padding: 3.5rem 0; }
+      section + section { border-top: 1px solid var(--line); }
       .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin: 0 0 15px;
-        color: var(--gold);
-        font-size: 0.8rem;
-        font-weight: 850;
-        letter-spacing: 0.15em;
         text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.72rem;
+        color: var(--gold-dark);
+        margin-bottom: 0.5rem;
       }
+      h2 { font-size: 1.75rem; margin-bottom: 1.25rem; }
 
-      .eyebrow::before {
-        width: 32px;
-        height: 2px;
-        content: "";
-        background: currentColor;
-      }
-
-      /*
-        Hero intro row. text-align is set explicitly because .hero-copy centres
-        everything on mobile, and this row needs to stay left-aligned there.
-      */
-      .hero-intro {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 15px;
-        text-align: left;
-      }
-
-      .hero-intro .eyebrow {
-        margin: 0;
-        /* Slightly tighter than the global eyebrow so the row stays compact. */
-        line-height: 1.45;
-      }
-
-      /*
-        The thumbnail is a button, so its native chrome has to be stripped —
-        but the focus ring is kept, since it is the only affordance a keyboard
-        user gets.
-      */
-      .hero-thumb-button {
-        flex: 0 0 auto;
-        padding: 0;
-        background: none;
-        border: 0;
-        border-radius: 50%;
-        cursor: zoom-in;
-        line-height: 0;
-        transition: transform 0.2s ease;
-      }
-
-      .hero-thumb-button:hover {
-        transform: scale(1.05);
-      }
-
-      .hero-thumb-button:focus-visible {
-        outline: 2px solid var(--gold);
-        outline-offset: 3px;
-      }
-
-      .lightbox {
-        max-width: min(94vw, 900px);
-        max-height: 92vh;
-        padding: 0;
-        overflow: visible;
-        background: transparent;
-        border: 0;
-      }
-
-      .lightbox::backdrop {
-        background: rgba(11, 31, 43, 0.82);
-        backdrop-filter: blur(3px);
-      }
-
-      .lightbox img {
-        display: block;
-        width: 100%;
-        height: auto;
-        max-height: 92vh;
-        object-fit: contain;
-        border-radius: var(--radius);
-      }
-
-      .lightbox-close {
-        position: absolute;
-        top: -14px;
-        right: -14px;
-        z-index: 1;
-        display: grid;
-        place-items: center;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        color: var(--navy);
-        background: var(--white);
-        border: 0;
-        border-radius: 50%;
-        box-shadow: var(--shadow);
-        font-size: 1.5rem;
-        line-height: 1;
-        cursor: pointer;
-      }
-
-      .hero-thumb {
-        flex: 0 0 auto;
-        width: 76px;
-        height: 76px;
-        object-fit: cover;
-        border: 2px solid var(--white);
-        border-radius: 50%;
-        box-shadow: var(--shadow);
-      }
-
-      .lead {
-        max-width: 760px;
-        color: var(--muted);
-        font-size: clamp(1.05rem, 2vw, 1.22rem);
-      }
-
-      .section-heading {
-        max-width: 820px;
-        margin: 0 auto 44px;
-        text-align: center;
-      }
-
-      .section-heading .eyebrow {
-        justify-content: center;
-      }
-
-      .section-heading .lead {
-        margin-inline: auto;
-      }
-
-      /*
-        The whole top block sticks as one unit, matching the fixed booking bar
-        at the bottom. Sticky rather than fixed so it still occupies layout
-        space and nothing needs a compensating padding-top on the body.
-      */
-      .site-top {
-        position: sticky;
-        z-index: 1000;
-        top: 0;
-      }
-
-      /*
-        Flex with wrap means the break falls between the sentence and the link
-        rather than mid-phrase. One line on wide screens, two clean lines on a
-        phone.
-      */
-      .topbar {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: center;
-        gap: 2px 8px;
-        padding: 9px 18px;
-        color: rgba(255, 255, 255, 0.93);
-        background: var(--navy-dark);
-        font-size: 0.84rem;
-        text-align: center;
-      }
-
-      .topbar a {
-        color: var(--gold-light);
-        font-weight: 850;
-      }
-
-      .site-header {
-        border-bottom: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: blur(15px);
-      }
-
-      .header-inner {
-        display: flex;
-        min-height: 82px;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-        color: var(--navy);
-        text-decoration: none;
-      }
-
-      .brand img {
-        width: 61px;
-        height: 61px;
-        object-fit: contain;
-        border-radius: 50%;
-      }
-
-      .brand strong {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 1.16rem;
-      }
-
-      /*
-        Mirrors the lockup inside the round logo: the wordmark with a smaller,
-        letterspaced "by Layla" in gold sitting beneath it.
-      */
-      .brand-text {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-        line-height: 1.15;
-      }
-
-      .brand-suffix {
-        color: var(--gold);
-        font-size: 0.62rem;
-        font-weight: 700;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
-      .desktop-nav {
-        display: flex;
-        align-items: center;
-        gap: 23px;
-      }
-
-      .desktop-nav > a:not(.button) {
-        color: var(--navy);
-        font-size: 0.91rem;
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .menu-button {
-        display: none;
-        width: 50px;
-        height: 50px;
-        place-items: center;
-        padding: 0;
-        color: var(--navy);
-        background: var(--cream);
-        border: 0;
-        border-radius: 50%;
-        cursor: pointer;
-      }
-
-      .menu-button svg {
-        width: 25px;
-        height: 25px;
-      }
-
-      .mobile-nav {
-        display: none;
-        padding: 8px 20px 25px;
-        background: var(--white);
-      }
-
-      .mobile-nav.open {
-        display: grid;
-        gap: 9px;
-      }
-
-      .mobile-nav a {
-        padding: 13px 16px;
-        color: var(--navy);
-        background: var(--cream);
-        border-radius: 12px;
-        font-weight: 850;
-        text-decoration: none;
-      }
-
-      .button {
-        display: inline-flex;
-        min-height: 52px;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        padding: 14px 22px;
-        border: 2px solid transparent;
-        border-radius: 999px;
-        font-size: 0.96rem;
-        font-weight: 850;
-        line-height: 1.2;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        transition:
-          transform 180ms ease,
-          box-shadow 180ms ease;
-      }
-
-      .button:hover,
-      .button:focus-visible {
-        transform: translateY(-2px);
-        box-shadow: 0 14px 29px rgba(13, 41, 55, 0.2);
-      }
-
-      .button-primary {
-        color: var(--white);
-        background: var(--navy);
-      }
-
-      .button-treatwell {
-        color: var(--white);
-        background: var(--treatwell);
-      }
-
-      .button-whatsapp {
-        color: var(--white);
-        background: var(--green);
-      }
-
-      /*
-        Shares the gradient with .social-instagram so both Instagram calls to
-        action read as the same thing. The gallery button was navy, which made
-        two links to the same place look like two different destinations.
-      */
-      .button-instagram {
-        color: var(--white);
-        background: linear-gradient(
-          135deg,
-          #6337be,
-          #a92b88 42%,
-          #dc4259 72%,
-          #ed9c38
-        );
-      }
-
-      .button-light {
-        color: var(--navy);
-        background: var(--white);
-      }
-
-      .button-gold {
-        color: var(--navy-dark);
-        background: var(--gold-light);
-      }
-
-      .hero-banner-section {
-        padding: 34px 0 52px;
-        background: var(--cream);
-      }
-
-      .hero-banner {
-        overflow: hidden;
-        width: 100%;
-        background: var(--navy);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-
-      .hero-banner img {
-        display: block;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-      }
-
-      .hero-content {
-        /*
-          Deliberately tight at the top. The sticky header already occupies
-          roughly 88px before this section starts, so generous padding here
-          pushes the headline and lead copy below the fold on a phone — the
-          first screen ends up mostly empty gradient.
-        */
-        padding: 34px 0 72px;
-        background:
-          radial-gradient(
-            circle at 10% 10%,
-            rgba(223, 205, 172, 0.34),
-            transparent 30%
-          ),
-          var(--white);
-      }
-
-      .hero-grid {
-        display: grid;
-        align-items: center;
-        gap: 54px;
-        grid-template-columns: 1.04fr 0.96fr;
-      }
-
-      .hero-copy .lead {
-        margin-bottom: 0;
-      }
-
-      .hero-photo-wrap {
-        width: 100%;
-        margin-inline: auto;
-      }
-
+      /* Hero — brand navy, matching the logo and share image */
+      /* Hero: photo + navy gradient on mobile, split layout on desktop */
+      .hero { position: relative; background: var(--navy); color: var(--silver); overflow: hidden; }
       .hero-photo {
-        display: block;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        object-position: center top;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        object-fit: cover; object-position: 50% 28%;
       }
-
-      .booking-strip {
-        margin-top: -32px;
+      .hero-veil {
+        position: absolute; inset: 0;
+        background: linear-gradient(to bottom,
+          rgba(27,58,76,0.92) 0%,
+          rgba(27,58,76,0.80) 18%,
+          rgba(27,58,76,0.52) 38%,
+          rgba(27,58,76,0.86) 66%,
+          rgba(27,58,76,0.97) 100%);
       }
-
-      .booking-inner {
-        display: grid;
-        align-items: center;
-        gap: 22px;
-        padding: 28px 31px;
-        color: var(--white);
-        background: var(--navy);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        grid-template-columns: 1fr auto;
+      .hero-inner {
+        position: relative; z-index: 2; text-align: center;
+        padding: 3.25rem 1.25rem 3.5rem;
+        min-height: 78vh; display: flex; flex-direction: column; justify-content: space-between;
       }
-
-      .booking-inner h2 {
-        margin-bottom: 5px;
-        color: var(--white);
-        font-size: clamp(1.55rem, 3vw, 2.25rem);
+      .hero img.logo { width: min(260px, 68vw); margin: 0 auto; height: auto; }
+      .hero h1 { font-size: clamp(1.75rem, 6vw, 2.6rem); margin-bottom: 0.6rem; color: #fff; }
+      .hero p.lede { max-width: 34rem; margin: 0 auto 1.1rem; color: var(--silver); font-size: 0.98rem; }
+      .stars { color: var(--gold); letter-spacing: 0.15em; font-size: 1.05rem; }
+      .rating-line { font-size: 0.9rem; color: var(--silver); margin-bottom: 1.5rem; }
+      .cta-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.6rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
       }
+      .btn-primary { background: var(--gold); color: var(--navy-deep); }
+      .btn-primary:hover { background: var(--gold-dark); color: #fff; }
+      .hero .btn-ghost { border: 1.5px solid var(--silver); color: var(--silver); }
+      .btn-ghost { border: 1.5px solid var(--navy); color: var(--navy); }
 
-      .booking-inner p {
-        margin-bottom: 0;
-        color: rgba(255, 255, 255, 0.77);
-      }
-
-      .about-grid,
-      .review-feature,
-      .location-grid {
-        display: grid;
-        align-items: center;
-        gap: 56px;
-        grid-template-columns: 0.9fr 1.1fr;
-      }
-
-      .about-logo,
-      .review-image {
-        width: min(100%, 480px);
-        margin-inline: auto;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-
-      .benefits {
-        display: grid;
-        gap: 13px;
-        margin-top: 26px;
-        padding: 0;
-        list-style: none;
-      }
-
-      .benefits li {
+      /* Treatments */
+      .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .card {
+        background: var(--mist);
+        border-radius: 14px;
+        padding: 1.4rem 1.5rem;
         display: flex;
-        gap: 12px;
-      }
-
-      .benefits li::before {
-        width: 9px;
-        height: 9px;
-        flex: 0 0 auto;
-        margin-top: 9px;
-        content: "";
-        background: var(--gold);
-        border-radius: 50%;
-      }
-
-      .treatment-grid {
-        display: grid;
-        gap: 19px;
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .treatment-card {
-        display: flex;
-        min-height: 100%;
         flex-direction: column;
-        padding: 27px;
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        box-shadow: 0 8px 23px rgba(23, 59, 76, 0.06);
       }
+      .card h3 { font-size: 1.12rem; margin-bottom: 0.4rem; color: var(--navy); }
+      .card p { color: var(--soft); font-size: 0.93rem; flex: 1; }
 
-      .treatment-category {
-        display: inline-flex;
-        align-self: flex-start;
-        margin-bottom: 16px;
-        padding: 7px 11px;
-        color: var(--navy);
-        background: var(--cream);
-        border-radius: 999px;
-        text-transform: uppercase;
+      /* Reels */
+      .reels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .reels video { border-radius: 12px; width: 100%; }
+
+      /* Reviews */
+      .reviews { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      blockquote {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--gold);
+        border-radius: 14px;
+        padding: 1.4rem 1.5rem;
       }
+      blockquote p { font-style: italic; margin-bottom: 0.9rem; }
+      blockquote footer { font-size: 0.85rem; color: var(--soft); }
 
-      .treatwell-note {
-        max-width: 60ch;
-        margin: 12px 0 0;
-        font-size: 0.86rem;
-        line-height: 1.6;
-        opacity: 0.75;
-      }
+      /* Hours + contact */
+      .split { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      table.hours { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+      table.hours td { padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
+      table.hours td:last-child { text-align: right; color: var(--soft); }
+      .map-embed { border: 0; width: 100%; height: 320px; border-radius: 14px; }
+      address { font-style: normal; color: var(--soft); }
 
-      .treatment-card p {
-        flex-grow: 1;
-        margin-bottom: 18px;
-        color: var(--muted);
-        font-size: 0.93rem;
-      }
-
-      .card-link {
-        color: var(--navy);
-        font-size: 0.91rem;
-        font-weight: 900;
-        text-decoration: none;
-      }
-
-      .treatment-footer {
-        margin-top: 37px;
+      footer.site {
+        background: var(--navy-deep);
+        color: var(--silver);
+        padding: 2.5rem 0;
+        font-size: 0.88rem;
         text-align: center;
       }
+      footer.site a { color: var(--gold); }
+      footer.site .social { margin-bottom: 1rem; display: flex; gap: 1.25rem; justify-content: center; }
 
-      .disclaimer {
-        margin-top: 27px;
-        padding: 18px 20px;
-        color: var(--muted);
-        background: var(--cream);
-        border-radius: var(--small-radius);
-        font-size: 0.84rem;
-      }
-
-      .review-feature-copy {
-        padding: clamp(31px, 5vw, 49px);
-        color: var(--white);
-        background: var(--navy);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-
-      .review-feature-copy h2 {
-        color: var(--white);
-      }
-
-      .review-feature-copy p {
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      .review-card {
-        padding: 35px;
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-top: 5px solid var(--gold);
-        border-radius: var(--radius);
-      }
-
-      .review-card blockquote {
-        margin: 0 0 24px;
-        color: var(--navy);
-        font-size: 1.1rem;
-        font-style: italic;
-        line-height: 1.75;
-      }
-
-      .review-card footer {
-        color: var(--muted);
-        font-size: 0.93rem;
-      }
-
-      .review-card footer strong {
-        color: var(--navy);
-      }
-
-      .review-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 30px;
-      }
-
-      .social-grid {
-        display: grid;
-        gap: 14px;
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .social-card {
-        display: grid;
-        min-height: 112px;
-        align-content: center;
-        justify-items: center;
-        gap: 5px;
-        padding: 18px;
-        color: var(--white);
-        border-radius: var(--radius);
-        text-align: center;
-        text-decoration: none;
-        box-shadow: var(--shadow);
-      }
-
-      .social-card strong {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 1.22rem;
-      }
-
-      .social-card span {
-        color: rgba(255, 255, 255, 0.86);
-        font-size: 0.86rem;
-      }
-
-      .social-whatsapp {
-        background: var(--green);
-      }
-
-      .social-instagram {
-        background:
-          linear-gradient(
-            135deg,
-            #6337be,
-            #a92b88 42%,
-            #dc4259 72%,
-            #ed9c38
-          );
-      }
-
-      .social-facebook {
-        background: var(--facebook);
-      }
-
-      /*
-        The two room photographs are different shapes, so they are cropped to a
-        common square here. Without this the grid row is set by the taller
-        portrait image and the landscape one floats in a gap.
-      */
-      /*
-        Carousel.
-
-        Scroll-snap does the heavy lifting: the track is a horizontally
-        scrollable flex row, and each slide snaps into place. Touch swiping,
-        momentum and keyboard arrow scrolling are all native browser behaviour,
-        so the thing works with JavaScript disabled — the script only adds the
-        arrows and dots on top.
-      */
-      .carousel {
-        position: relative;
-      }
-
-      .carousel-track {
-        display: flex;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        /* Room for the focus ring and shadows, offset so slides still align. */
-        padding: 4px 4px 6px;
-        margin: -4px -4px -6px;
-        /* Hide the scrollbar; the dots communicate position instead. */
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        overscroll-behavior-x: contain;
-      }
-
-      .carousel-track::-webkit-scrollbar {
-        display: none;
-      }
-
-      .carousel-track:focus-visible {
-        outline: 2px solid var(--gold);
-        outline-offset: 2px;
-      }
-
-      .carousel-slide {
-        flex: 0 0 calc((100% - 32px) / 3);
-        margin: 0;
-        scroll-snap-align: start;
-      }
-
-      .carousel-slide img,
-      .carousel-slide video {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        background: var(--cream);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-
-      /*
-        Every slide is the same square, photo or clip. Mixing a 3/4 video box
-        with square stills made the row ragged: different heights, captions at
-        different depths, and a visible jolt on each swipe. Uniform tiles crop
-        the portrait clips a little but the section reads as one gallery rather
-        than a pile of mismatched cards.
-      */
-      .carousel-slide video.is-clip {
-        background: var(--navy-dark);
-      }
-
-      /*
-        Review slides are text, so they need width rather than a square box —
-        two per screen on desktop, one and a peek on mobile. align-items:
-        stretch on the track makes every card match the tallest, so the row
-        stays level whatever the quote length.
-      */
-      .carousel-reviews .carousel-track {
-        align-items: stretch;
-      }
-
-      .carousel-reviews .carousel-slide {
-        flex-basis: calc((100% - 16px) / 2);
-        padding: 30px;
-      }
-
-      .carousel-reviews blockquote {
-        margin: 0 0 16px;
-      }
-
-      .carousel-reviews footer {
-        margin-top: auto;
-      }
-
-      /*
-        Captions run from two words to six. A fixed minimum height keeps every
-        tile the same overall depth, so the dots and arrows don't shift as you
-        swipe between a short caption and a long one.
-      */
-      .carousel-slide figcaption {
-        display: flex;
-        min-height: 2.9em;
-        align-items: flex-start;
-        justify-content: center;
-        margin-top: 9px;
-        font-size: 0.86rem;
-        text-align: center;
-        opacity: 0.75;
-      }
-
-      /* Arrows are added by script; hidden until it marks the carousel ready. */
-      .carousel-arrow {
-        position: absolute;
-        top: calc(50% - 18px);
-        z-index: 2;
-        display: none;
-        place-items: center;
-        width: 44px;
-        height: 44px;
-        padding: 0;
-        color: var(--navy);
-        background: rgba(255, 255, 255, 0.94);
-        border: 1px solid var(--border);
-        border-radius: 50%;
-        box-shadow: var(--shadow);
-        font-size: 1.6rem;
-        line-height: 1;
-        cursor: pointer;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-      }
-
-      .carousel.is-ready .carousel-arrow {
-        display: grid;
-      }
-
-      .carousel-arrow:hover {
-        transform: scale(1.06);
-      }
-
-      .carousel-arrow[disabled] {
-        opacity: 0.35;
-        cursor: default;
-        transform: none;
-      }
-
-      .carousel-arrow-prev {
-        left: -14px;
-      }
-
-      .carousel-arrow-next {
-        right: -14px;
-      }
-
-      .carousel-dots {
-        display: none;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 16px;
-      }
-
-      .carousel.is-ready .carousel-dots {
-        display: flex;
-      }
-
-      .carousel-dot {
-        width: 9px;
-        height: 9px;
-        padding: 0;
-        background: var(--border);
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background 0.2s ease, transform 0.2s ease;
-      }
-
-      .carousel-dot[aria-current="true"] {
-        background: var(--gold);
-        transform: scale(1.35);
+      @media (min-width: 860px) {
+        .hero-photo { width: 44%; left: auto; right: 0; object-position: 50% 34%; }
+        .hero-veil {
+          background: linear-gradient(to right,
+            var(--navy) 0%, var(--navy) 54%,
+            rgba(27,58,76,0.70) 62%, rgba(27,58,76,0.22) 74%, rgba(27,58,76,0) 84%);
+        }
+        .hero-inner {
+          min-height: 62vh; text-align: left; align-items: flex-start;
+          max-width: 1040px; margin: 0 auto; padding: 4rem 1.25rem;
+          justify-content: center; gap: 1rem;
+        }
+        .hero-inner > * { max-width: 30rem; }
+        .hero img.logo { margin: 0 0 1.5rem; }
+        .hero p.lede { margin-left: 0; }
+        .hero .cta-row { justify-content: flex-start; }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .carousel-track {
-          scroll-behavior: auto;
-        }
-
-        .hero-thumb-button:hover {
-          transform: none;
-        }
-      }
-
-      .location-grid {
-        align-items: start;
-        grid-template-columns: 1.05fr 0.95fr;
-      }
-
-      .area-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 9px;
-        margin-top: 25px;
-      }
-
-      .area-list span {
-        padding: 9px 13px;
-        color: var(--navy);
-        background: var(--cream);
-        border-radius: 999px;
-        font-size: 0.83rem;
-        font-weight: 800;
-      }
-
-      .location-card {
-        padding: 32px;
-        color: var(--white);
-        background: var(--navy);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-
-      .location-card h3 {
-        color: var(--white);
-      }
-
-      .contact-list {
-        display: grid;
-        gap: 15px;
-        margin: 25px 0;
-      }
-
-      .contact-list a {
-        color: var(--gold-light);
-        font-weight: 800;
-      }
-
-      .hours-list {
-        margin: 27px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.17);
-      }
-
-      .hours-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 13px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.17);
-      }
-
-      .hours-row span:last-child {
-        text-align: right;
-      }
-
-      .location-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .faq-list {
-        display: grid;
-        max-width: 870px;
-        gap: 12px;
-        margin-inline: auto;
-      }
-
-      details {
-        padding: 0 22px;
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-radius: var(--small-radius);
-      }
-
-      summary {
-        position: relative;
-        padding: 21px 40px 21px 0;
-        color: var(--navy);
-        font-weight: 850;
-        cursor: pointer;
-        list-style: none;
-      }
-
-      summary::-webkit-details-marker {
-        display: none;
-      }
-
-      summary::after {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        width: 29px;
-        height: 29px;
-        display: grid;
-        place-items: center;
-        content: "+";
-        background: var(--cream);
-        border-radius: 50%;
-        transform: translateY(-50%);
-      }
-
-      details[open] summary::after {
-        content: "−";
-      }
-
-      details p {
-        padding-bottom: 20px;
-        color: var(--muted);
-      }
-
-      .final-cta {
-        text-align: center;
-      }
-
-      .final-cta h2 {
-        max-width: 800px;
-        margin-inline: auto;
-      }
-
-      .final-cta .lead {
-        margin: 0 auto 26px;
-        color: rgba(255, 255, 255, 0.79);
-      }
-
-      .final-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
-      }
-
-      .site-footer {
-        padding: 52px 0 105px;
-        color: rgba(255, 255, 255, 0.73);
-        background: var(--navy-dark);
-      }
-
-      .footer-grid {
-        display: grid;
-        gap: 38px;
-        grid-template-columns: 1.25fr 0.75fr 0.75fr;
-      }
-
-      .footer-logo {
-        width: 82px;
-        height: 82px;
-        margin-bottom: 15px;
-        object-fit: contain;
-        border-radius: 50%;
-      }
-
-      .footer-heading {
-        margin-bottom: 14px;
-        color: var(--white);
-        font-size: 0.82rem;
-        font-weight: 900;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .footer-links {
-        display: grid;
-        gap: 8px;
-      }
-
-      .footer-links a {
-        color: rgba(255, 255, 255, 0.73);
-        text-decoration: none;
-      }
-
-      .copyright {
-        margin-top: 38px;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255, 255, 255, 0.12);
-        font-size: 0.82rem;
-      }
-
-      .mobile-booking-bar {
-        position: fixed;
-        z-index: 1100;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: none;
-        grid-template-columns: 1fr 1fr;
-        gap: 9px;
-        padding: 10px 13px calc(10px + env(safe-area-inset-bottom));
-        background: rgba(255, 255, 255, 0.98);
-        border-top: 1px solid var(--border);
-        box-shadow: 0 -8px 28px rgba(23, 59, 76, 0.14);
-      }
-
-      .mobile-booking-bar .button {
-        width: 100%;
-        min-height: 49px;
-        padding-inline: 10px;
-        white-space: nowrap;
-      }
-
-      :focus-visible {
-        outline: 3px solid rgba(170, 146, 95, 0.6);
-        outline-offset: 4px;
-      }
-
-      @media (max-width: 1000px) {
-        .desktop-nav {
-          display: none;
-        }
-
-        .menu-button {
-          display: grid;
-        }
-
-        .hero-grid,
-        .about-grid,
-        .review-feature,
-        .location-grid {
-          grid-template-columns: 1fr;
-        }
-
-        /*
-          The 54px column gap becomes a row gap once these collapse to one
-          column, leaving a large blank band between the hero copy and the
-          photograph. Much tighter is right when stacked.
-        */
-        .hero-grid {
-          gap: 24px;
-        }
-
-        /*
-          Capping the photograph's width is what actually gets it on screen. At
-          full container width it renders around 330px tall on a phone, so the
-          bottom half sits below the fold. Smaller means the whole image is
-          visible, which reads better than a large partial one.
-        */
-        .hero-photo-wrap {
-          max-width: 250px;
-        }
-
-        .hero-copy {
-          text-align: center;
-        }
-
-        .hero-copy .lead {
-          margin-inline: auto;
-        }
-
-        .hero-actions {
-          justify-content: center;
-        }
-
-        .treatment-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        /*
-          Stacked full-width blocks at 175px tall took up most of a phone
-          screen for three links. As compact left-aligned bars they read as
-          navigation rather than billboards, and the whole set fits in view.
-        */
-        .social-grid {
-          gap: 10px;
-          grid-template-columns: 1fr;
-        }
-
-        .social-card {
-          min-height: 0;
-          justify-items: start;
-          gap: 2px;
-          padding: 13px 18px;
-          text-align: left;
-        }
-
-        .social-card strong {
-          font-size: 1.05rem;
-        }
-
-        .social-card span {
-          font-size: 0.82rem;
-        }
-
-        .footer-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .footer-grid > :first-child {
-          grid-column: 1 / -1;
-        }
-      }
-
-      @media (max-width: 700px) {
-        body {
-          padding-bottom: 92px;
-        }
-
-        /*
-          The topbar is hidden here, not removed. Between the sticky top block
-          and the fixed booking bar, a phone was giving up too much of the
-          viewport to permanent furniture. Nothing is lost: the address appears
-          again in Find Us and in the footer, and the booking link is already
-          the primary button in the bar at the bottom.
-        */
-        .topbar {
-          display: none;
-        }
-
-        /*
-          Anchor offset drops to match — only the header sticks at this width,
-          so the 175px used on desktop would leave a large gap above each
-          section when jumping from the menu.
-        */
-        html {
-          scroll-padding-top: 88px;
-        }
-
-        /*
-          One-and-a-bit slides visible on a phone. The peek of the next slide
-          is the cue that the row scrolls — without it people often don't
-          realise there's more than one.
-        */
-        .carousel-slide {
-          flex-basis: 78%;
-        }
-
-        .carousel-reviews .carousel-slide {
-          flex-basis: 86%;
-          padding: 26px;
-        }
-
-        .carousel-arrow {
-          display: none !important;
-        }
-
-        .container {
-          width: min(calc(100% - 28px), var(--page-width));
-        }
-
-        .section {
-          padding: 68px 0;
-        }
-
-        .header-inner {
-          min-height: 72px;
-        }
-
-        .brand img {
-          width: 52px;
-          height: 52px;
-        }
-
-        .brand strong {
-          font-size: 1rem;
-        }
-
-        .hero-banner-section {
-          padding: 18px 0 34px;
-        }
-
-        .hero-banner {
-          border-radius: 17px;
-        }
-
-        .hero-content {
-          padding: 20px 0 56px;
-        }
-
-        /*
-          13vw made the headline enormous on a phone — five lines, filling the
-          screen on its own and pushing the lead copy and buttons out of sight.
-          11vw keeps it dominant but leaves room for the sentence underneath,
-          which is what actually tells someone what the business does.
-        */
-        /*
-          Headline sized to fit three lines rather than four or five. Every line
-          it loses is roughly 50px of Layla's photograph brought above the fold,
-          and the photograph does more selling than a fourth line of type.
-        */
-        h1 {
-          margin-bottom: 14px;
-          font-size: clamp(1.85rem, 8.6vw, 2.8rem);
-        }
-
-        .hero-actions {
-          display: grid;
-        }
-
-        .hero-actions .button {
-          width: 100%;
-        }
-
-        .booking-strip {
-          margin-top: -5px;
-        }
-
-        .booking-inner {
-          padding: 24px;
-          grid-template-columns: 1fr;
-          text-align: center;
-        }
-
-        .booking-inner .button {
-          width: 100%;
-        }
-
-        .treatment-grid,
-        .footer-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .footer-grid > :first-child {
-          grid-column: auto;
-        }
-
-        .review-buttons,
-        .location-actions {
-          display: grid;
-        }
-
-        .review-buttons .button,
-        .location-actions .button {
-          width: 100%;
-        }
-
-        .mobile-booking-bar {
-          display: grid;
-        }
-      }
-
-
-      /* Opening sequence: round FYB logo, then fade away. */
-      .opening-loader {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        display: grid;
-        place-items: center;
-        min-height: 100vh;
-        min-height: 100svh;
-        padding: 18px;
-        overflow: hidden;
-        background: #ffffff;
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 0.6s ease, visibility 0.6s ease;
-      }
-
-      .opening-loader.is-leaving {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .opening-logo img {
-        display: block;
-        width: min(88vw, 510px);
-        height: auto;
-        border-radius: 50%;
-        animation: logo-settle 0.7s ease both;
-      }
-
-      @keyframes logo-settle {
-        from {
-          opacity: 0;
-          transform: scale(0.94);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-
-      body.loader-active {
-        overflow: hidden;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-
-        *,
-        *::before,
-        *::after {
-          transition-duration: 0.01ms !important;
-        }
-
-        .opening-logo img {
-          animation: none;
-        }
+        html { scroll-behavior: auto; }
       }
     </style>
   </head>
 
-  <body class="loader-active">
+  <body>
+    <!-- HERO -->
+    <header class="hero">
+      <img
+        class="hero-photo"
+        src="/images/hero-layla.jpg"
+        alt="Layla carrying out an LED light therapy facial at Forever Young Beauty, Fareham"
+        width="720"
+        height="1280"
+        fetchpriority="high"
+      />
+      <div class="hero-veil"></div>
 
-    <div
-      id="opening-loader"
-      class="opening-loader"
-      aria-hidden="true"
-    >
-      <div class="opening-logo">
+      <div class="hero-inner">
         <img
-          src="/images/fyb-logo2.png"
-          alt=""
-          width="1200"
-          height="1200"
-          loading="eager"
-          fetchpriority="high"
+          class="logo"
+          src="/images/fyb-wordmark-1.png"
+          alt="Forever Young Beauty by Layla"
+          width="520"
+          height="176"
         />
-      </div>
-    </div>
-    {/*
-      Topbar and header share a sticky wrapper so the whole top block moves as
-      one unit. Sticking them separately would mean hardcoding the topbar's
-      height into the header's `top` value, which breaks the moment the topbar
-      wraps to two lines on a narrow screen.
-    */}
-    <div class="site-top">
-      <div class="topbar">
-        <span>Based at Abshot Country Club in Titchfield Common.</span>
-        <a
-          href={links.treatwell}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Book online with Treatwell
-        </a>
-      </div>
-
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="#home" aria-label="Forever Young Beauty home">
-          <img
-            src="/images/fyb-logo2.png"
-            alt="Forever Young Beauty by Layla"
-            width="120"
-            height="120"
-            loading="eager"
-          />
-          <span class="brand-text">
-            <strong>Forever Young Beauty</strong>
-            <span class="brand-suffix">by Layla</span>
-          </span>
-        </a>
-
-        <nav class="desktop-nav" aria-label="Main navigation">
-          <a href="#about">About</a>
-          <a href="#treatments">Treatments</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#reviews">Reviews</a>
-          <a href="#location">Find us</a>
-
-          <a
-            class="button button-treatwell"
-            href={links.treatwell}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View treatments and book
-          </a>
-        </nav>
-
-        <button
-          class="menu-button"
-          id="menu-button"
-          type="button"
-          aria-label="Open navigation"
-          aria-expanded="false"
-          aria-controls="mobile-navigation"
-        >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M4 7h16M4 12h16M4 17h16"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-        </button>
-      </div>
-
-      <nav
-        class="mobile-nav"
-        id="mobile-navigation"
-        aria-label="Mobile navigation"
-      >
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#treatments">Treatments</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#location">Find us</a>
-        <a href="#faq">FAQs</a>
-
-        <a
-          href={links.treatwell}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View treatments and book
-        </a>
-      </nav>
-      </header>
-    </div>
-
-    <main>
-
-      <div id="home"></div>
-
-      <section class="hero-content">
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            {/*
-              Eyebrow and a thumbnail share a row: text left, image right. The
-              eyebrow was centred and wrapping to two lines with dead space
-              beside it, which is what the thumbnail now fills.
-
-              The entrance shot rather than Layla, because the Layla photograph
-              is already the hero image directly below — repeating it here
-              would read as a mistake.
-            */}
-            <div class="hero-intro">
-              <p class="eyebrow">
-                Forever Young Beauty at Abshot Country Club
-              </p>
-
-              <button
-                class="hero-thumb-button"
-                type="button"
-                data-lightbox-src="/images/abshot-entrance.jpg"
-                data-lightbox-alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
-                aria-label="View a larger photograph of the entrance to Beauty at Abshot"
-              >
-                <img
-                  class="hero-thumb"
-                  src="/images/abshot-entrance.jpg"
-                  alt="The etched glass entrance to Beauty at Abshot at Abshot Country Club"
-                  width="1078"
-                  height="809"
-                  loading="eager"
-                  decoding="async"
-                />
-              </button>
-            </div>
-
-            {/*
-              The H1 previously carried no location at all, which left the
-              single strongest on-page signal doing nothing for local search.
-            */}
-            <h1>Advanced beauty, skin and wellness treatments near Fareham</h1>
-
-            <p class="lead">
-              Personalised facials, advanced skin treatments, massage,
-              waxing, body treatments and aesthetics in a
-              calm, welcoming treatment room near Fareham.
-            </p>
-
-          </div>
-
-          <div class="hero-photo-wrap">
-            <img
-              class="hero-photo"
-              src="/images/layla-treatment.jpg"
-              alt="Layla carrying out a professional facial treatment"
-              width="1240"
-              height="1240"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="container about-grid">
-
-          <div>
-            <p class="eyebrow">Personalised care</p>
-            <h2>Treatments designed around you</h2>
-
-            <p class="lead">
-              Forever Young Beauty by Layla offers facial, massage, waxing,
-              body and advanced skin treatments in a calm,
-              private setting.
-            </p>
-
-            <ul class="benefits">
-              <li>Friendly one-to-one appointments with Layla.</li>
-              <li>
-                A private treatment room at Abshot Country Club in Titchfield
-                Common, with free parking on site.
-              </li>
-              <li>
-                Easy to reach from Locks Heath, Park Gate, Whiteley, Warsash
-                and Fareham.
-              </li>
-              <li>
-                Treatment choices and appointment availability through
-                Treatwell.
-              </li>
-              <li>
-                WhatsApp support for treatment questions before booking.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/*
-        Combined gallery: before/after stills and treatment clips together,
-        placed above the treatment menu so the evidence comes before the list.
-
-        Videos declare a <source> with an explicit type rather than a src
-        attribute on <video>, and preload="metadata" rather than "none". Both
-        make playback more reliable on mobile browsers — with preload="none"
-        some Android builds will show the poster but refuse to start without a
-        second tap.
-      */}
-      <section class="section" id="gallery">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Gallery</p>
-            <h2>Real treatments, real results</h2>
-            <p class="lead">
-              Before and after photographs, short clips from recent appointments
-              and a look at the treatment room. Swipe to browse, and tap any
-              clip to play.
-            </p>
-          </div>
-
-          <div
-            class="carousel"
-            data-carousel
-            aria-roledescription="carousel"
-            aria-label="Treatment photographs and clips"
-          >
-            <div class="carousel-track" data-carousel-track tabindex="0">
-              {
-                gallery.map((item, i) => (
-                  <figure
-                    class="carousel-slide"
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${i + 1} of ${gallery.length}`}
-                  >
-                    {
-                      item.type === "video" ? (
-                        <video
-                          class="is-clip"
-                          poster={item.poster}
-                          width={item.width}
-                          height={item.height}
-                          controls
-                          playsinline
-                          preload="metadata"
-                          aria-label={item.alt}
-                        >
-                          <source src={item.src} type="video/mp4" />
-                        </video>
-                      ) : (
-                        <img
-                          src={item.src}
-                          alt={item.alt}
-                          width={item.width}
-                          height={item.height}
-                          loading={i === 0 ? "eager" : "lazy"}
-                          decoding="async"
-                        />
-                      )
-                    }
-                    <figcaption>{item.caption}</figcaption>
-                  </figure>
-                ))
-              }
-            </div>
-
-            <button
-              class="carousel-arrow carousel-arrow-prev"
-              type="button"
-              data-carousel-prev
-              aria-label="Previous item"
-            >
-              <span aria-hidden="true">&#8249;</span>
-            </button>
-            <button
-              class="carousel-arrow carousel-arrow-next"
-              type="button"
-              data-carousel-next
-              aria-label="Next item"
-            >
-              <span aria-hidden="true">&#8250;</span>
-            </button>
-
-            <div class="carousel-dots" data-carousel-dots></div>
-          </div>
-
-          <div class="disclaimer">
-            Photographs and clips show individual client experiences. Results
-            vary and cannot be guaranteed, and some results follow a course of
-            treatments rather than a single appointment. Some treatments require
-            consultation, screening, suitability assessment or a patch test.
-          </div>
-
-          <div class="review-buttons">
-            <a
-              class="button button-instagram"
-              href={links.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              See more on Instagram
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-soft" id="treatments">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Treatment menu</p>
-            <h2>Explore the treatment collections</h2>
-
-            <p class="lead">
-              Choose from personalised facial, skin, massage, beauty, body,
-              aesthetic and wellness treatments.
-            </p>
-
-            {/*
-              Points every pricing, duration and availability question at
-              Treatwell, which is what keeps this page from ever being wrong.
-            */}
-            <p class="treatwell-note">
-              For the latest treatment menu, availability and prices, please
-              view the live booking menu on Treatwell. Patch tests are free
-              where a treatment needs one.
-            </p>
-          </div>
-
-          <div class="treatment-grid">
-            {
-              treatments.map((treatment) => (
-                <article class="treatment-card">
-                  <span class="treatment-category">
-                    {treatment.category}
-                  </span>
-
-                  <h3>{treatment.title}</h3>
-                  <p>{treatment.description}</p>
-
-                  {
-                    treatment.enquiryOnly ? (
-                      <a
-                        class="card-link"
-                        href={`https://wa.me/447799890398?text=${encodeURIComponent(
-                          `Hello Layla, I would like to ask about ${treatment.title}.`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Ask Layla about this treatment →
-                      </a>
-                    ) : (
-                      <a
-                        class="card-link"
-                        href={links.treatwell}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View treatments and book →
-                      </a>
-                    )
-                  }
-                </article>
-              ))
-            }
-          </div>
-
-          <div class="treatment-footer">
-            <a
-              class="button button-treatwell"
-              href={links.treatwell}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View the complete treatment menu
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="reviews">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">What clients say</p>
-            <h2>{reviewsClaim}</h2>
-
-            <p class="lead">
-              Feedback from clients who have visited Layla for facials,
-              massage, waxing and other treatments.
-            </p>
-          </div>
-
-          {/*
-            Reviews as a carousel rather than a stacked grid. Ten cards down a
-            phone screen is a very long scroll for content most people skim,
-            and burying the Find us and FAQ sections behind it costs more than
-            the reviews gain. Swiping keeps all ten without the page length.
-
-            Same component as the gallery, so it inherits the arrows, dots,
-            keyboard support and scroll-snap.
-          */}
-          <div
-            class="carousel carousel-reviews"
-            data-carousel
-            aria-roledescription="carousel"
-            aria-label="Client reviews"
-          >
-            <div class="carousel-track" data-carousel-track tabindex="0">
-              {
-                reviews.map((review, i) => (
-                  <article
-                    class="carousel-slide review-card"
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${i + 1} of ${reviews.length}`}
-                  >
-                    <blockquote>“{review.quote}”</blockquote>
-
-                    <footer>
-                      <strong>{review.name}</strong>
-                      {review.treatment && (
-                        <>
-                          {" · "}
-                          {review.treatment}
-                        </>
-                      )}
-                      {" · "}
-                      {review.source}
-                    </footer>
-                  </article>
-                ))
-              }
-            </div>
-
-            <button
-              class="carousel-arrow carousel-arrow-prev"
-              type="button"
-              data-carousel-prev
-              aria-label="Previous review"
-            >
-              <span aria-hidden="true">&#8249;</span>
-            </button>
-            <button
-              class="carousel-arrow carousel-arrow-next"
-              type="button"
-              data-carousel-next
-              aria-label="Next review"
-            >
-              <span aria-hidden="true">&#8250;</span>
-            </button>
-
-            <div class="carousel-dots" data-carousel-dots></div>
-          </div>
-
-          <div class="review-buttons">
-            <a
-              class="button button-primary"
-              href={links.googleReviews}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read Google reviews
-            </a>
-
-            <a
-              class="button button-treatwell"
-              href={links.treatwellProfile}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read verified Treatwell reviews
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-soft">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Stay connected</p>
-            <h2>Follow, message or book</h2>
-          </div>
-
-          <div class="social-grid">
-            <a
-              class="social-card social-instagram"
-              href={links.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <strong>Instagram</strong>
-              <span>View recent treatments and results</span>
-            </a>
-
-            <a
-              class="social-card social-facebook"
-              href={links.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <strong>Facebook</strong>
-              <span>Follow news and local updates</span>
-            </a>
-
-            <a
-              class="social-card social-whatsapp"
-              href={links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <strong>WhatsApp</strong>
-              <span>Ask Layla about a treatment</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="location">
-        <div class="container location-grid">
-          <div>
-            <p class="eyebrow">Find us</p>
-            <h2>In the heart of Titchfield Common</h2>
-
-            <p class="lead">
-              Forever Young Beauty by Layla is based at Abshot Country Club,
-              close to Locks Heath, Park Gate, Whiteley, Warsash, Sarisbury
-              Green, Titchfield and Stubbington.
-            </p>
-
-            <p>
-              Clients also visit from Fareham and the wider Southampton and
-              Portsmouth areas.
-            </p>
-
-            <div class="area-list">
-              {areas.map((area) => <span>{area}</span>)}
-            </div>
-          </div>
-
-          <div class="location-card">
-            <h3>{business.name}</h3>
-
-            <div class="contact-list">
-              <p>
-                <strong>Beauty at Abshot</strong><br />
-                Abshot Country Club<br />
-                Little Abshot Road<br />
-                Titchfield Common<br />
-                Fareham, Hampshire PO14 4LN
-              </p>
-
-              <a href={links.phone}>{business.phoneDisplay}</a>
-              <a href={links.email}>{business.email}</a>
-            </div>
-
-            <div class="hours-list">
-              {
-                openingHours.map(([day, hours]) => (
-                  <div class="hours-row">
-                    <span>{day}</span>
-                    <span>{hours}</span>
-                  </div>
-                ))
-              }
-            </div>
-
-            <div class="location-actions">
-              <a
-                class="button button-light"
-                href={links.maps}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get directions
-              </a>
-
-              <a
-                class="button button-whatsapp"
-                href={links.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp Layla
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-soft" id="faq">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Frequently asked questions</p>
-            <h2>Planning your appointment</h2>
-          </div>
-
-          {/*
-            Rendered from the faqs array so the visible copy and the FAQPage
-            structured data can never disagree. Two extra questions have been
-            added — parking and travel areas — because both are real local
-            search queries and both were previously unanswered.
-          */}
-          <div class="faq-list">
-            {
-              faqs.map((faq) => (
-                <details>
-                  <summary>{faq.question}</summary>
-                  <p>{faq.answer}</p>
-                </details>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-dark final-cta">
-        <div class="container">
-          <p class="eyebrow">Your appointment</p>
-          <h2>Choose your treatment and book online</h2>
-
-          <p class="lead">
-            View availability through Treatwell, or message Layla for help
-            choosing your treatment.
+        <div>
+          <h1>Five-star beauty in Fareham</h1>
+          <p class="lede">
+            Facials, massage and advanced aesthetics in a calm, private
+            treatment room at Abshot Country Club, Titchfield Common — minutes
+            from Locks Heath, Whiteley and Park Gate.
           </p>
-
-          <div class="final-actions">
-            <a
-              class="button button-gold"
-              href={links.treatwell}
-              target="_blank"
-              rel="noopener noreferrer"
+          <div class="stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
+          <p class="rating-line">
+            Over 500 five-star reviews · Treatwell Top Rated 2024 &amp; 2025
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href={business.treatwell}>Book online</a>
+            <a class="btn btn-ghost" href={`tel:${business.phone}`}
+              >Call {business.phoneDisplay}</a
             >
-              View treatments and book
-            </a>
-
-            <a
-              class="button button-whatsapp"
-              href={links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Message on WhatsApp
-            </a>
-
-            <a class="button button-light" href={links.phone}>
-              Call {business.phoneDisplay}
-            </a>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </header>
 
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-grid">
+    <section id="treatments">
+      <div class="wrap">
+        <p class="eyebrow">Treatments</p>
+        <h2>Tailored treatments, from everyday beauty to advanced aesthetics</h2>
+        <div class="grid">
+          {
+            treatments.map((t) => (
+              <article class="card">
+                <h3>{t.name}</h3>
+                <p>{t.desc}</p>
+              </article>
+            ))
+          }
+        </div>
+        <p style="margin-top:1.5rem;">
+          <a class="btn btn-primary" href={business.treatwell}
+            >See the full menu &amp; book on Treatwell</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <!-- REELS -->
+    <section id="fresh">
+      <div class="wrap">
+        <p class="eyebrow">Fresh from the treatment room</p>
+        <h2>See recent results</h2>
+        <div class="reels">
+          <video src="/videos/reel1.mp4" controls preload="none" playsinline
+          ></video>
+          <video src="/videos/reel2.mp4" controls preload="none" playsinline
+          ></video>
+          <video src="/videos/reel3.mp4" controls preload="none" playsinline
+          ></video>
+        </div>
+        <p style="margin-top:1.25rem;">
+          <a href={business.instagram}>Follow @foreveryoungbeauty_bylayla on Instagram</a>
+          for daily results, offers and last-minute availability.
+        </p>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+      <div class="wrap">
+        <p class="eyebrow">What clients say</p>
+        <h2>Over 500 five-star reviews</h2>
+        <div class="reviews">
+          {
+            reviews.map((r) => (
+              <blockquote>
+                <p>“{r.quote}”</p>
+                <footer>
+                  {r.author} · {r.treatment} · {r.source}
+                </footer>
+              </blockquote>
+            ))
+          }
+        </div>
+        <p style="margin-top:1.25rem;">
+          <a href={business.googleReviews}>Read our Google reviews</a> ·
+          <a href={business.treatwell}>Read verified reviews on Treatwell</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FIND US -->
+    <section id="find-us">
+      <div class="wrap">
+        <p class="eyebrow">Find us</p>
+        <h2>In the heart of Titchfield Common</h2>
+        <div class="split">
           <div>
-
-            <h3 style="color: white;">
-              Forever Young Beauty by Layla
-            </h3>
-
-            <p>
-              Beauty, skin, massage, waxing and aesthetic
-              treatments in Titchfield Common near Fareham.
+            <address>
+              <strong>{business.name}</strong><br />
+              Beauty at Abshot, Abshot Country Club<br />
+              Little Abshot Road, Titchfield Common<br />
+              Fareham, Hampshire {business.postcode}
+            </address>
+            <p style="margin:1rem 0;">
+              <a href={`tel:${business.phone}`}>{business.phoneDisplay}</a><br />
+              <a href={`mailto:${business.email}`}>{business.email}</a>
+            </p>
+            <table class="hours" aria-label="Opening hours">
+              <tr><td>Monday</td><td>11:00 – 19:30</td></tr>
+              <tr><td>Tuesday</td><td>11:00 – 19:30</td></tr>
+              <tr><td>Wednesday</td><td>Closed</td></tr>
+              <tr><td>Thursday</td><td>11:00 – 19:30</td></tr>
+              <tr><td>Friday</td><td>12:00 – 19:30</td></tr>
+              <tr><td>Saturday</td><td>11:00 – 15:00</td></tr>
+              <tr><td>Sunday</td><td>Closed</td></tr>
+            </table>
+            <p style="margin-top:1rem;">
+              <a class="btn btn-ghost" href="https://maps.app.goo.gl/5pksDnVJJNuWunbZ9"
+                >Get directions</a
+              >
             </p>
           </div>
-
-          <div>
-            <div class="footer-heading">Explore</div>
-
-            <div class="footer-links">
-              <a href="#about">About</a>
-              <a href="#treatments">Treatments</a>
-              <a href="#gallery">Gallery</a>
-              <a href="#reviews">Reviews</a>
-              <a href="#location">Find us</a>
-            </div>
-          </div>
-
-          <div>
-            <div class="footer-heading">Connect</div>
-
-            <div class="footer-links">
-              <a
-                href={links.treatwell}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Treatwell booking
-              </a>
-
-              <a
-                href={links.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </a>
-
-              <a
-                href={links.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Facebook
-              </a>
-
-              <a
-                href={links.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
-
-              <a href={links.phone}>{business.phoneDisplay}</a>
-            </div>
-          </div>
+          <iframe
+            class="map-embed"
+            title="Map showing Forever Young Beauty by Layla at Abshot Country Club, Fareham"
+            src="https://www.google.com/maps?q=Forever+Young+Beauty+By+Layla,+Abshot+Country+Club,+Little+Abshot+Rd,+Fareham+PO14+4LN&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
+      </div>
+    </section>
 
-        <div class="copyright">
-          © {currentYear} Forever Young Beauty by Layla. All rights reserved.
-          Individual treatment results may vary.
+    <footer class="site">
+      <div class="wrap">
+        <div class="social">
+          <a href={business.instagram}>Instagram</a>
+          <a href={business.facebook}>Facebook</a>
+          <a href={business.treatwell}>Treatwell</a>
+          <a href={business.googleReviews}>Google Reviews</a>
         </div>
+        <p>
+          {business.name} · Beauty at Abshot, Abshot Country Club, Little Abshot
+          Road, Titchfield Common, Fareham {business.postcode}
+        </p>
+        <p>
+          Serving Fareham, Titchfield, Locks Heath, Whiteley, Park Gate, Warsash
+          &amp; Stubbington
+        </p>
+        <p>© 2026 {business.name}</p>
       </div>
     </footer>
-
-    <!-- Fixed mobile booking bar -->
-    <div class="mobile-booking-bar" aria-label="Quick booking options">
-      <a
-        class="button button-treatwell"
-        href={links.treatwell}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View treatments and book
-      </a>
-
-      <a
-        class="button button-whatsapp"
-        href={links.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        WhatsApp
-      </a>
-    </div>
-
-    {/*
-      One shared lightbox, driven by data attributes on any button that wants
-      it. Native <dialog> rather than a hand-built overlay: it handles focus
-      trapping, Escape to close and the backdrop for free, which is a lot of
-      accessibility work not to have to write or maintain.
-    */}
-    <dialog class="lightbox" data-lightbox aria-label="Enlarged photograph">
-      <button
-        class="lightbox-close"
-        type="button"
-        data-lightbox-close
-        aria-label="Close photograph"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <img data-lightbox-image src="" alt="" />
-    </dialog>
-
-    <script is:inline>
-      (() => {
-        const loader = document.getElementById("opening-loader");
-        const body = document.body;
-
-        if (!loader) {
-          body.classList.remove("loader-active");
-          return;
-        }
-
-        let dismissed = false;
-
-        const dismiss = () => {
-          if (dismissed) return;
-          dismissed = true;
-          loader.classList.add("is-leaving");
-          body.classList.remove("loader-active");
-          window.setTimeout(() => loader.remove(), 700);
-        };
-
-        // Respect a reduced-motion preference by skipping the hold entirely.
-        const reduceMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-        const hold = reduceMotion ? 0 : 2100;
-
-        const start = () => window.setTimeout(dismiss, hold);
-
-        if (document.readyState === "complete") {
-          start();
-        } else {
-          window.addEventListener("load", start, { once: true });
-        }
-
-        /*
-          Safety net. The old sequence only ever started on window.load, so a
-          slow or failed image could leave the overlay covering the page
-          indefinitely with scrolling locked. This guarantees it clears.
-          Must stay comfortably above `hold`, or it would cut the intro short
-          on slower connections.
-        */
-        window.setTimeout(dismiss, 4500);
-
-        // Let anyone impatient tap or scroll straight past it.
-        loader.addEventListener("click", dismiss);
-        window.addEventListener("keydown", dismiss, { once: true });
-      })();
-    </script>
-
-    <script is:inline>
-      (() => {
-        const button = document.getElementById("menu-button");
-        const navigation =
-          document.getElementById("mobile-navigation");
-
-        if (!button || !navigation) return;
-
-        const closeMenu = () => {
-          navigation.classList.remove("open");
-          document.body.classList.remove("menu-open");
-          button.setAttribute("aria-expanded", "false");
-          button.setAttribute("aria-label", "Open navigation");
-        };
-
-        button.addEventListener("click", () => {
-          const isOpen = navigation.classList.toggle("open");
-
-          document.body.classList.toggle("menu-open", isOpen);
-          button.setAttribute("aria-expanded", String(isOpen));
-          button.setAttribute(
-            "aria-label",
-            isOpen ? "Close navigation" : "Open navigation"
-          );
-        });
-
-        navigation.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", closeMenu);
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") closeMenu();
-        });
-      })();
-    </script>
-
-    <script is:inline>
-      /*
-        Carousel enhancement.
-
-        The markup is already usable without this: the track is a scroll-snap
-        row, so swiping and keyboard scrolling work natively. This adds arrows
-        and dot indicators, and only reveals them by setting .is-ready — so if
-        the script fails, you get a plain swipeable row rather than dead
-        controls.
-      */
-      (() => {
-        const carousels = document.querySelectorAll("[data-carousel]");
-        if (!carousels.length) return;
-
-        carousels.forEach((carousel) => {
-          const track = carousel.querySelector("[data-carousel-track]");
-          const prev = carousel.querySelector("[data-carousel-prev]");
-          const next = carousel.querySelector("[data-carousel-next]");
-          const dotsHolder = carousel.querySelector("[data-carousel-dots]");
-          const slides = Array.from(
-            track ? track.querySelectorAll(".carousel-slide") : []
-          );
-
-          if (!track || slides.length < 2) return;
-
-          // Build one dot per slide.
-          const dots = slides.map((slide, index) => {
-            const dot = document.createElement("button");
-            dot.type = "button";
-            dot.className = "carousel-dot";
-            dot.setAttribute("aria-label", `Go to item ${index + 1}`);
-            dot.addEventListener("click", () => {
-              track.scrollTo({ left: slide.offsetLeft - track.offsetLeft });
-            });
-            dotsHolder && dotsHolder.appendChild(dot);
-            return dot;
-          });
-
-          const step = () =>
-            slides.length > 1
-              ? slides[1].offsetLeft - slides[0].offsetLeft
-              : track.clientWidth;
-
-          prev &&
-            prev.addEventListener("click", () => {
-              track.scrollBy({ left: -step() });
-            });
-          next &&
-            next.addEventListener("click", () => {
-              track.scrollBy({ left: step() });
-            });
-
-          /*
-            Which slide is "current" is derived from scroll position rather than
-            tracked in a variable, so native swiping, the arrows and the dots
-            can never disagree about where we are.
-          */
-          const sync = () => {
-            const centre = track.scrollLeft + track.clientWidth / 2;
-            let active = 0;
-            let best = Infinity;
-
-            slides.forEach((slide, index) => {
-              const slideCentre =
-                slide.offsetLeft - track.offsetLeft + slide.offsetWidth / 2;
-              const distance = Math.abs(slideCentre - centre);
-              if (distance < best) {
-                best = distance;
-                active = index;
-              }
-            });
-
-            dots.forEach((dot, index) => {
-              if (index === active) {
-                dot.setAttribute("aria-current", "true");
-              } else {
-                dot.removeAttribute("aria-current");
-              }
-            });
-
-            // 2px tolerance: sub-pixel scroll widths otherwise leave the end
-            // arrow enabled when there is nothing left to scroll to.
-            const maxScroll = track.scrollWidth - track.clientWidth;
-            if (prev) prev.disabled = track.scrollLeft <= 2;
-            if (next) next.disabled = track.scrollLeft >= maxScroll - 2;
-          };
-
-          let queued = false;
-          track.addEventListener("scroll", () => {
-            if (queued) return;
-            queued = true;
-            requestAnimationFrame(() => {
-              queued = false;
-              sync();
-            });
-          });
-
-          window.addEventListener("resize", sync);
-
-          // Pause any playing video when it is scrolled out of view.
-          const players = Array.from(track.querySelectorAll("video"));
-          if (players.length && "IntersectionObserver" in window) {
-            const watcher = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (!entry.isIntersecting && !entry.target.paused) {
-                    entry.target.pause();
-                  }
-                });
-              },
-              { root: track, threshold: 0.5 }
-            );
-            players.forEach((player) => watcher.observe(player));
-          }
-
-          carousel.classList.add("is-ready");
-          sync();
-        });
-      })();
-    </script>
-
-    <script is:inline>
-      /*
-        Lightbox. Any element carrying data-lightbox-src opens the shared
-        dialog with that image, so adding more later needs no extra script.
-
-        <dialog>.showModal() gives focus trapping and Escape-to-close for free.
-        The only thing it doesn't handle is clicking the backdrop, which is
-        below — the dialog fills its own box, so a click landing outside the
-        image bounds is a backdrop click.
-      */
-      (() => {
-        const dialog = document.querySelector("[data-lightbox]");
-        const image = dialog && dialog.querySelector("[data-lightbox-image]");
-        const triggers = document.querySelectorAll("[data-lightbox-src]");
-
-        if (!dialog || !image || !triggers.length) return;
-
-        // No <dialog> support: leave the thumbnails as plain, inert images
-        // rather than wiring up buttons that would do nothing.
-        if (typeof dialog.showModal !== "function") return;
-
-        triggers.forEach((trigger) => {
-          trigger.addEventListener("click", () => {
-            image.src = trigger.dataset.lightboxSrc;
-            image.alt = trigger.dataset.lightboxAlt || "";
-            dialog.showModal();
-          });
-        });
-
-        const close = () => dialog.close();
-
-        const closeButton = dialog.querySelector("[data-lightbox-close]");
-        closeButton && closeButton.addEventListener("click", close);
-
-        dialog.addEventListener("click", (event) => {
-          if (event.target === dialog) close();
-        });
-
-        // Drop the source on close so a large image isn't held in memory, and
-        // so the next open never flashes the previous picture.
-        dialog.addEventListener("close", () => {
-          image.removeAttribute("src");
-          image.alt = "";
-        });
-      })();
-    </script>
   </body>
 </html>
