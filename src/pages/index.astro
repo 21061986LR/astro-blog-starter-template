@@ -365,7 +365,7 @@ const schema = {
       /* Hours + contact */
       .studio {
         display: grid; gap: 0.9rem;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
       .studio img {
         width: 100%; height: auto;
@@ -374,8 +374,7 @@ const schema = {
       }
       @media (max-width: 640px) {
         .studio { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-        .studio img { aspect-ratio: 4 / 5; border-radius: 10px; }
-        .studio img:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+        .studio img { aspect-ratio: 3 / 4; border-radius: 10px; }
       }
       .band {
         width: 100%; height: auto;
@@ -563,25 +562,18 @@ const schema = {
         <h2>A calm, private treatment room</h2>
         <div class="studio">
           <img
-            src="/images/welcome-tall.jpg"
-            alt="Entrance to Beauty at Abshot, Abshot Country Club"
+            src="/images/entrance.jpg"
+            alt="Entrance to Beauty at Abshot, Abshot Country Club, Titchfield Common"
             loading="lazy"
             width="720"
             height="1280"
           />
           <img
             src="/images/room-tall.jpg"
-            alt="Treatment room at Forever Young Beauty by Layla"
+            alt="Private treatment room at Forever Young Beauty by Layla"
             loading="lazy"
             width="720"
             height="1280"
-          />
-          <img
-            src="/images/room-portrait-1.jpg"
-            alt="Treatment bed and skincare equipment"
-            loading="lazy"
-            width="1080"
-            height="1480"
           />
         </div>
       </div>
