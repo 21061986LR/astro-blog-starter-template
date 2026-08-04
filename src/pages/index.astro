@@ -363,19 +363,43 @@ const schema = {
       blockquote footer { font-size: 0.85rem; color: var(--soft); }
 
       /* Hours + contact */
-      .studio {
-        display: grid; gap: 0.9rem;
-        grid-template-columns: repeat(2, 1fr);
+      .studio { display: grid; gap: 1rem; }
+      .studio button {
+        padding: 0; border: 0; background: none; cursor: zoom-in;
+        border-radius: 14px; overflow: hidden; display: block;
+        position: relative;
       }
       .studio img {
         width: 100%; height: auto;
-        aspect-ratio: 3 / 4; object-fit: cover;
-        border-radius: 12px;
+        aspect-ratio: 16 / 9; object-fit: cover;
+        border-radius: 14px;
+        transition: transform 0.25s ease;
       }
-      @media (max-width: 640px) {
-        .studio { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-        .studio img { aspect-ratio: 3 / 4; border-radius: 10px; }
+      .studio button:hover img { transform: scale(1.02); }
+      .studio figcaption {
+        margin-top: 0.45rem; font-size: 0.82rem; color: var(--soft);
       }
+      .studio button::after {
+        content: "⤢"; position: absolute; right: 0.7rem; bottom: 0.7rem;
+        background: rgba(27,58,76,0.82); color: #fff;
+        width: 2rem; height: 2rem; border-radius: 50%;
+        display: grid; place-items: center; font-size: 0.85rem;
+      }
+
+      dialog.lightbox {
+        border: 0; padding: 0; background: transparent;
+        max-width: 96vw; max-height: 94vh;
+      }
+      dialog.lightbox::backdrop { background: rgba(20,44,58,0.92); }
+      dialog.lightbox img {
+        max-width: 96vw; max-height: 88vh; width: auto; height: auto;
+        border-radius: 10px;
+      }
+      dialog.lightbox p {
+        color: var(--silver); text-align: center;
+        font-size: 0.85rem; margin-top: 0.6rem;
+      }
+
       .band {
         width: 100%; height: auto;
         aspect-ratio: 16 / 9; object-fit: cover;
@@ -561,20 +585,32 @@ const schema = {
         <p class="eyebrow">Inside the studio</p>
         <h2>A calm, private treatment room</h2>
         <div class="studio">
-          <img
-            src="/images/entrance.jpg"
-            alt="Entrance to Beauty at Abshot, Abshot Country Club, Titchfield Common"
-            loading="lazy"
-            width="720"
-            height="1280"
-          />
-          <img
-            src="/images/room-tall.jpg"
-            alt="Private treatment room at Forever Young Beauty by Layla"
-            loading="lazy"
-            width="720"
-            height="1280"
-          />
+          <figure>
+            <button type="button" data-full="/images/entrance-wide.jpg"
+              data-cap="The entrance at Abshot Country Club">
+              <img
+                src="/images/entrance-wide.jpg"
+                alt="Entrance to Beauty at Abshot, Titchfield Common"
+                loading="lazy"
+                width="720"
+                height="405"
+              />
+            </button>
+            <figcaption>The entrance at Abshot Country Club</figcaption>
+          </figure>
+          <figure>
+            <button type="button" data-full="/images/room-wide.jpg"
+              data-cap="The private treatment room">
+              <img
+                src="/images/room-wide.jpg"
+                alt="Private treatment room at Forever Young Beauty by Layla"
+                loading="lazy"
+                width="720"
+                height="405"
+              />
+            </button>
+            <figcaption>The private treatment room</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -583,14 +619,6 @@ const schema = {
       <div class="wrap">
         <p class="eyebrow">Find us</p>
         <h2>In the heart of Titchfield Common</h2>
-        <img
-          class="band"
-          src="/images/room-wide.jpg"
-          alt="The treatment room at Abshot Country Club, Titchfield Common"
-          loading="lazy"
-          width="720"
-          height="405"
-        />
         <div class="split">
           <div>
             <address>
@@ -647,5 +675,27 @@ const schema = {
         <p>© 2026 {business.name}</p>
       </div>
     </footer>
+    <dialog class="lightbox" id="lightbox">
+      <img src="" alt="" />
+      <p></p>
+    </dialog>
+
+    <script is:inline>
+      (function () {
+        var dlg = document.getElementById("lightbox");
+        if (!dlg) return;
+        var img = dlg.querySelector("img");
+        var cap = dlg.querySelector("p");
+        document.querySelectorAll(".studio button").forEach(function (b) {
+          b.addEventListener("click", function () {
+            img.src = b.dataset.full;
+            img.alt = b.querySelector("img").alt;
+            cap.textContent = b.dataset.cap || "";
+            dlg.showModal();
+          });
+        });
+        dlg.addEventListener("click", function () { dlg.close(); });
+      })();
+    </script>
   </body>
 </html>
