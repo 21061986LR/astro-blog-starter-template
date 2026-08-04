@@ -293,9 +293,34 @@ const schema = {
         padding: 1.4rem 1.5rem;
         display: flex;
         flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid transparent;
+        transition: background 0.18s ease, border-color 0.18s ease,
+          transform 0.18s ease;
       }
+      .card:hover, .card:focus-visible {
+        background: #fff;
+        border-color: var(--gold);
+        transform: translateY(-2px);
+        outline: none;
+      }
+      .card:focus-visible { box-shadow: 0 0 0 3px rgba(176,154,110,0.45); }
       .card h3 { font-size: 1.12rem; margin-bottom: 0.4rem; color: var(--navy); }
       .card p { color: var(--soft); font-size: 0.93rem; flex: 1; }
+      .card-cta {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--gold-dark);
+      }
+      .card:hover .card-cta { color: var(--navy); }
+
+      @media (hover: none) {
+        .card:hover { transform: none; }
+      }
 
       /* Reels */
       /* shared row for social / review buttons */
@@ -428,10 +453,11 @@ const schema = {
         <div class="grid">
           {
             treatments.map((t) => (
-              <article class="card">
+              <a class="card" href={business.treatwell}>
                 <h3>{t.name}</h3>
                 <p>{t.desc}</p>
-              </article>
+                <span class="card-cta">Book on Treatwell →</span>
+              </a>
             ))
           }
         </div>
