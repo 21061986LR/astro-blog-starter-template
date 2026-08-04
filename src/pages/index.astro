@@ -231,7 +231,7 @@ const schema = {
         line-height: 1.65;
       }
       h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
-      img, video { max-width: 100%; display: block; }
+      img, video { max-width: 100%; height: auto; display: block; }
       a { color: var(--gold-dark); }
       .wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
       section { padding: 3.5rem 0; }
@@ -345,7 +345,7 @@ const schema = {
 
       .reels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
       .reels video {
-        border-radius: 12px; width: 100%;
+        border-radius: 12px; width: 100%; height: auto;
         aspect-ratio: 9 / 16; object-fit: cover;
         background: var(--navy); display: block;
       }
@@ -368,15 +368,18 @@ const schema = {
         grid-template-columns: repeat(3, 1fr);
       }
       .studio img {
-        width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+        width: 100%; height: auto;
+        aspect-ratio: 3 / 4; object-fit: cover;
         border-radius: 12px;
       }
       @media (max-width: 640px) {
-        .studio { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-        .studio img { border-radius: 9px; }
+        .studio { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+        .studio img { aspect-ratio: 4 / 5; border-radius: 10px; }
+        .studio img:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
       }
       .band {
-        width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+        width: 100%; height: auto;
+        aspect-ratio: 16 / 9; object-fit: cover;
         border-radius: 14px; margin-bottom: 1.75rem;
       }
 
@@ -494,21 +497,21 @@ const schema = {
         <div class="reels">
           <video
             src="/videos/reel1.mp4"
-            poster="/images/poster1.jpg"
+            poster="/images/poster1-1.jpg"
             controls
             preload="none"
             playsinline
             aria-label="LED light therapy treatment"></video>
           <video
             src="/videos/reel2.mp4"
-            poster="/images/poster2.jpg"
+            poster="/images/poster2-1.jpg"
             controls
             preload="none"
             playsinline
             aria-label="Advanced skin treatment"></video>
           <video
             src="/videos/reel3.mp4"
-            poster="/images/poster3.jpg"
+            poster="/images/poster3-1.jpg"
             controls
             preload="none"
             playsinline
