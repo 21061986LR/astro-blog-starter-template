@@ -441,8 +441,35 @@ const schema = {
         .hero .cta-row { justify-content: flex-start; }
       }
 
+      /* Sticky booking bar — mobile only, appears after the hero scrolls away */
+      .book-bar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+        display: flex; gap: 0.6rem;
+        padding: 0.7rem 0.9rem calc(0.7rem + env(safe-area-inset-bottom));
+        background: rgba(20, 44, 58, 0.96);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(176, 154, 110, 0.35);
+        transform: translateY(110%);
+        transition: transform 0.28s ease;
+      }
+      .book-bar.is-visible { transform: translateY(0); }
+      .book-bar a {
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 999px; text-decoration: none;
+        font-weight: 700; font-size: 0.95rem;
+        padding: 0.85rem 1rem; min-height: 48px;
+      }
+      .book-bar .book { flex: 1; background: var(--gold); color: var(--navy-deep); }
+      .book-bar .call {
+        width: 52px; border: 1.5px solid var(--silver); color: var(--silver);
+        font-size: 1.15rem;
+      }
+      @media (min-width: 861px) { .book-bar { display: none; } }
+      @media (max-width: 860px) { body { padding-bottom: 4.6rem; } }
+
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
+        .book-bar { transition: none; }
       }
     </style>
   </head>
@@ -675,6 +702,11 @@ const schema = {
         <p>© 2026 {business.name}</p>
       </div>
     </footer>
+    <div class="book-bar" id="bookBar">
+      <a class="book" href={business.treatwell}>Book online</a>
+      <a class="call" href={`tel:${business.phone}`} aria-label="Call the salon">✆</a>
+    </div>
+
     <dialog class="lightbox" id="lightbox">
       <img src="" alt="" />
       <p></p>
@@ -695,6 +727,23 @@ const schema = {
           });
         });
         dlg.addEventListener("click", function () { dlg.close(); });
+      })();
+
+      /* reveal the booking bar once the hero CTA has scrolled out of view */
+      (function () {
+        var bar = document.getElementById("bookBar");
+        var hero = document.querySelector(".hero .cta-row");
+        if (!bar || !hero) return;
+        if (!("IntersectionObserver" in window)) {
+          bar.classList.add("is-visible");
+          return;
+        }
+        new IntersectionObserver(
+          function (entries) {
+            bar.classList.toggle("is-visible", !entries[0].isIntersecting);
+          },
+          { threshold: 0 }
+        ).observe(hero);
       })();
     </script>
   </body>
