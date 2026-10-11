@@ -14,16 +14,17 @@ const headerLogoPlugin = () => ({
 		const to = 'src="/images/fyb-header-logo.svg" alt="Forever Young Beauty logo"';
 		let next = code.replaceAll(from, to);
 
-		// Keep treatment-page header controls visually identical in size to the homepage.
+		// The treatment header uses a different layout from the homepage, so the
+		// controls need slightly larger CSS dimensions to look the same size.
 		if (id.includes("/src/pages/treatments/") && next.includes("</style>")) {
 			const sharedHeaderSizing = `
-.corner-logo{width:66px!important;height:66px!important;padding:2px!important}
-.menu summary{font-size:27px;line-height:1;min-width:52px;min-height:52px;display:flex;align-items:center;justify-content:center;padding:8px}
-.hamburger{font-size:27px!important;line-height:1}
+.corner-logo{width:70px!important;height:70px!important;padding:2px!important}
+.menu summary{min-width:58px!important;min-height:58px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:6px!important}
+.hamburger{font-size:34px!important;line-height:1!important}
 @media(max-width:560px){
-  .corner-logo{width:58px!important;height:58px!important;padding:2px!important}
-  .menu summary{font-size:32px;min-width:56px;min-height:56px;padding:7px}
-  .hamburger{font-size:32px!important}
+  .corner-logo{width:62px!important;height:62px!important;padding:2px!important}
+  .menu summary{min-width:60px!important;min-height:60px!important;padding:4px!important}
+  .hamburger{font-size:38px!important;line-height:1!important}
 }
 `;
 			next = next.replace("</style>", `${sharedHeaderSizing}</style>`);
