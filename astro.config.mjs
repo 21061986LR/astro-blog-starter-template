@@ -5,8 +5,6 @@ import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 
-// Keep the large homepage wordmark unchanged while swapping only the small
-// clickable header logo used by the homepage and treatment pages.
 const headerLogoPlugin = () => ({
 	name: "fyb-header-logo",
 	enforce: "pre",
@@ -19,7 +17,6 @@ const headerLogoPlugin = () => ({
 	},
 });
 
-// Canonical production URL used by Astro and the sitemap integration.
 export default defineConfig({
 	site: "https://www.foreveryoungbeautybylayla.co.uk",
 	integrations: [mdx(), sitemap()],
