@@ -508,9 +508,6 @@ const schema = {
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href={business.treatwell}>View prices &amp; availability</a>
-            <a class="btn btn-ghost" href={`tel:${business.phone}`}
-              >Call {business.phoneDisplay}</a
-            >
           </div>
         </div>
       </div>
@@ -674,7 +671,7 @@ const schema = {
               Fareham, Hampshire {business.postcode}
             </address>
             <p style="margin:1rem 0;">
-              <a href={`tel:${business.phone}`}>{business.phoneDisplay}</a><br />
+              {business.phoneDisplay}<br />
               <a href={`mailto:${business.email}`}>{business.email}</a>
             </p>
             <table class="hours" aria-label="Opening hours">
@@ -723,7 +720,6 @@ const schema = {
     </footer>
     <div class="book-bar" id="bookBar">
       <a class="book" href={business.treatwell}>View prices &amp; availability</a>
-      <a class="call" href={`tel:${business.phone}`} aria-label="Call the salon">✆</a>
     </div>
 
     <dialog class="lightbox" id="lightbox">
