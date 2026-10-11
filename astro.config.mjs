@@ -5,9 +5,9 @@ import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 
-// https://astro.build/config
+// Canonical production URL used by Astro and the sitemap integration.
 export default defineConfig({
-	site: "https://example.com",
+	site: "https://www.foreveryoungbeautybylayla.co.uk",
 	integrations: [mdx(), sitemap()],
 	adapter: cloudflare({
 		platformProxy: {
