@@ -12,8 +12,24 @@ const headerLogoPlugin = () => ({
 		if (!id.endsWith(".astro")) return null;
 		const from = 'src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo"';
 		const to = 'src="/images/fyb-header-logo.svg" alt="Forever Young Beauty logo"';
-		if (!code.includes(from)) return null;
-		return code.replaceAll(from, to);
+		let next = code.replaceAll(from, to);
+
+		// Keep treatment-page header controls visually identical in size to the homepage.
+		if (id.includes("/src/pages/treatments/") && next.includes("</style>")) {
+			const sharedHeaderSizing = `
+.corner-logo{width:66px!important;height:66px!important;padding:2px!important}
+.menu summary{font-size:27px;line-height:1;min-width:52px;min-height:52px;display:flex;align-items:center;justify-content:center;padding:8px}
+.hamburger{font-size:27px!important;line-height:1}
+@media(max-width:560px){
+  .corner-logo{width:58px!important;height:58px!important;padding:2px!important}
+  .menu summary{font-size:32px;min-width:56px;min-height:56px;padding:7px}
+  .hamburger{font-size:32px!important}
+}
+`;
+			next = next.replace("</style>", `${sharedHeaderSizing}</style>`);
+		}
+
+		return next === code ? null : next;
 	},
 });
 
