@@ -127,7 +127,7 @@ const schema = {
     latitude: business.lat,
     longitude: business.lng,
   },
-  hasMap: "https://maps.app.goo.gl/5pksDnVJJNuWunbZ9",
+  hasMap: business.googleReviews,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -170,6 +170,7 @@ const schema = {
     business.instagram,
     business.facebook,
     business.treatwell,
+    business.googleReviews,
   ],
   makesOffer: treatments.map((t) => ({
     "@type": "Offer",
