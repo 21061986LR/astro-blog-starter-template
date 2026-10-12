@@ -726,7 +726,7 @@ const schema = {
         <p>© 2026 {business.name}</p>
       </div>
     </footer>
-    <div class="book-bar" id="bookBar">
+    <div class="book-bar" id="bookBar" inert aria-hidden="true">
       <a class="book" href={business.treatwell}>View prices &amp; availability</a>
     </div>
 
@@ -759,11 +759,21 @@ const schema = {
         if (!bar || !hero) return;
         if (!("IntersectionObserver" in window)) {
           bar.classList.add("is-visible");
+          bar.removeAttribute("inert");
+          bar.removeAttribute("aria-hidden");
           return;
         }
         new IntersectionObserver(
           function (entries) {
-            bar.classList.toggle("is-visible", !entries[0].isIntersecting);
+            var visible = !entries[0].isIntersecting;
+            bar.classList.toggle("is-visible", visible);
+            if (visible) {
+              bar.removeAttribute("inert");
+              bar.removeAttribute("aria-hidden");
+            } else {
+              bar.setAttribute("inert", "");
+              bar.setAttribute("aria-hidden", "true");
+            }
           },
           { threshold: 0 }
         ).observe(hero);
