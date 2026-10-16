@@ -1,17 +1,19 @@
 ---
+import { NAV_LINKS, TREATMENT_PAGES, DIRECTIONS_URL, SITE_URL } from "../data/site";
+const path = "/our-location/";
 const title = "Our Location | Forever Young Beauty by Layla at Abshot Country Club";
 const description = "Find Forever Young Beauty by Layla at Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham PO14 4LN. Directions, treatments and booking.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/our-location/";
 const booking = "https://laylaradestock.mytreatwell.co.uk/";
 const club = "https://www.abshotcountryclub.com/";
-const maps = "https://www.google.com/maps?q=Forever+Young+Beauty+By+Layla,+Abshot+Country+Club,+Little+Abshot+Rd,+Fareham+PO14+4LN";
+const maps = DIRECTIONS_URL;
 const schema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: title,
   description,
   url: canonical,
-  about: { "@type": "BeautySalon", name: "Forever Young Beauty by Layla", url: "https://foreveryoungbeautybylayla.co.uk/", address: { "@type": "PostalAddress", streetAddress: "Abshot Country Club, Little Abshot Road", addressLocality: "Titchfield Common, Fareham", addressRegion: "Hampshire", postalCode: "PO14 4LN", addressCountry: "GB" } }
+  about: { "@type": "BeautySalon", "@id": `${SITE_URL}/#salon`, name: "Forever Young Beauty by Layla", url: "https://foreveryoungbeautybylayla.co.uk/", address: { "@type": "PostalAddress", streetAddress: "Abshot Country Club, Little Abshot Road", addressLocality: "Titchfield Common, Fareham", addressRegion: "Hampshire", postalCode: "PO14 4LN", addressCountry: "GB" } }
 };
 ---
 <!doctype html>
@@ -31,20 +33,14 @@ const schema = {
 <body>
 <header class="site-header">
 <a class="logo" href="/" aria-label="Forever Young Beauty homepage"><img src="/images/fyb-header-logo.svg" alt="Forever Young Beauty by Layla" width="66" height="66" /></a>
-<details class="menu"><summary aria-label="Open site menu"><span aria-hidden="true">☰</span> Menu</summary><nav aria-label="Site navigation">
-<a href="/">Home</a><a href="/our-location/" aria-current="page">Our Location</a>
-<a href="/treatments/caci-facials-fareham/">CACI Facials</a>
-<a href="/treatments/microneedling-fareham/">Microneedling</a>
-<a href="/treatments/jet-plasma-fareham/">Jet Plasma</a>
-<a href="/treatments/massage-fareham/">Massage</a>
-<a href="/#reviews">Reviews</a></nav></details>
+<details class="menu"><summary aria-label="Open site menu"><span aria-hidden="true">☰</span> Menu</summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details>
 </header>
 <main>
 <section class="hero"><div class="wrap"><p class="eyebrow">Find us in Titchfield Common, Fareham</p><h1>Our Location at Abshot Country Club</h1><p>Visit Forever Young Beauty by Layla at Abshot Country Club. Layla runs her own independent beauty business at the country club, with her own treatments and online bookings. Convenient for Fareham, Locks Heath, Park Gate and Whiteley.</p><a class="button" href={booking}>View prices &amp; availability</a></div></section>
 <div class="wrap content">
 <section><h2>Where to find Layla</h2><p>Forever Young Beauty by Layla is based at <strong>Abshot Country Club</strong>, Little Abshot Road, Titchfield Common, Fareham, Hampshire <strong>PO14 4LN</strong>.</p><p>Use the directions link to plan your journey. If you're visiting for the first time, allow a little extra time to find the treatment room.</p><div class="actions"><a class="button" href={maps} target="_blank" rel="noopener noreferrer">Get directions on Google Maps ↗</a><a class="secondary" href={club} target="_blank" rel="noopener noreferrer">Explore Abshot Country Club ↗</a></div></section>
 <section class="venue"><img src="/images/entrance-wide.jpg" alt="Entrance to the venue where Forever Young Beauty by Layla is based" width="900" height="600" loading="lazy"/><div><h2>A beauty studio at Abshot</h2><p>Layla welcomes clients for individual beauty and aesthetic appointments in her treatment space at the country club. The venue's location makes it convenient for visitors from Titchfield Common, Fareham, Locks Heath, Park Gate and surrounding areas.</p><p>For information about the wider venue and its facilities, visit <a href={club} target="_blank" rel="noopener noreferrer">Abshot Country Club's official website</a>.</p></div></section>
-<section><h2>Explore treatments</h2><p>Choose a treatment to learn more before booking directly with Layla.</p><div class="treatments"><a href="/treatments/caci-facials-fareham/">CACI non-surgical facials →</a><a href="/treatments/microneedling-fareham/">Microneedling →</a><a href="/treatments/jet-plasma-fareham/">Jet Plasma →</a><a href="/treatments/massage-fareham/">Massage therapy →</a></div></section>
+<section><h2>Explore treatments</h2><p>Choose a treatment to learn more before booking directly with Layla.</p><div class="treatments">{TREATMENT_PAGES.map((p) => <a href={p.href}>{p.label} →</a>)}</div></section>
 <section class="book"><h2>Ready to visit?</h2><p>Check Layla's current treatment prices and appointment availability online.</p><a class="button" href={booking}>Book with Layla</a></section>
 </div>
 </main>

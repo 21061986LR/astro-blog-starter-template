@@ -1,4 +1,6 @@
 ---
+import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL } from "../../data/site";
+const path = "/treatments/pregnancy-massage-fareham/";
 const title = "Pregnancy Massage Fareham | Forever Young Beauty by Layla";
 const description = "Pregnancy massage in Fareham at Abshot Country Club, Titchfield Common. A calm, adapted massage treatment with Layla. View prices and appointment availability.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/treatments/pregnancy-massage-fareham/";
@@ -9,7 +11,7 @@ const schema = {
   "name":"Pregnancy Massage in Fareham",
   "description":description,
   "url":canonical,
-  "provider":{"@type":"BeautySalon","name":"Forever Young Beauty by Layla","url":"https://foreveryoungbeautybylayla.co.uk"},
+  "provider":PROVIDER,
   "areaServed":[
     {"@type":"Place","name":"Fareham, Hampshire"},
     {"@type":"Place","name":"Titchfield Common, Hampshire"},
@@ -23,7 +25,7 @@ const schema = {
 <html lang="en-GB">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta name="robots" content="index,follow"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:type" content="website"/><script type="application/ld+json" set:html={JSON.stringify(schema)} /></head>
 <body>
-<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span><span class="menu-label">Menu</span></summary><nav aria-label="Site navigation"><a href="/">Home</a><a href="/treatments/caci-facials-fareham/">CACI Facials</a><a href="/treatments/dermaplaning-fareham/">Dermaplaning</a><a href="/treatments/microneedling-fareham/">Microneedling</a><a href="/treatments/jet-plasma-fareham/">Jet Plasma</a><a href="/treatments/massage-fareham/">Massage</a><a href="/treatments/pregnancy-massage-fareham/" aria-current="page">Pregnancy Massage</a><a href="/our-location/">Our Location</a></nav></details></header>
+<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span><span class="menu-label">Menu</span></summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details></header>
 <main><section class="hero"><div class="inner"><p class="eyebrow">Forever Young Beauty by Layla · Titchfield Common</p><h1>Pregnancy Massage in Fareham</h1><p class="lead">A calm, adapted massage treatment with Layla in a private treatment room at Abshot Country Club, Titchfield Common.</p><a class="button" href={booking}>View prices &amp; availability</a></div></section>
 <div class="content">
 <section><h2>Massage adapted for pregnancy</h2><p>Pregnancy massage is adapted around comfort, positioning and your individual circumstances. Let Layla know your stage of pregnancy and any relevant health concerns before treatment so suitability and positioning can be discussed.</p></section>
@@ -33,7 +35,7 @@ const schema = {
 <section><h2>Pregnancy massage questions</h2><h3>Where can I book pregnancy massage in Fareham?</h3><p>Layla offers pregnancy massage from her private treatment room at Abshot Country Club in Titchfield Common, Fareham.</p><h3>How can I check current prices and availability?</h3><p>Use the booking button to see the current treatment menu, appointment duration, price and available times.</p><h3>Should I mention health concerns first?</h3><p>Yes. Share relevant health concerns and your stage of pregnancy before treatment so suitability can be discussed. If you are unsure whether massage is appropriate, seek advice from your healthcare professional.</p></section>
 <section class="trust"><h2>Verified pregnancy massage feedback</h2><blockquote><p>“Layla is just wonderful. I've recommended her to so many friends and they are all now also returning customers. 10/10 every visit.”</p><footer>Nicky · Pregnancy Massage · Treatwell verified review</footer></blockquote><p><a href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/" target="_blank" rel="noopener noreferrer">Read more verified Treatwell reviews →</a></p></section>
 <section class="contact"><h2>Book pregnancy massage in Fareham</h2><p>Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire PO14 4LN.</p><a class="button" href={booking}>View treatment prices &amp; availability</a></section>
-<nav aria-label="Other treatments"><h2>Explore more treatments</h2><div class="links"><a href="/treatments/massage-fareham/">All massage treatments in Fareham →</a><a href="/treatments/caci-facials-fareham/">CACI Facials in Fareham →</a><a href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a><a href="/treatments/microneedling-fareham/">Microneedling in Fareham →</a></div></nav>
+<nav aria-label="Other treatments"><h2>Explore more treatments</h2><div class="links">{TREATMENT_PAGES.filter((t) => t.href !== path).map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav>
 </div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
 </body></html>
