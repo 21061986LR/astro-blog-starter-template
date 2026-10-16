@@ -21,11 +21,15 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
   if (response.headers.get("content-type")?.includes("text/html")) {
     let fixedHtml = await response.text();
 
-    // Use dependable destinations for review buttons throughout the site.
-    // Google: open Layla's Maps business listing for reading reviews.
+    // Review buttons should go to review destinations, not general listings.
+    // Google: open the direct Google review flow for Layla's Place ID.
     fixedHtml = fixedHtml.replaceAll(
       'href="https://www.google.com/maps/place/?q=place_id%3AChIJv57sYEpvdEgR78z1GvYSv7Y"',
-      'href="https://www.google.com/maps/search/?api=1&amp;query=Forever+Young+Beauty+By+Layla+Fareham&amp;query_place_id=ChIJv57sYEpvdEgR78z1GvYSv7Y"'
+      'href="https://search.google.com/local/writereview?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y"'
+    );
+    fixedHtml = fixedHtml.replaceAll(
+      'href="https://www.google.com/maps/search/?api=1&amp;query=Forever+Young+Beauty+By+Layla+Fareham&amp;query_place_id=ChIJv57sYEpvdEgR78z1GvYSv7Y"',
+      'href="https://search.google.com/local/writereview?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y"'
     );
 
     // Treatwell: go straight to Layla's working reviews page.
