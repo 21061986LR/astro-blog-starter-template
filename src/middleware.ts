@@ -25,7 +25,7 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
     const html = await response.text();
     const fixedHtml = html.replace(
       "</head>",
-      '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}@media(max-width:860px){.hero-inner>div{transform:translateY(78px)}}</style></head>'
+      '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}@media(max-width:860px){.hero-inner>div{transform:translateY(98px)}}</style></head>'
     );
 
     const headers = new Headers(response.headers);
