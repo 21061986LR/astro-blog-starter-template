@@ -1,0 +1,43 @@
+---
+const home = "/";
+const booking = "https://laylaradestock.mytreatwell.co.uk/";
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex,follow" />
+    <title>Page not found | Forever Young Beauty by Layla</title>
+    <meta
+      name="description"
+      content="That page could not be found. Return to Forever Young Beauty by Layla or book an appointment online."
+    />
+    <style>
+      :root { font-family: Arial, Helvetica, sans-serif; color: #252525; background: #f8f5f1; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+      main { width: min(680px, 100%); text-align: center; background: #fff; padding: 48px 28px; border-radius: 18px; box-shadow: 0 10px 35px rgba(0,0,0,.08); }
+      img { width: 110px; height: auto; margin-bottom: 18px; }
+      h1 { margin: 0 0 12px; font-size: clamp(2rem, 7vw, 3.3rem); font-weight: 700; }
+      p { margin: 0 auto 26px; max-width: 520px; line-height: 1.6; font-size: 1.05rem; }
+      .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      a { display: inline-block; padding: 13px 20px; border-radius: 999px; text-decoration: none; font-weight: 700; }
+      .home { background: #252525; color: #fff; }
+      .book { border: 1px solid #252525; color: #252525; background: #fff; }
+      small { display: block; margin-top: 30px; color: #6a6a6a; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/images/fyb-header-logo.svg" alt="Forever Young Beauty by Layla" />
+      <h1>Page not found</h1>
+      <p>The page you were looking for is no longer here. You can return to the main website or go straight to Layla’s booking page.</p>
+      <div class="actions">
+        <a class="home" href={home}>Back to home</a>
+        <a class="book" href={booking}>Book an appointment</a>
+      </div>
+      <small>Forever Young Beauty by Layla · Abshot Country Club</small>
+    </main>
+  </body>
+</html>
