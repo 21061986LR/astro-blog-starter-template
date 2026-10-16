@@ -55,9 +55,15 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
       );
 
       // Add strong internal links to the newest locally targeted treatment pages.
+      // Copy Astro's scoped styling attribute from the existing buttons so the
+      // two injected links render identically instead of as plain blue links.
       fixedHtml = fixedHtml.replace(
-        /(<div[^>]*aria-label="Learn more about treatments"[^>]*>[\s\S]*?)(<\/div>)/,
-        '$1<a class="btn btn-ghost" href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a><a class="btn btn-ghost" href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>$2'
+        /(<div[^>]*aria-label="Learn more about treatments"[^>]*>)([\s\S]*?)(<\/div>)/,
+        (_match, open, content, close) => {
+          const scope = content.match(/(data-astro-cid-[a-z0-9]+="")/)?.[1] ?? "";
+          const scoped = scope ? ` ${scope}` : "";
+          return `${open}${content}<a class="btn btn-ghost"${scoped} href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a><a class="btn btn-ghost"${scoped} href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>${close}`;
+        }
       );
     }
 
