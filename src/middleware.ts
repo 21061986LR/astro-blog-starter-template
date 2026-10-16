@@ -30,8 +30,8 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
 
     // Add strong internal links to the newest locally targeted treatment pages.
     fixedHtml = fixedHtml.replace(
-      '<a class="btn btn-ghost" href="/treatments/massage-fareham/">Explore massage treatments →</a>',
-      '<a class="btn btn-ghost" href="/treatments/massage-fareham/">Explore massage treatments →</a><a class="btn btn-ghost" href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a><a class="btn btn-ghost" href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>'
+      /(<div[^>]*aria-label="Learn more about treatments"[^>]*>[\s\S]*?)(<\/div>)/,
+      '$1<a class="btn btn-ghost" href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a><a class="btn btn-ghost" href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>$2'
     );
 
     const headers = new Headers(response.headers);
