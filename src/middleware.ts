@@ -20,12 +20,12 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
 
   // Homepage safety fix: hide the obsolete second hero wordmark that is
   // rendered over Layla's photo. The small circular corner logo remains.
-  // On mobile, move the hero copy lower so Layla's face is less obscured.
+  // On mobile, move the hero copy lower and lift Layla's face out of the veil.
   if (path === "/" && response.headers.get("content-type")?.includes("text/html")) {
     const html = await response.text();
     const fixedHtml = html.replace(
       "</head>",
-      '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}@media(max-width:860px){.hero-inner>div{transform:translateY(98px)}}</style></head>'
+      '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}@media(max-width:860px){.hero-inner>div{transform:translateY(98px)}.hero-photo{filter:brightness(1.12) saturate(1.04);object-position:50% 24%!important}.hero-veil{background:linear-gradient(to bottom,rgba(27,58,76,.68) 0%,rgba(27,58,76,.42) 18%,rgba(27,58,76,.24) 34%,rgba(27,58,76,.54) 50%,rgba(27,58,76,.84) 70%,rgba(27,58,76,.97) 100%)!important}}</style></head>'
     );
 
     const headers = new Headers(response.headers);
