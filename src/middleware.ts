@@ -49,9 +49,20 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
       // Homepage safety fix: hide the obsolete second hero wordmark that is
       // rendered over Layla's photo. The small circular corner logo remains.
       // On mobile, move the hero copy lower and lift Layla's face out of the veil.
+      // Also give the social buttons compact, recognisable brand icons while
+      // retaining the site's navy/gold visual language.
       fixedHtml = fixedHtml.replace(
         "</head>",
-        '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}@media(max-width:860px){.hero-inner{padding-top:calc(3.25rem + 110px)!important;padding-bottom:calc(3.5rem + 110px)!important}.hero-inner>div{transform:translateY(110px)}.hero-photo{filter:brightness(1.12) saturate(1.04);object-position:50% 24%!important}.hero-veil{background:linear-gradient(to bottom,rgba(27,58,76,.62) 0%,rgba(27,58,76,.34) 18%,rgba(27,58,76,.18) 34%,rgba(27,58,76,.50) 50%,rgba(27,58,76,.84) 70%,rgba(27,58,76,.97) 100%)!important}}</style></head>'
+        '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}.social-brand-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:.58rem}.social-brand-btn svg{width:1.18rem;height:1.18rem;flex:0 0 auto}@media(max-width:860px){.hero-inner{padding-top:calc(3.25rem + 110px)!important;padding-bottom:calc(3.5rem + 110px)!important}.hero-inner>div{transform:translateY(110px)}.hero-photo{filter:brightness(1.12) saturate(1.04);object-position:50% 24%!important}.hero-veil{background:linear-gradient(to bottom,rgba(27,58,76,.62) 0%,rgba(27,58,76,.34) 18%,rgba(27,58,76,.18) 34%,rgba(27,58,76,.50) 50%,rgba(27,58,76,.84) 70%,rgba(27,58,76,.97) 100%)!important}}</style></head>'
+      );
+
+      fixedHtml = fixedHtml.replace(
+        />Follow on Instagram<\/a>/,
+        '><span class="social-brand-btn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor"/></svg><span>Instagram</span></span></a>'
+      );
+      fixedHtml = fixedHtml.replace(
+        />Find us on Facebook<\/a>/,
+        '><span class="social-brand-btn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13.2 20v-6.7h2.3l.35-2.7H13.2V8.9c0-.78.22-1.31 1.34-1.31h1.43V5.17c-.25-.03-1.1-.1-2.1-.1-2.08 0-3.5 1.27-3.5 3.61v1.92H8v2.7h2.37V20h2.83Z" fill="currentColor"/></svg><span>Facebook</span></span></a>'
       );
 
       // Add strong internal links to the newest locally targeted treatment pages.
