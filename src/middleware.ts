@@ -21,15 +21,22 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
   if (response.headers.get("content-type")?.includes("text/html")) {
     let fixedHtml = await response.text();
 
-    // Review buttons should go to review destinations, not general listings.
-    // Google: open the direct Google review flow for Layla's Place ID.
+    // Review buttons should open existing review lists, not maps or review composers.
+    // Google: open Layla's existing Google reviews for this Place ID.
+    const googleReviewsUrl =
+      "https://search.google.com/local/reviews?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y";
+
     fixedHtml = fixedHtml.replaceAll(
       'href="https://www.google.com/maps/place/?q=place_id%3AChIJv57sYEpvdEgR78z1GvYSv7Y"',
-      'href="https://search.google.com/local/writereview?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y"'
+      `href="${googleReviewsUrl}"`
     );
     fixedHtml = fixedHtml.replaceAll(
       'href="https://www.google.com/maps/search/?api=1&amp;query=Forever+Young+Beauty+By+Layla+Fareham&amp;query_place_id=ChIJv57sYEpvdEgR78z1GvYSv7Y"',
-      'href="https://search.google.com/local/writereview?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y"'
+      `href="${googleReviewsUrl}"`
+    );
+    fixedHtml = fixedHtml.replaceAll(
+      'href="https://search.google.com/local/writereview?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y"',
+      `href="${googleReviewsUrl}"`
     );
 
     // Treatwell: go straight to Layla's working reviews page.
