@@ -53,7 +53,7 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
       // retaining the site's navy/gold visual language.
       fixedHtml = fixedHtml.replace(
         "</head>",
-        '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}.social-brand-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:.58rem}.social-brand-btn svg{width:1.18rem;height:1.18rem;flex:0 0 auto}@media(max-width:860px){.hero-inner{padding-top:calc(3.25rem + 110px)!important;padding-bottom:calc(3.5rem + 110px)!important}.hero-inner>div{transform:translateY(110px)}.hero-photo{filter:brightness(1.12) saturate(1.04);object-position:50% 24%!important}.hero-veil{background:linear-gradient(to bottom,rgba(27,58,76,.62) 0%,rgba(27,58,76,.34) 18%,rgba(27,58,76,.18) 34%,rgba(27,58,76,.50) 50%,rgba(27,58,76,.84) 70%,rgba(27,58,76,.97) 100%)!important}}</style></head>'
+        '<style id="fyb-hero-logo-fix">.hero img.logo{display:none!important}.hero-inner{justify-content:center!important}.social-brand-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:.58rem}.social-brand-btn svg{width:1.18rem;height:1.18rem;flex:0 0 auto}.treatment-page-links>a{display:inline-block!important;padding:.8rem 1.6rem!important;border-radius:999px!important;text-decoration:none!important;font-weight:700!important;border:1.5px solid var(--navy)!important;color:var(--navy)!important;background:transparent!important;line-height:1.25}.treatment-page-links>a:hover,.treatment-page-links>a:focus-visible{background:var(--navy)!important;color:#fff!important}@media(max-width:860px){.hero-inner{padding-top:calc(3.25rem + 110px)!important;padding-bottom:calc(3.5rem + 110px)!important}.hero-inner>div{transform:translateY(110px)}.hero-photo{filter:brightness(1.12) saturate(1.04);object-position:50% 24%!important}.hero-veil{background:linear-gradient(to bottom,rgba(27,58,76,.62) 0%,rgba(27,58,76,.34) 18%,rgba(27,58,76,.18) 34%,rgba(27,58,76,.50) 50%,rgba(27,58,76,.84) 70%,rgba(27,58,76,.97) 100%)!important}}</style></head>'
       );
 
       fixedHtml = fixedHtml.replace(
@@ -66,8 +66,6 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
       );
 
       // Add strong internal links to the newest locally targeted treatment pages.
-      // Copy Astro's scoped styling attribute from the existing buttons so the
-      // two injected links render identically instead of as plain blue links.
       fixedHtml = fixedHtml.replace(
         /(<div[^>]*aria-label="Learn more about treatments"[^>]*>)([\s\S]*?)(<\/div>)/,
         (_match, open, content, close) => {
