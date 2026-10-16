@@ -1,4 +1,5 @@
 ---
+import MenuAutoClose from "../../components/MenuAutoClose.astro";
 import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL } from "../../data/site";
 const path = "/treatments/jet-plasma-fareham/";
 const title = "Jet Plasma Treatments in Fareham | Forever Young Beauty by Layla";
@@ -21,6 +22,7 @@ const schema = {"@context":"https://schema.org","@type":"Service","name":"Jet Pl
 <section class="contact"><h2>Call Layla to find out more</h2><p>Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire PO14 4LN. Welcoming clients from Fareham, Titchfield, Locks Heath, Whiteley and Park Gate.</p><a class="button" href="tel:+447799890398">Call Layla · 07799 890398</a><p><a href={booking}>Or explore treatments and availability →</a></p></section>
 <nav aria-label="Other treatments"><h2>Explore more treatments</h2><div class="links">{TREATMENT_PAGES.filter((t) => t.href !== path).map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav></div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
+<MenuAutoClose />
 </body></html>
 <style>
 /* Keep primary booking actions comfortably tappable on mobile. */

@@ -1,4 +1,5 @@
 ---
+import MenuAutoClose from "../components/MenuAutoClose.astro";
 // Forever Young Beauty by Layla — SEO-optimised homepage
 import { NAV_LINKS, DIRECTIONS_URL, GEO } from "../data/site";
 const path = "/";
@@ -776,5 +777,6 @@ const schema = {
         ).observe(hero);
       })();
     </script>
-  </body>
+  <MenuAutoClose />
+</body>
 </html>
