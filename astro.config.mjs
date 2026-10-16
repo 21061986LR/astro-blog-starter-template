@@ -12,6 +12,24 @@ const headerLogoPlugin = () => ({
   const from = 'src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo"';
   const to = 'src="/images/fyb-header-logo.svg" alt="Forever Young Beauty logo"';
   let next = code.replaceAll(from, to);
+
+  // Homepage: remove the obsolete second hero wordmark. The small corner
+  // logo is the site brand mark; the old hero asset was being stretched on
+  // mobile and obscuring Layla's photo. Re-centre the remaining hero copy.
+  if (id.includes("/src/pages/index.astro")) {
+   next = next.replace(
+    /\s*<img\s+class="logo"\s+src="\/images\/fyb-wordmark-1\.png"\s+alt="Forever Young Beauty by Layla"\s+width="520"\s+height="176"\s*\/>/,
+    ""
+   );
+   if (next.includes("</style>")) {
+    const homepageHeroFix = `
+.hero img.logo{display:none!important}
+.hero-inner{justify-content:center!important}
+`;
+    next = next.replace("</style>", `${homepageHeroFix}</style>`);
+   }
+  }
+
   if (id.includes("/src/pages/treatments/") && next.includes("</style>")) {
    const sharedHeaderSizing = `
 .corner-logo{width:70px!important;height:70px!important;padding:2px!important}
