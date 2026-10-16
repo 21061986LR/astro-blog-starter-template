@@ -16,6 +16,9 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
     });
   }
 
+  // /review is the short link for clients leaving a Google review, so leave its link untouched.
+  if (path === "/review") return next();
+
   const response = await next();
 
   if (response.headers.get("content-type")?.includes("text/html")) {
@@ -64,15 +67,7 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
         '><span class="social-brand-btn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13.2 20v-6.7h2.3l.35-2.7H13.2V8.9c0-.78.22-1.31 1.34-1.31h1.43V5.17c-.25-.03-1.1-.1-2.1-.1-2.08 0-3.5 1.27-3.5 3.61v1.92H8v2.7h2.37V20h2.83Z" fill="currentColor"/></svg><span>Facebook</span></span></a>'
       );
 
-      // Add strong internal links to the newest locally targeted treatment pages.
-      fixedHtml = fixedHtml.replace(
-        /(<div[^>]*aria-label="Learn more about treatments"[^>]*>)([\s\S]*?)(<\/div>)/,
-        (_match, open, content, close) => {
-          const scope = content.match(/(data-astro-cid-[a-z0-9]+="")/)?.[1] ?? "";
-          const scoped = scope ? ` ${scope}` : "";
-          return `${open}${content}<a class="btn btn-ghost"${scoped} href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a><a class="btn btn-ghost"${scoped} href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>${close}`;
-        }
-      );
+      // Dermaplaning and pregnancy massage links now live in src/pages/index.astro.
     }
 
     const headers = new Headers(response.headers);

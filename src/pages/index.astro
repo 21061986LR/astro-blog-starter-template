@@ -1,5 +1,7 @@
 ---
 // Forever Young Beauty by Layla — SEO-optimised homepage
+import { NAV_LINKS, DIRECTIONS_URL, GEO } from "../data/site";
+const path = "/";
 
 const business = {
   name: "Forever Young Beauty by Layla",
@@ -10,10 +12,8 @@ const business = {
   locality: "Titchfield Common, Fareham",
   region: "Hampshire",
   postcode: "PO14 4LN",
-  lat: 50.8482589,
-  lng: -1.2688614,
-  ratingValue: "5.0",
-  reviewCount: "567",
+  lat: GEO.lat,
+  lng: GEO.lng,
   url: "https://foreveryoungbeautybylayla.co.uk",
   instagram: "https://www.instagram.com/foreveryoungbeauty_bylayla",
   facebook: "https://www.facebook.com/foreveryoungbeautybylayla",
@@ -22,9 +22,9 @@ const business = {
 };
 
 const title =
-  "Forever Young Beauty by Layla | Beauty Salon Fareham — Facials, Massage & Aesthetics, Titchfield Common";
+  "Forever Young Beauty by Layla | Beauty Salon in Fareham";
 const description =
-  "5-star beauty salon at Abshot Country Club, Fareham. CACI facials, dermaplaning, microneedling, massage, waxing & advanced aesthetics. Serving Titchfield, Locks Heath, Whiteley & Park Gate. Over 500 five-star reviews. Book online.";
+  "CACI facials, dermaplaning, microneedling and massage with Layla at Abshot Country Club, Titchfield Common, Fareham. Over 500 five-star reviews. Book online.";
 
 const treatments = [
   {
@@ -148,12 +148,6 @@ const schema = {
       closes: "15:00",
     },
   ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: business.ratingValue,
-    reviewCount: business.reviewCount,
-    bestRating: "5",
-  },
   areaServed: [
     "Fareham",
     "Titchfield",
@@ -476,7 +470,7 @@ const schema = {
   </head>
 
   <body>
-    <div class="site-controls"><details class="home-menu" style="order:2"><summary aria-label="Open navigation menu">☰ <span>Menu</span></summary><nav aria-label="Site navigation"><a href="/">Home</a><a href="/treatments/caci-facials-fareham/">CACI Facials</a><a href="/treatments/microneedling-fareham/">Microneedling</a><a href="/treatments/jet-plasma-fareham/">Jet Plasma</a><a href="/treatments/massage-fareham/">Massage</a><a href="/our-location/">Our Location</a><a href="/#reviews">Reviews</a><a href="/#studio">Find us</a></nav></details><a style="order:1" class="home-corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="58" height="58" /></a></div>
+    <div class="site-controls"><details class="home-menu" style="order:2"><summary aria-label="Open navigation menu">☰ <span>Menu</span></summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details><a style="order:1" class="home-corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="58" height="58" /></a></div>
     <style is:global>.site-controls{position:absolute;top:12px;left:12px;right:12px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px}.home-corner-logo{width:52px;height:52px;border-radius:50%;background:white;display:grid;place-items:center;padding:5px;overflow:hidden;box-shadow:0 2px 8px #0003}.home-corner-logo img{width:100%;height:100%;object-fit:contain}.home-menu{position:relative}.home-menu summary{cursor:pointer;list-style:none;background:#1b3a4c;color:#fff;padding:9px 12px;border-radius:8px;font-weight:600}.home-menu summary::-webkit-details-marker{display:none}.home-menu nav{position:absolute;right:0;top:calc(100% + 8px);display:flex;flex-direction:column;min-width:210px;background:#fff;border-radius:12px;box-shadow:0 8px 24px #0004;padding:8px}.home-menu nav a{color:#1b3a4c;text-decoration:none;padding:9px 12px;border-radius:7px}.home-menu nav a:hover,.home-menu nav a:focus-visible{background:#eef1f3}@media(max-width:520px){.site-controls{top:8px;left:8px;right:8px;gap:7px}.home-corner-logo{width:44px;height:44px}.home-menu summary{font-size:.85rem;padding:8px}.home-menu summary span{display:none}}</style>
     <!-- HERO -->
     <header class="hero">
@@ -590,6 +584,8 @@ const schema = {
           <a class="btn btn-ghost" href="/treatments/microneedling-fareham/">Learn about microneedling →</a>
           <a class="btn btn-ghost" href="/treatments/jet-plasma-fareham/">Discover Jet Plasma →</a>
           <a class="btn btn-ghost" href="/treatments/massage-fareham/">Explore massage treatments →</a>
+          <a class="btn btn-ghost" href="/treatments/dermaplaning-fareham/">Dermaplaning in Fareham →</a>
+          <a class="btn btn-ghost" href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>
         </div>
         <p style="margin-top:1.5rem;">
           <a class="btn btn-primary" href={business.treatwell}
@@ -693,7 +689,7 @@ const schema = {
               <tr><td>Sunday</td><td>Closed</td></tr>
             </table>
             <p style="margin-top:1rem;">
-              <a class="btn btn-ghost" href="https://www.google.com/maps/place/?q=place_id%3AChIJv57sYEpvdEgR78z1GvYSv7Y"
+              <a class="btn btn-ghost" href={DIRECTIONS_URL}
                 >Get directions</a
               >
             </p>

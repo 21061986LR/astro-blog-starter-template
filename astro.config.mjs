@@ -48,7 +48,7 @@ const headerLogoPlugin = () => ({
 
 export default defineConfig({
  site: "https://foreveryoungbeautybylayla.co.uk",
- integrations: [mdx(), sitemap()],
+ integrations: [mdx(), sitemap({ filter: (page) => !page.includes("/review") })],
  vite: { plugins: [headerLogoPlugin()] },
  adapter: cloudflare({ platformProxy: { enabled: true } }),
 });
