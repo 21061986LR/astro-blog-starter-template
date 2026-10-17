@@ -1,7 +1,12 @@
 // Shared site data. Edit here and every page picks it up.
 
 export const SITE_URL = "https://foreveryoungbeautybylayla.co.uk";
-export const BOOKING_URL = "https://laylaradestock.mytreatwell.co.uk/";
+// Every booking button opens Treatwell's booking screen directly. This is the same link
+// as the "Book now" button on Layla's Treatwell site, so clients skip that extra page.
+export const BOOKING_URL =
+  "https://widget.treatwell.co.uk/place/forever-young-beauty-by-layla/?utm_source=partner&utm_medium=partner-site-book-now-widget";
+// Layla's Treatwell page (menu, prices and reviews): the footer link and Google's business data.
+export const TREATWELL_URL = "https://laylaradestock.mytreatwell.co.uk/";
 export const PHONE = "+447799890398";
 export const PHONE_DISPLAY = "07799 890398";
 
