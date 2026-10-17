@@ -1,7 +1,7 @@
 ---
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
 // Forever Young Beauty by Layla — SEO-optimised homepage
-import { NAV_LINKS, DIRECTIONS_URL, GEO } from "../data/site";
+import { NAV_LINKS, DIRECTIONS_URL, GEO, BOOKING_URL, TREATWELL_URL } from "../data/site";
 const path = "/";
 
 const business = {
@@ -18,7 +18,7 @@ const business = {
   url: "https://foreveryoungbeautybylayla.co.uk",
   instagram: "https://www.instagram.com/foreveryoungbeauty_bylayla",
   facebook: "https://www.facebook.com/foreveryoungbeautybylayla",
-  treatwell: "https://laylaradestock.mytreatwell.co.uk/",
+  treatwell: TREATWELL_URL,
   googleReviews: "https://www.google.com/maps/place/?q=place_id%3AChIJv57sYEpvdEgR78z1GvYSv7Y",
 };
 
@@ -505,7 +505,7 @@ const schema = {
             Over 500 five-star reviews · Treatwell Top Rated 2024 &amp; 2025
           </p>
           <div class="cta-row">
-            <a class="btn btn-primary" href={business.treatwell}>View prices &amp; availability</a>
+            <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
           </div>
         </div>
       </div>
@@ -557,7 +557,7 @@ const schema = {
           See treatment highlights and salon updates. For current appointments, check Layla’s booking page.
         </p>
         <div class="btn-row">
-          <a class="btn btn-primary" href={business.treatwell}>View prices &amp; availability</a>
+          <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
           <a class="btn btn-ghost" href={business.instagram}>Follow on Instagram</a>
           <a class="btn btn-ghost" href={business.facebook}>Find us on Facebook</a>
         </div>
@@ -572,7 +572,7 @@ const schema = {
         <div class="grid">
           {
             treatments.map((t) => (
-              <a class="card" href={business.treatwell}>
+              <a class="card" href={BOOKING_URL}>
                 <h3>{t.name}</h3>
                 <p>{t.desc}</p>
                 <span class="card-cta">View prices &amp; availability →</span>
@@ -589,7 +589,7 @@ const schema = {
           <a class="btn btn-ghost" href="/treatments/pregnancy-massage-fareham/">Pregnancy massage in Fareham →</a>
         </div>
         <p style="margin-top:1.5rem;">
-          <a class="btn btn-primary" href={business.treatwell}
+          <a class="btn btn-primary" href={BOOKING_URL}
             >View the full menu, prices &amp; availability</a
           >
         </p>
@@ -615,7 +615,7 @@ const schema = {
           }
         </div>
         <div class="btn-row" style="margin-top:1.5rem;">
-          <a class="btn btn-primary" href={business.treatwell}>View prices &amp; availability</a>
+          <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
         </div>
         <div class="btn-row">
           <a class="btn btn-gold-ghost" href={business.googleReviews}
@@ -725,7 +725,7 @@ const schema = {
       </div>
     </footer>
     <div class="book-bar" id="bookBar" inert aria-hidden="true">
-      <a class="book" href={business.treatwell}>View prices &amp; availability</a>
+      <a class="book" href={BOOKING_URL}>View prices &amp; availability</a>
     </div>
 
     <dialog class="lightbox" id="lightbox">

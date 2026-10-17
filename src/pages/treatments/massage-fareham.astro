@@ -1,11 +1,11 @@
 ---
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL } from "../../data/site";
+import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL } from "../../data/site";
 const path = "/treatments/massage-fareham/";
 const title = "Massage Fareham | Deep Tissue, Swedish & Pregnancy Massage | Layla";
 const description = "Massage in Fareham at Abshot Country Club, Titchfield Common. Explore deep tissue, Swedish, sports, aromatherapy and pregnancy massage. View prices and availability.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/treatments/massage-fareham/";
-const booking = "https://laylaradestock.mytreatwell.co.uk/";
+const booking = BOOKING_URL;
 const schema = {"@context":"https://schema.org","@type":"Service","name":"Massage in Fareham","description":description,"url":canonical,"provider":PROVIDER,"areaServed":[{"@type":"Place","name":"Fareham, Hampshire"},{"@type":"Place","name":"Locks Heath, Hampshire"},{"@type":"Place","name":"Park Gate, Hampshire"},{"@type":"Place","name":"Titchfield, Hampshire"},{"@type":"Place","name":"Whiteley, Hampshire"}]};
 ---
 <!doctype html>

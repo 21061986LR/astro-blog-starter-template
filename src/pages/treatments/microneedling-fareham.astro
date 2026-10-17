@@ -1,11 +1,11 @@
 ---
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL } from "../../data/site";
+import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL } from "../../data/site";
 const path = "/treatments/microneedling-fareham/";
 const title = "Microneedling in Fareham | Forever Young Beauty by Layla";
 const description = "Microneedling in Fareham near Locks Heath and Park Gate. Learn about skin texture, treatment suitability and aftercare, watch Layla's video and book online.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/treatments/microneedling-fareham/";
-const booking = "https://laylaradestock.mytreatwell.co.uk/";
+const booking = BOOKING_URL;
 const schema = {"@context":"https://schema.org","@type":"Service","name":"Microneedling in Fareham","description":description,"url":canonical,"provider":PROVIDER,"areaServed":[{"@type":"Place","name":"Fareham, Hampshire"},{"@type":"Place","name":"Locks Heath, Hampshire"},{"@type":"Place","name":"Park Gate, Hampshire"},{"@type":"Place","name":"Titchfield, Hampshire"},{"@type":"Place","name":"Whiteley, Hampshire"}]};
 ---
 <!doctype html>
