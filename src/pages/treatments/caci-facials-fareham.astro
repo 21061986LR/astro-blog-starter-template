@@ -1,5 +1,5 @@
 ---
-import MenuAutoClose from "../../components/MenuAutoClose.astro";
+import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
 import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL } from "../../data/site";
 const path = "/treatments/caci-facials-fareham/";
 const title = "CACI Non-Surgical Facials in Fareham | Forever Young Beauty by Layla";
@@ -24,7 +24,7 @@ const schema = {"@context":"https://schema.org","@type":"Service","name":"CACI N
 <section class="contact"><h2>Book your appointment</h2><p>Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire PO14 4LN. Welcoming clients from Fareham, Titchfield, Locks Heath, Whiteley and Park Gate.</p><a class="button" href={booking}>View treatment prices &amp; availability</a></section>
 <nav aria-label="Other treatments"><h2>Explore more treatments</h2><div class="links">{TREATMENT_PAGES.filter((t) => t.href !== path).map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav></div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
-<MenuAutoClose />
+<SiteMenuBehaviour />
 </body></html>
 <style>
 /* Keep primary booking actions comfortably tappable on mobile. */
