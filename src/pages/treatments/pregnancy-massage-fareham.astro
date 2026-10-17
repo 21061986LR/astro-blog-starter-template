@@ -1,11 +1,11 @@
 ---
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL } from "../../data/site";
+import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL } from "../../data/site";
 const path = "/treatments/pregnancy-massage-fareham/";
 const title = "Pregnancy Massage Fareham | Forever Young Beauty by Layla";
 const description = "Pregnancy massage in Fareham at Abshot Country Club, Titchfield Common. A calm, adapted massage treatment with Layla. View prices and appointment availability.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/treatments/pregnancy-massage-fareham/";
-const booking = "https://laylaradestock.mytreatwell.co.uk/";
+const booking = BOOKING_URL;
 const schema = {
   "@context":"https://schema.org",
   "@type":"Service",
