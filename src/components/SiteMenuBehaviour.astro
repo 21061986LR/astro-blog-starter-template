@@ -20,41 +20,55 @@
 </script>
 
 <style is:global>
-  /* Keep the menu button on screen while the page scrolls. Each position matches
-     where the button sits at the top of that page, so nothing moves on load. */
-
-  /* Homepage */
-  .site-controls > .home-menu { position: fixed !important; top: 19px; right: 12px; z-index: 60; }
-  .site-controls > .home-menu > summary { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); }
-  @media (max-width: 520px) {
-    .site-controls > .home-menu { top: 8px; right: 16px; }
+  /* One logo and one menu button: the same size, look and place on every page.
+     Both stay on screen while the page scrolls. The logo goes home; the button opens the menu.
+     At the top of the page they sit centred in the 92px navy header bar. */
+  .site-controls > .home-corner-logo,
+  header.top > .corner-logo {
+    position: fixed !important; top: 17px !important; left: 12px !important; right: auto !important;
+    width: 58px !important; height: 58px !important; padding: 2px !important; transform: none !important;
+    display: grid !important; place-items: center; overflow: hidden; border-radius: 50%; background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important; z-index: 60 !important;
   }
+  .site-controls > .home-corner-logo img,
+  header.top > .corner-logo img { width: 100% !important; height: 100% !important; object-fit: contain !important; }
 
-  /* Treatment pages */
-  header.top > .menu { position: fixed !important; top: 26px !important; right: 13px !important; transform: none !important; z-index: 40 !important; }
-  header.top > .menu > summary { background: #1b3a4c; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); }
+  .site-controls > .home-menu,
+  header.top > .menu {
+    position: fixed !important; top: 22px !important; right: 12px !important; left: auto !important;
+    transform: none !important; z-index: 60 !important;
+  }
+  .site-controls > .home-menu > summary,
+  header.top > .menu > summary {
+    width: 48px !important; height: 48px !important; min-width: 0 !important; min-height: 0 !important;
+    padding: 0 !important; gap: 0 !important; display: flex !important; align-items: center !important;
+    justify-content: center !important; background: #1b3a4c !important; color: #fff !important;
+    border-radius: 10px !important; font-size: 26px !important; line-height: 1 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+  }
+  header.top > .menu .hamburger { font-size: 26px !important; line-height: 1 !important; }
+
+  /* The same "Forever Young Beauty / by Layla" title, centred, in the header bar of every page. */
+  header.top { padding-left: 85px !important; padding-right: 85px !important; }
   @media (max-width: 560px) {
-    header.top > .menu { top: 22px !important; right: 6px !important; }
+    header.top { padding-left: 70px !important; padding-right: 70px !important; }
+  }
+  header.top .brand strong { font-size: clamp(0.95rem, 3.4vw, 1.3rem) !important; font-weight: 700 !important; }
+  header.top .brand span { font-family: Georgia, serif !important; font-size: 0.96rem !important; font-weight: 400 !important; color: #d9c79f !important; }
+  .site-controls > .home-menu > nav,
+  header.top > .menu > nav {
+    top: 78px !important; right: 12px !important; width: min(290px, calc(100vw - 16px)) !important;
+    min-width: 0 !important; padding: 8px !important;
+  }
+  .site-controls > .home-menu > nav > a,
+  header.top > .menu > nav > a {
+    display: flex !important; align-items: center !important; min-height: 44px !important;
+    padding: 10px 12px !important; font-size: 16px !important; line-height: 1.3 !important;
   }
 
-  /* The round FYB logo is the home button, so it stays on screen too (top left). */
-  .site-controls > .home-corner-logo { position: fixed; top: 12px; left: 12px; z-index: 60; }
-  @media (max-width: 520px) {
-    .site-controls > .home-corner-logo { top: 8px; left: 8px; }
-  }
-  header.top > .corner-logo { position: fixed !important; top: 15px !important; left: 14px !important; transform: none !important; z-index: 40 !important; }
   @media (max-width: 560px) {
-    header.top > .corner-logo { top: 19px !important; left: 8px !important; }
-  }
-  .site-header > .logo { position: fixed; top: 11px; left: max(5%, 20px); z-index: 40; border-radius: 50%; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); }
-  @media (max-width: 640px) {
-    .site-header > .logo { left: 16px; }
-  }
-
-  /* Our Location */
-  .site-header > .menu { position: fixed !important; top: 19px; right: max(5%, 20px); z-index: 40; }
-  .site-header > .menu > summary { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); }
-  @media (max-width: 640px) {
-    .site-header > .menu { right: 16px; }
+    .site-controls > .home-corner-logo, header.top > .corner-logo { left: 8px !important; }
+    .site-controls > .home-menu, header.top > .menu,
+    .site-controls > .home-menu > nav, header.top > .menu > nav { right: 8px !important; }
   }
 </style>
