@@ -1,4 +1,6 @@
 ---
+import TreatwellClickTracking from "../components/TreatwellClickTracking.astro";
+import TreatwellClickPreferences from "../components/TreatwellClickPreferences.astro";
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
 // Forever Young Beauty by Layla — SEO-optimised homepage
 import { NAV_LINKS, DIRECTIONS_URL, GEO, BOOKING_URL, TREATWELL_URL } from "../data/site";
@@ -778,5 +780,7 @@ const schema = {
       })();
     </script>
   <SiteMenuBehaviour />
+<TreatwellClickPreferences />
+<TreatwellClickTracking />
 </body>
 </html>
