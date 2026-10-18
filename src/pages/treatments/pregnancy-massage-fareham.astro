@@ -1,4 +1,6 @@
 ---
+import TreatwellClickTracking from "../../components/TreatwellClickTracking.astro";
+import TreatwellClickPreferences from "../../components/TreatwellClickPreferences.astro";
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
 import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL } from "../../data/site";
 const path = "/treatments/pregnancy-massage-fareham/";
@@ -41,6 +43,8 @@ const schema = {
 </div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
 <SiteMenuBehaviour />
+<TreatwellClickPreferences />
+<TreatwellClickTracking />
 </body></html>
 <style>
 a.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;text-align:center}
