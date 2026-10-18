@@ -1,4 +1,6 @@
 ---
+import TreatwellClickTracking from "../../components/TreatwellClickTracking.astro";
+import TreatwellClickPreferences from "../../components/TreatwellClickPreferences.astro";
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
 import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL } from "../../data/site";
 const path = "/treatments/microneedling-fareham/";
@@ -27,6 +29,8 @@ const schema = {"@context":"https://schema.org","@type":"Service","name":"Micron
 <nav aria-label="Other treatments"><h2>Explore more treatments</h2><div class="links">{TREATMENT_PAGES.filter((t) => t.href !== path).map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav></div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
 <SiteMenuBehaviour />
+<TreatwellClickPreferences />
+<TreatwellClickTracking />
 </body></html>
 <style>
 /* Keep primary booking actions comfortably tappable on mobile. */
