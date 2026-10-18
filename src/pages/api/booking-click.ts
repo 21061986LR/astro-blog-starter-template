@@ -10,7 +10,7 @@ const PAGES = new Set([
   "/treatments/massage-fareham/",
   "/treatments/pregnancy-massage-fareham/"
 ]);
-const CATEGORIES = new Set(["booking", "reviews"]);
+const CATEGORIES = new Set(["booking"]);
 
 type AnalyticsBinding = {
   writeDataPoint: (data: { blobs: string[]; doubles: number[] }) => void;
