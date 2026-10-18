@@ -1,12 +1,12 @@
 ---
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, BOOKING_URL, GOOGLE_PLACE_ID } from "../data/site";
+import { NAV_LINKS, BOOKING_URL, GOOGLE_PLACE_ID } from "../data/site";
 const path = "/links/";
 const title = "Book & Connect | Forever Young Beauty by Layla";
 const description = "Book beauty treatments with Layla on Treatwell, find her Google Business Profile and follow Forever Young Beauty by Layla on Instagram and Facebook.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/links/";
 const booking = BOOKING_URL;
-const schema = {"@context":"https://schema.org","@type":"Service","name":"Waxing in Fareham","description":description,"url":canonical,"provider":PROVIDER,"areaServed":[{"@type":"Place","name":"Fareham, Hampshire"},{"@type":"Place","name":"Locks Heath, Hampshire"},{"@type":"Place","name":"Park Gate, Hampshire"},{"@type":"Place","name":"Titchfield, Hampshire"},{"@type":"Place","name":"Whiteley, Hampshire"}]};
+const schema = {"@context":"https://schema.org","@type":"WebPage","name":title,"description":description,"url":canonical};
 ---
 <!doctype html>
 <html lang="en-GB">
