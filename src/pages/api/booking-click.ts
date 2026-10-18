@@ -8,8 +8,7 @@ const PAGES = new Set([
   "/treatments/dermaplaning-fareham/",
   "/treatments/jet-plasma-fareham/",
   "/treatments/massage-fareham/",
-  "/treatments/pregnancy-massage-fareham/",
-  "/location/"
+  "/treatments/pregnancy-massage-fareham/"
 ]);
 const CATEGORIES = new Set(["booking", "reviews"]);
 
