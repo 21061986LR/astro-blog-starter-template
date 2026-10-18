@@ -1,0 +1,43 @@
+<!-- Development-only component. Not imported into any page until review. -->
+<script is:inline>
+  (function () {
+    var optOutKey = "layla_analytics_opt_out";
+    var allowedPages = new Set([
+      "/", "/treatments/caci-facials-fareham/",
+      "/treatments/microneedling-fareham/",
+      "/treatments/dermaplaning-fareham/",
+      "/treatments/jet-plasma-fareham/",
+      "/treatments/massage-fareham/",
+      "/treatments/pregnancy-massage-fareham/", "/location/"
+    ]);
+    document.addEventListener("click", function (event) {
+      try {
+        if (localStorage.getItem(optOutKey) === "1") return;
+        var target = event.target;
+        var link = target && target.closest ? target.closest("a[href]") : null;
+        if (!link) return;
+        var url = new URL(link.href, location.href);
+        var category = null;
+        if (url.hostname === "widget.treatwell.co.uk" &&
+            url.pathname.startsWith("/place/forever-young-beauty-by-layla/")) {
+          category = "booking";
+        } else if (url.hostname === "www.treatwell.co.uk" &&
+                   url.pathname.startsWith("/place/forever-young-beauty-by-layla/")) {
+          category = "reviews";
+        }
+        if (!category) return;
+        var page = location.pathname;
+        if (!allowedPages.has(page)) return;
+        var body = JSON.stringify({ page: page, category: category });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon("/api/booking-click", new Blob([body], { type: "application/json" }));
+        } else {
+          fetch("/api/booking-click", { method: "POST", headers: { "Content-Type": "application/json" },
+            body: body, keepalive: true, credentials: "omit" }).catch(function () {});
+        }
+      } catch (_) {
+        // Analytics must never interrupt navigation to Treatwell.
+      }
+    }, { capture: true });
+  })();
+</script>
