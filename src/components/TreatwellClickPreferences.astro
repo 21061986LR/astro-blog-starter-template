@@ -1,0 +1,33 @@
+<!-- No cookies, analytics identifiers, or location collection. -->
+<div class="analytics-choice" aria-label="Anonymous click counting preference">
+  <span>Anonymous Treatwell booking-click count</span>
+  <button type="button" id="layla-click-toggle" aria-pressed="false">Turn off</button>
+</div>
+<script is:inline>
+  (function () {
+    var key = "layla_analytics_opt_out";
+    var button = document.getElementById("layla-click-toggle");
+    if (!button) return;
+    function update() {
+      var off = false;
+      try { off = localStorage.getItem(key) === "1"; }
+      catch (_) { off = true; }
+      button.textContent = off ? "Turn on" : "Turn off";
+      button.setAttribute("aria-pressed", String(off));
+      button.setAttribute("aria-label", off ? "Enable anonymous booking click counting" : "Disable anonymous booking click counting");
+    }
+    button.addEventListener("click", function () {
+      try {
+        if (localStorage.getItem(key) === "1") localStorage.removeItem(key);
+        else localStorage.setItem(key, "1");
+      } catch (_) { /* Storage unavailable: tracking listener must fail closed. */ }
+      update();
+    });
+    update();
+  })();
+</script>
+<style>
+  .analytics-choice{font:inherit;font-size:.78rem;display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap;margin:1rem auto;color:inherit;opacity:.85}
+  .analytics-choice button{font:inherit;font-size:inherit;cursor:pointer;background:transparent;border:1px solid currentColor;color:inherit;border-radius:5px;padding:.3rem .6rem}
+  .analytics-choice button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+</style>
