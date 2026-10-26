@@ -28,9 +28,9 @@ export const NAV_LINKS = [
   { href: "/treatments/dermaplaning-fareham/", label: "Dermaplaning" },
   { href: "/treatments/microneedling-fareham/", label: "Microneedling" },
   { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma" },
+  { href: "/treatments/waxing-fareham/", label: "Waxing" },
   { href: "/treatments/massage-fareham/", label: "Massage" },
   { href: "/treatments/pregnancy-massage-fareham/", label: "Pregnancy Massage" },
-  { href: "/treatments/waxing-fareham/", label: "Waxing" },
   { href: "/our-location/", label: "Our Location" },
   { href: "/links/", label: "Links" },
   { href: "/#reviews", label: "Reviews" },
@@ -43,9 +43,9 @@ export const TREATMENT_PAGES = [
   { href: "/treatments/dermaplaning-fareham/", label: "Dermaplaning in Fareham" },
   { href: "/treatments/microneedling-fareham/", label: "Microneedling in Fareham" },
   { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma in Fareham" },
+  { href: "/treatments/waxing-fareham/", label: "Waxing in Fareham" },
   { href: "/treatments/massage-fareham/", label: "Massage in Fareham" },
   { href: "/treatments/pregnancy-massage-fareham/", label: "Pregnancy Massage in Fareham" },
-  { href: "/treatments/waxing-fareham/", label: "Waxing in Fareham" },
 ];
 
 // Links the Service schema on each treatment page to the business on the homepage.
