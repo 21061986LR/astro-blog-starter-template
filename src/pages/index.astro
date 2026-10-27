@@ -30,18 +30,22 @@ const description =
 const treatments = [
   {
     name: "CACI Non-Surgical Facials",
+    detail: "/treatments/caci-facials-fareham/",
     desc: "The celebrity-favourite non-surgical facelift. Microcurrent therapy lifts and tones facial muscles — including the targeted CACI Jowl Lift for a firmer jawline.",
   },
   {
     name: "Dermaplaning",
+    detail: "/treatments/dermaplaning-fareham/",
     desc: "Instantly smoother, brighter skin. Gentle exfoliation removes dead skin cells and peach fuzz, leaving a flawless base for skincare and make-up.",
   },
   {
     name: "Microneedling & Skin Rejuvenation",
+    detail: "/treatments/microneedling-fareham/",
     desc: "Collagen-boosting treatments for fine lines, acne scarring and uneven texture, alongside LED light therapy, face peels and targeted acne treatments.",
   },
   {
     name: "Waxing & Tinting",
+    detail: "/treatments/waxing-fareham/",
     desc: "Full waxing menu for ladies and men — from lip and brow to Hollywood — plus eyebrow and eyelash tinting.",
   },
   {
@@ -50,6 +54,7 @@ const treatments = [
   },
   {
     name: "Massage Therapy",
+    detail: "/treatments/massage-fareham/",
     desc: "Aromatherapy, Swedish, deep tissue, pregnancy and lymphatic drainage massage in a calm, private treatment room. Full body or back, neck and shoulders.",
   },
 ];
@@ -295,24 +300,28 @@ const schema = {
         transition: background 0.18s ease, border-color 0.18s ease,
           transform 0.18s ease;
       }
-      .card:hover, .card:focus-visible {
+      .card:hover, .card:focus-within {
         background: #fff;
         border-color: var(--gold);
         transform: translateY(-2px);
         outline: none;
       }
-      .card:focus-visible { box-shadow: 0 0 0 3px rgba(176,154,110,0.45); }
+      .card:focus-within { box-shadow: 0 0 0 3px rgba(176,154,110,0.45); }
+      .card-detail { margin-top: 1rem; font-size: 0.88rem; font-weight: 700; color: var(--navy); text-underline-offset: 3px; }
+      .card-detail:hover { color: var(--gold-dark); }
+      .card a:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 3px; border-radius: 2px; }
       .card h3 { font-size: 1.12rem; margin-bottom: 0.4rem; color: var(--navy); }
       .card p { color: var(--soft); font-size: 0.93rem; flex: 1; }
       .card-cta {
-        margin-top: 1rem;
+        margin-top: 0.7rem;
         font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
+        text-decoration: none;
         color: var(--gold-dark);
       }
-      .card:hover .card-cta { color: var(--navy); }
+      .card:hover .card-cta, .card-cta:hover { color: var(--navy); }
 
       @media (hover: none) {
         .card:hover { transform: none; }
@@ -572,11 +581,14 @@ const schema = {
         <div class="grid">
           {
             treatments.map((t) => (
-              <a class="card" href={BOOKING_URL}>
+              <article class="card">
                 <h3>{t.name}</h3>
                 <p>{t.desc}</p>
-                <span class="card-cta">View prices &amp; availability →</span>
-              </a>
+                {t.detail && (
+                  <a class="card-detail" href={t.detail}>Explore {t.name} in Fareham →</a>
+                )}
+                <a class="card-cta" href={BOOKING_URL}>View prices &amp; availability →</a>
+              </article>
             ))
           }
         </div>
