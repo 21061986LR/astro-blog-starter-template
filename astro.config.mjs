@@ -1,13 +1,11 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import cloudflare from "@astrojs/cloudflare";
 
-/** @returns {import('vite').Plugin} */
 const headerLogoPlugin = () => ({
  name: "fyb-header-logo",
- enforce: "pre",
+ enforce: /** @type {const} */ ("pre"),
+ /** @param {string} code @param {string} id */
  transform(code, id) {
   if (!id.endsWith(".astro")) return null;
   const from = 'src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo"';
@@ -49,7 +47,8 @@ const headerLogoPlugin = () => ({
 
 export default defineConfig({
  site: "https://foreveryoungbeautybylayla.co.uk",
- integrations: [mdx(), sitemap({ filter: (page) => !page.includes("/review") })],
+ output: "static",
+ compressHTML: true,
+ integrations: [sitemap({ filter: (page) => !page.includes("/review") })],
  vite: { plugins: [headerLogoPlugin()] },
- adapter: cloudflare({ platformProxy: { enabled: true } }),
 });

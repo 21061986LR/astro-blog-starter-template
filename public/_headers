@@ -1,0 +1,19 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/about
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
+/about/*
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
+/blog
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
+/blog/*
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
