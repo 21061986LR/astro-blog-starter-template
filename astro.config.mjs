@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 
+/** @returns {import('vite').Plugin} */
 const headerLogoPlugin = () => ({
  name: "fyb-header-logo",
  enforce: "pre",
