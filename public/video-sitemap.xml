@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://foreveryoungbeautybylayla.co.uk/treatments/jet-plasma-fareham/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://foreveryoungbeautybylayla.co.uk/videos/Jet_Plasma_Highlight-poster.jpg</video:thumbnail_loc>
+      <video:title>Jet Plasma treatment at Forever Young Beauty by Layla</video:title>
+      <video:description>Watch a short Jet Plasma treatment video from Forever Young Beauty by Layla in Titchfield Common, Fareham.</video:description>
+      <video:content_loc>https://foreveryoungbeautybylayla.co.uk/videos/Jet_Plasma_Highlight.mp4</video:content_loc>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://foreveryoungbeautybylayla.co.uk/treatments/microneedling-fareham/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://foreveryoungbeautybylayla.co.uk/videos/Microneedling_Highlight-poster.jpg</video:thumbnail_loc>
+      <video:title>Microneedling treatment at Forever Young Beauty by Layla</video:title>
+      <video:description>Watch a short microneedling treatment video from Forever Young Beauty by Layla in Titchfield Common, Fareham.</video:description>
+      <video:content_loc>https://foreveryoungbeautybylayla.co.uk/videos/Microneedling_Highlight.mp4</video:content_loc>
+    </video:video>
+  </url>
+</urlset>
