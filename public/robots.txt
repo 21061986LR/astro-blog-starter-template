@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://foreveryoungbeautybylayla.co.uk/sitemap-index.xml
+Sitemap: https://foreveryoungbeautybylayla.co.uk/video-sitemap.xml
