@@ -786,31 +786,60 @@ const schema = {
         dlg.addEventListener("click", function () { dlg.close(); });
       })();
 
-      /* reveal the booking bar once the hero CTA has scrolled out of view */
+      /* Show mobile booking CTA while scrolling content, but never obscure
+         footer links, address, postcode or nearby service locations. */
       (function () {
         var bar = document.getElementById("bookBar");
         var hero = document.querySelector(".hero .cta-row");
+        var footer = document.querySelector("footer.site");
         if (!bar || !hero) return;
+
+        var heroHasLeftViewport = false;
+        var footerIsInViewport = false;
+
+        function updateBar() {
+          var visible = heroHasLeftViewport && !footerIsInViewport;
+          bar.classList.toggle("is-visible", visible);
+          if (visible) {
+            bar.removeAttribute("inert");
+            bar.removeAttribute("aria-hidden");
+          } else {
+            bar.setAttribute("inert", "");
+            bar.setAttribute("aria-hidden", "true");
+          }
+        }
+
         if (!("IntersectionObserver" in window)) {
-          bar.classList.add("is-visible");
-          bar.removeAttribute("inert");
-          bar.removeAttribute("aria-hidden");
+          // Fallback for older browsers: use the actual section positions.
+          function onScroll() {
+            heroHasLeftViewport = hero.getBoundingClientRect().bottom < 0;
+            footerIsInViewport = footer
+              ? footer.getBoundingClientRect().top < window.innerHeight
+              : false;
+            updateBar();
+          }
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          onScroll();
           return;
         }
         new IntersectionObserver(
           function (entries) {
-            var visible = !entries[0].isIntersecting;
-            bar.classList.toggle("is-visible", visible);
-            if (visible) {
-              bar.removeAttribute("inert");
-              bar.removeAttribute("aria-hidden");
-            } else {
-              bar.setAttribute("inert", "");
-              bar.setAttribute("aria-hidden", "true");
-            }
+            heroHasLeftViewport = !entries[0].isIntersecting &&
+              entries[0].boundingClientRect.bottom <= 0;
+            updateBar();
           },
           { threshold: 0 }
         ).observe(hero);
+        if (footer) {
+          new IntersectionObserver(
+            function (entries) {
+              footerIsInViewport = entries[0].isIntersecting;
+              updateBar();
+            },
+            { threshold: 0 }
+          ).observe(footer);
+        }
       })();
     </script>
   <SiteMenuBehaviour />
