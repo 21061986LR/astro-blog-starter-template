@@ -25,7 +25,7 @@ const business = {
 const title =
   "CACI Facials & Skincare in Fareham | Forever Young Beauty by Layla";
 const description =
-  "Discover CACI facials, dermaplaning, microneedling and waxing at Forever Young Beauty by Layla in Titchfield Common, near Fareham and Locks Heath. Book online.";
+  "Discover CACI facials, dermaplaning, microneedling and more with Layla in Titchfield Common, near Fareham and Locks Heath. Make time for your skin. Book online.";
 
 const treatments = [
   {
@@ -41,7 +41,7 @@ const treatments = [
   {
     name: "Microneedling & Skin Rejuvenation",
     detail: "/treatments/microneedling-fareham/",
-    desc: "Explore microneedling for uneven skin texture, fine lines and certain acne scars. Layla can discuss suitability, expected recovery and aftercare.",
+    desc: "Looking for smoother, more radiant-looking skin? Explore microneedling for uneven texture, fine lines and certain acne scars. Layla can explain suitability, recovery and aftercare.",
   },
   {
     name: "Waxing & Tinting",
@@ -506,16 +506,16 @@ const schema = {
         <div>
           <h1>CACI facials and skincare in Fareham, near Locks Heath</h1>
           <p class="lede">
-            CACI facials, dermaplaning, microneedling, Jet Plasma and waxing in a calm,
-            private treatment room at Abshot Country Club, Titchfield Common —
-            near Locks Heath, Whiteley and Park Gate.
+            A little time for yourself, a chance to relax and let your natural glow shine through.
+            Explore CACI facials, dermaplaning, microneedling, Jet Plasma and waxing with Layla
+            at Abshot Country Club, Titchfield Common — near Locks Heath, Whiteley and Park Gate.
           </p>
           <div class="stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
           <p class="rating-line">
             Rated 5.0 from over 500 Treatwell reviews · Treatwell Top Rated 2024, 2025 &amp; 2026
           </p>
           <div class="cta-row">
-            <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
+            <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
           </div>
         </div>
       </div>
@@ -525,7 +525,7 @@ const schema = {
     <section id="fresh">
       <div class="wrap">
         <p class="eyebrow">Fresh from the treatment room</p>
-        <h2>See treatments in action</h2>
+        <h2>A little refresh for your skin — see treatments in action</h2>
         <div class="reels">
           <video
             src="/videos/Jet_Plasma_Highlight.mp4"
@@ -564,12 +564,11 @@ const schema = {
             aria-label="Facial and skincare treatment"></video>
         </div>
         <p style="margin-top:1.25rem; color: var(--soft);">
-          See treatment highlights and salon updates. For current appointments, check Layla’s booking page.
+          “It’s never too late to start looking after your skin.” Explore Layla’s treatment videos, then book through Treatwell or send Layla a message if you have a question.
         </p>
         <div class="btn-row">
-          <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
-          <a class="btn btn-ghost" href={business.instagram}>Follow on Instagram</a>
-          <a class="btn btn-ghost" href={business.facebook}>Find us on Facebook</a>
+          <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
+          <a class="btn btn-ghost" href={`mailto:${business.email}?subject=Treatment%20enquiry`}>Send Layla a message</a>
         </div>
       </div>
     </section>
@@ -588,7 +587,7 @@ const schema = {
                 {t.detail && (
                   <a class="card-detail" href={t.detail}>Explore {t.name} in Fareham →</a>
                 )}
-                <a class="card-cta" href={BOOKING_URL}>View prices &amp; availability →</a>
+                <a class="card-cta" href={BOOKING_URL}>Book on Treatwell →</a>
               </article>
             ))
           }
@@ -629,7 +628,7 @@ const schema = {
           }
         </div>
         <div class="btn-row" style="margin-top:1.5rem;">
-          <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
+          <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
         </div>
         <div class="btn-row">
           <a class="btn btn-gold-ghost" href={business.googleReviews}
@@ -740,7 +739,7 @@ const schema = {
       </div>
     </footer>
     <div class="book-bar" id="bookBar" inert aria-hidden="true">
-      <a class="book" href={BOOKING_URL}>View prices &amp; availability</a>
+      <a class="book" href={BOOKING_URL}>Book on Treatwell</a>
     </div>
 
     <dialog class="lightbox" id="lightbox">
