@@ -1,6 +1,6 @@
 ---
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL } from "../../data/site";
+import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL , WHATSAPP_URL } from "../../data/site";
 const path = "/treatments/pregnancy-massage-fareham/";
 const title = "Pregnancy Massage Fareham | Forever Young Beauty by Layla";
 const description = "Pregnancy massage in Fareham at Abshot Country Club, Titchfield Common. A calm, adapted massage treatment with Layla. Book on Treatwell or enquire directly.";
@@ -36,7 +36,7 @@ const schema = {
 <section><h2>Pregnancy massage near Locks Heath, Park Gate and Whiteley</h2><p>Forever Young Beauty by Layla is at Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham PO14 4LN. The salon is convenient for clients travelling from Locks Heath, Park Gate, Whiteley, Titchfield and nearby Hampshire areas.</p></section>
 <section><h2>Pregnancy massage questions</h2><h3>Where can I book pregnancy massage in Fareham?</h3><p>Layla offers pregnancy massage from her private treatment room at Abshot Country Club in Titchfield Common, Fareham.</p><h3>How can I check current prices and availability?</h3><p>Use the booking button to see the current treatment menu, appointment duration, price and available times.</p><h3>Should I mention health concerns first?</h3><p>Yes. Share relevant health concerns and your stage of pregnancy before treatment so suitability can be discussed. If you are unsure whether massage is appropriate, seek advice from your healthcare professional.</p></section>
 <section class="trust"><h2>Verified pregnancy massage feedback</h2><blockquote><p>“Layla is just wonderful. I've recommended her to so many friends and they are all now also returning customers. 10/10 every visit.”</p><footer>Nicky · Pregnancy Massage · Treatwell verified review</footer></blockquote><p><a href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/" target="_blank" rel="noopener noreferrer">Read more verified Treatwell reviews →</a></p></section>
-<section class="contact"><h2>Book pregnancy massage in Fareham</h2><p>Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire PO14 4LN.</p><a class="button" href={booking}>Book on Treatwell</a><p><a href="mailto:layla.radestock@hotmail.com?subject=Pregnancy%20massage%20enquiry">Send Layla a message →</a></p></section>
+<section class="contact"><h2>Book pregnancy massage in Fareham</h2><p>Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire PO14 4LN.</p><a class="button" href={booking}>Book on Treatwell</a><p><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla →</a></p></section>
 <nav aria-label="Other treatments"><h2>Explore more treatments</h2><div class="links">{TREATMENT_PAGES.filter((t) => t.href !== path).map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav>
 </div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
