@@ -66,7 +66,7 @@ const schema = {
     </div>
   </div>
 </section>
-<section class="contact"><h2>Ready to visit?</h2><p>Check Layla's current treatment options and appointment availability on Treatwell.</p><a class="button" href={booking}>Book on Treatwell</a><p><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla →</a></p></section>
+<section class="contact"><h2>Ready to visit?</h2><p>Check Layla's current treatment options and appointment availability on Treatwell.</p><div class="contact-actions"><a class="button" href={booking}>Book on Treatwell</a><a class="button whatsapp-button" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a></div></section>
 <nav aria-label="Treatments"><h2>Explore treatments</h2><p>Choose a treatment to learn more before booking directly with Layla.</p><div class="links">{TREATMENT_PAGES.map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav>
 </div></main>
 <footer><a href="/">Forever Young Beauty by Layla</a> · Titchfield Common, Fareham</footer>
@@ -88,6 +88,12 @@ a.button{display:inline-flex;align-items:center;justify-content:center;min-heigh
 .travel-tips{display:grid;gap:1rem;margin-top:1.15rem}
 .travel-section .eyebrow{margin-bottom:.35rem}
 @media(max-width:640px){.area-guides{grid-template-columns:1fr;gap:.75rem}.area-group,.travel-tips>div{padding:.9rem 1rem}}
+/* Treatwell remains primary; WhatsApp is a matching, accessible secondary button. */
+.contact-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:1.1rem}
+.contact .contact-actions .button{margin:0}
+.contact .contact-actions .whatsapp-button{background:transparent;border:2px solid #1b3a4c;color:#1b3a4c}
+.contact .contact-actions .whatsapp-button:hover,.contact .contact-actions .whatsapp-button:focus-visible{background:#1b3a4c;color:#fff}
+@media(max-width:560px){.contact-actions{flex-direction:column;align-items:stretch}.contact-actions .button{width:100%}}
 /* Our Location only: directions buttons and the venue photo. */
 .actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-top:1.25rem}@media(max-width:560px){.actions{flex-direction:column;align-items:stretch}.actions .button{width:100%}}.venue{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;align-items:center}.venue img{width:100%;height:auto;border-radius:14px;object-fit:cover;display:block}.venue h2{margin-top:0}@media(max-width:640px){.venue{grid-template-columns:1fr}}
 </style>
