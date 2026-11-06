@@ -9,6 +9,8 @@ export const BOOKING_URL =
 export const TREATWELL_URL = "https://laylaradestock.mytreatwell.co.uk/";
 export const PHONE = "+447799890398";
 export const PHONE_DISPLAY = "07799 890398";
+// Layla prefers enquiries through WhatsApp; opening this link does not send a message.
+export const WHATSAPP_URL = "https://wa.me/447799890398";
 
 // Google Business Profile place ID for Forever Young Beauty By Layla.
 export const GOOGLE_PLACE_ID = "ChIJv57sYEpvdEgR78z1GvYSv7Y";

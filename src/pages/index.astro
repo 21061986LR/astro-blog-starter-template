@@ -1,7 +1,7 @@
 ---
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
 // Forever Young Beauty by Layla — SEO-optimised homepage
-import { NAV_LINKS, DIRECTIONS_URL, GEO, BOOKING_URL, TREATWELL_URL } from "../data/site";
+import { NAV_LINKS, DIRECTIONS_URL, GEO, BOOKING_URL, TREATWELL_URL, WHATSAPP_URL } from "../data/site";
 const path = "/";
 
 const business = {
@@ -23,16 +23,11 @@ const business = {
 };
 
 const title =
-  "CACI Facials & Skincare in Fareham | Forever Young Beauty by Layla";
+  "Beauty Salon & Skincare in Fareham | Forever Young Beauty by Layla";
 const description =
-  "Discover CACI facials, dermaplaning, microneedling and more with Layla in Titchfield Common, near Fareham and Locks Heath. Make time for your skin. Book online.";
+  "Beauty and skincare treatments in Titchfield Common, Fareham. Explore facials, dermaplaning, microneedling, waxing and massage near Locks Heath. Book on Treatwell.";
 
 const treatments = [
-  {
-    name: "CACI Non-Surgical Facials",
-    detail: "/treatments/caci-facials-fareham/",
-    desc: "CACI microcurrent facials focus on facial toning, with a targeted Jowl Lift treatment for the lower face and jawline. Explore the options and ask Layla what may suit you.",
-  },
   {
     name: "Dermaplaning",
     detail: "/treatments/dermaplaning-fareham/",
@@ -44,6 +39,16 @@ const treatments = [
     desc: "Looking for smoother, more radiant-looking skin? Explore microneedling for uneven texture, fine lines and certain acne scars. Layla can explain suitability, recovery and aftercare.",
   },
   {
+    name: "Massage Therapy",
+    detail: "/treatments/massage-fareham/",
+    desc: "Aromatherapy, Swedish, deep tissue, pregnancy and lymphatic drainage massage in a calm, private treatment room. Full body or back, neck and shoulders.",
+  },
+  {
+    name: "CACI Non-Surgical Facials",
+    detail: "/treatments/caci-facials-fareham/",
+    desc: "CACI microcurrent facials focus on facial toning, with a targeted Jowl Lift treatment for the lower face and jawline. Explore the options and ask Layla what may suit you.",
+  },
+  {
     name: "Waxing & Tinting",
     detail: "/treatments/waxing-fareham/",
     desc: "Full waxing menu for ladies and men — from lip and brow to Hollywood — plus eyebrow and eyelash tinting.",
@@ -51,11 +56,6 @@ const treatments = [
   {
     name: "Body Contouring",
     desc: "Cellulite reduction therapy and radio frequency body treatments to smooth, firm and tighten.",
-  },
-  {
-    name: "Massage Therapy",
-    detail: "/treatments/massage-fareham/",
-    desc: "Aromatherapy, Swedish, deep tissue, pregnancy and lymphatic drainage massage in a calm, private treatment room. Full body or back, neck and shoulders.",
   },
 ];
 
@@ -112,7 +112,7 @@ const schema = {
   "@id": `${business.url}/#salon`,
   name: business.name,
   description:
-    "Professional CACI facials, dermaplaning, microneedling, waxing and skincare treatments in Titchfield Common, near Fareham and Locks Heath.",
+    "Beauty and skincare treatments including facials, microneedling, dermaplaning, massage, CACI facial toning and waxing in Titchfield Common, Fareham, near Locks Heath.",
   url: business.url,
   telephone: business.phone,
   email: business.email,
@@ -504,11 +504,11 @@ const schema = {
           height="176"
         />
         <div>
-          <h1>CACI facials and skincare in Fareham, near Locks Heath</h1>
+          <h1>Beauty, Skincare &amp; Facial Treatments in Fareham</h1>
           <p class="lede">
-            A little time for yourself, a chance to relax and let your natural glow shine through.
-            Explore CACI facials, dermaplaning, microneedling, Jet Plasma and waxing with Layla
-            at Abshot Country Club, Titchfield Common — near Locks Heath, Whiteley and Park Gate.
+            Take a little time for yourself and let your natural glow shine through.
+            Explore facials, microneedling, dermaplaning, massage, waxing, CACI facial toning and more
+            with Layla at Abshot Country Club in Titchfield Common, near Locks Heath, Whiteley and Park Gate.
           </p>
           <div class="stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
           <p class="rating-line">
@@ -516,6 +516,7 @@ const schema = {
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
+            <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
           </div>
         </div>
       </div>
@@ -564,11 +565,11 @@ const schema = {
             aria-label="Facial and skincare treatment"></video>
         </div>
         <p style="margin-top:1.25rem; color: var(--soft);">
-          “It’s never too late to start looking after your skin.” Explore Layla’s treatment videos, then book through Treatwell or send Layla a message if you have a question.
+          “It’s never too late to start looking after your skin.” Explore Layla’s treatment videos, then book on Treatwell or ask Layla a question on WhatsApp.
         </p>
         <div class="btn-row">
           <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
-          <a class="btn btn-ghost" href={`mailto:${business.email}?subject=Treatment%20enquiry`}>Send Layla a message</a>
+          <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
         </div>
       </div>
     </section>
@@ -577,7 +578,7 @@ const schema = {
     <section id="treatments">
       <div class="wrap">
         <p class="eyebrow">Treatments</p>
-        <h2>CACI facials, beauty and skincare treatments near Fareham</h2>
+        <h2>Beauty and skincare treatments near Fareham</h2>
         <div class="grid">
           {
             treatments.map((t) => (
@@ -603,9 +604,23 @@ const schema = {
         </div>
         <p style="margin-top:1.5rem;">
           <a class="btn btn-primary" href={BOOKING_URL}
-            >View the full menu, prices &amp; availability</a
+            >Explore treatments on Treatwell</a
           >
         </p>
+      </div>
+    </section>
+
+    <!-- DISCOVER BEAUTY SERVICES -->
+    <section id="beauty-services">
+      <div class="wrap">
+        <p class="eyebrow">Your local beauty therapist</p>
+        <h2>Facials, skincare and beauty treatments in Titchfield Common</h2>
+        <p>Looking for a beauty salon near Fareham or a facial treatment close to Locks Heath? Forever Young Beauty by Layla offers a personal approach to skincare, beauty and relaxation in a private treatment room at Abshot Country Club. Clients visit from Titchfield, Park Gate, Whiteley, Warsash and nearby Portsmouth and Southampton.</p>
+        <p>Choose from <a href="/treatments/dermaplaning-fareham/">dermaplaning</a>, <a href="/treatments/microneedling-fareham/">microneedling</a>, <a href="/treatments/caci-facials-fareham/">CACI facial toning</a>, <a href="/treatments/waxing-fareham/">waxing and tinting</a>, or a <a href="/treatments/massage-fareham/">relaxing massage</a>. Not sure which treatment may suit your skin? Ask Layla on WhatsApp before booking through Treatwell.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
+          <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">Ask Layla on WhatsApp</a>
+        </div>
       </div>
     </section>
 
@@ -691,7 +706,7 @@ const schema = {
             </address>
             <p style="margin:1rem 0;">
               {business.phoneDisplay}<br />
-              <a href={`mailto:${business.email}`}>{business.email}</a>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
             </p>
             <table class="hours" aria-label="Opening hours">
               <tr><td>Monday</td><td>11:00 – 19:30</td></tr>
