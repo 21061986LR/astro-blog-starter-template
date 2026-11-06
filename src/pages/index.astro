@@ -515,7 +515,7 @@ const schema = {
             Rated 5.0 from over 500 Treatwell reviews · Treatwell Top Rated 2024, 2025 &amp; 2026
           </p>
           <div class="cta-row">
-            <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
+            <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
           </div>
         </div>
       </div>
@@ -525,7 +525,7 @@ const schema = {
     <section id="fresh">
       <div class="wrap">
         <p class="eyebrow">Fresh from the treatment room</p>
-        <h2>See treatments in action</h2>
+        <h2>A little refresh for your skin — see treatments in action</h2>
         <div class="reels">
           <video
             src="/videos/Jet_Plasma_Highlight.mp4"
@@ -564,12 +564,11 @@ const schema = {
             aria-label="Facial and skincare treatment"></video>
         </div>
         <p style="margin-top:1.25rem; color: var(--soft);">
-          Take a peek inside Layla’s treatment room. For more skincare inspiration and little reminders to make time for yourself, follow her on Instagram and Facebook. Check the booking page for current appointments.
+          “It’s never too late to start looking after your skin.” Explore Layla’s treatment videos, then book through Treatwell or send Layla a message if you have a question.
         </p>
         <div class="btn-row">
-          <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
-          <a class="btn btn-ghost" href={business.instagram}>Follow on Instagram</a>
-          <a class="btn btn-ghost" href={business.facebook}>Find us on Facebook</a>
+          <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
+          <a class="btn btn-ghost" href={`mailto:${business.email}?subject=Treatment%20enquiry`}>Send Layla a message</a>
         </div>
       </div>
     </section>
@@ -588,7 +587,7 @@ const schema = {
                 {t.detail && (
                   <a class="card-detail" href={t.detail}>Explore {t.name} in Fareham →</a>
                 )}
-                <a class="card-cta" href={BOOKING_URL}>View prices &amp; availability →</a>
+                <a class="card-cta" href={BOOKING_URL}>Book on Treatwell →</a>
               </article>
             ))
           }
@@ -629,7 +628,7 @@ const schema = {
           }
         </div>
         <div class="btn-row" style="margin-top:1.5rem;">
-          <a class="btn btn-primary" href={BOOKING_URL}>View prices &amp; availability</a>
+          <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
         </div>
         <div class="btn-row">
           <a class="btn btn-gold-ghost" href={business.googleReviews}
@@ -740,7 +739,7 @@ const schema = {
       </div>
     </footer>
     <div class="book-bar" id="bookBar" inert aria-hidden="true">
-      <a class="book" href={BOOKING_URL}>View prices &amp; availability</a>
+      <a class="book" href={BOOKING_URL}>Book on Treatwell</a>
     </div>
 
     <dialog class="lightbox" id="lightbox">
