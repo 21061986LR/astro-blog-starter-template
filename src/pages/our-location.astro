@@ -2,8 +2,8 @@
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
 import { NAV_LINKS, TREATMENT_PAGES, DIRECTIONS_URL, SITE_URL, BOOKING_URL, WHATSAPP_URL } from "../data/site";
 const path = "/our-location/";
-const title = "Our Location | Forever Young Beauty by Layla at Abshot Country Club";
-const description = "Find Forever Young Beauty by Layla at Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham PO14 4LN. Directions, treatments and booking.";
+const title = "Find Us & Directions in Fareham | Forever Young Beauty by Layla";
+const description = "Directions to Forever Young Beauty by Layla at Abshot Country Club, Fareham PO14 4LN. Parking and travel tips from Locks Heath, Whiteley, Southampton and Portsmouth.";
 const canonical = "https://foreveryoungbeautybylayla.co.uk/our-location/";
 const booking = BOOKING_URL;
 const club = "https://www.abshotcountryclub.com/";
@@ -26,7 +26,46 @@ const schema = {
 <div class="content">
 <section><h2>Where to find Layla</h2><p>Forever Young Beauty by Layla is based at Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire PO14 4LN.</p><p>Customer parking at Abshot Country Club is free and easy. The country club also has a welcoming bar where visitors may choose to relax before or after an appointment; refreshments are separate from Layla's treatments.</p><p>Use the directions link to plan your journey. If you're visiting for the first time, allow a little extra time to find the treatment room.</p><div class="actions"><a class="button" href={maps} target="_blank" rel="noopener noreferrer">Get directions on Google Maps ↗</a><a class="button" href={club} target="_blank" rel="noopener noreferrer">Explore Abshot Country Club ↗</a></div></section>
 <section class="venue"><img src="/images/entrance-wide.jpg" alt="Entrance to the venue where Forever Young Beauty by Layla is based" width="900" height="600" loading="lazy"/><div><h2>A beauty studio at Abshot</h2><p>Layla welcomes clients for individual beauty and aesthetic appointments in her treatment space at the country club. The venue's location makes it convenient for visitors from Titchfield Common, Titchfield, Fareham, Locks Heath, Whiteley, Park Gate, Swanwick, Warsash and surrounding areas.</p><p>For information about the wider venue and its facilities, visit <a href={club} target="_blank" rel="noopener noreferrer">Abshot Country Club's official website</a>.</p></div></section>
-<section><h2>Directions from Locks Heath, Whiteley and nearby areas</h2><p>Forever Young Beauty by Layla is an independent business based at Abshot Country Club on Little Abshot Road, Titchfield Common, Hampshire PO14 4LN. If you're travelling from Locks Heath, Park Gate, Whiteley, Swanwick, Sarisbury Green, Warsash, Hook, Stubbington, Titchfield, Knowle, Funtley, Wickham, Hill Head or Fareham, use <a href={maps}>Google Maps directions to Layla's own business location</a> for a route from your starting point.</p><p>When planning your first appointment, check your booking confirmation and allow a little extra time to locate Layla's treatment room within the country club. For current services, prices and availability, use her own booking link.</p></section>
+<section class="travel-section" aria-labelledby="travel-heading">
+  <p class="eyebrow">Plan your visit</p>
+  <h2 id="travel-heading">Directions from nearby towns and villages</h2>
+  <p>Layla's treatment room is inside Abshot Country Club on Little Abshot Road in Titchfield Common, between Fareham and the western side of Southampton. Whether you're coming for a facial, skincare treatment, waxing or massage, use <a href={maps} target="_blank" rel="noopener noreferrer">directions to Forever Young Beauty by Layla on Google Maps</a> so your route ends at her own business pin, not just the wider club.</p>
+  <div class="area-guides">
+    <div class="area-group">
+      <h3>Fareham, Titchfield, Stubbington and Hill Head</h3>
+      <p>If you're travelling from central Fareham, Titchfield, Stubbington or Hill Head, set your destination to Abshot Country Club, Little Abshot Road, PO14 4LN. Follow your live route to the venue entrance and allow a few extra minutes to find Layla's treatment room.</p>
+    </div>
+    <div class="area-group">
+      <h3>Locks Heath, Park Gate, Whiteley and Swanwick</h3>
+      <p>These nearby areas are convenient starting points for a visit to Titchfield Common. Use the Google Maps link above for the most suitable local roads from Locks Heath, Park Gate, Whiteley or Swanwick; it will take account of your actual starting point.</p>
+    </div>
+    <div class="area-group">
+      <h3>Warsash, Sarisbury Green, Hook and nearby villages</h3>
+      <p>Clients also visit from Warsash, Sarisbury Green, Hook, Knowle, Funtley and Wickham. Enter Layla's full venue address rather than searching for a similarly named beauty business, and check your route before setting off.</p>
+    </div>
+    <div class="area-group">
+      <h3>Southampton and Portsmouth</h3>
+      <p>Travelling from further afield? The M27 connects the Southampton and Portsmouth areas, with junction 9 serving Park Gate and Whiteley via the A27. Let your navigation choose the best final approach to Little Abshot Road, particularly during busy periods or roadworks.</p>
+    </div>
+  </div>
+</section>
+<section aria-labelledby="travel-practical">
+  <h2 id="travel-practical">Parking, train travel and arriving for your appointment</h2>
+  <div class="travel-tips">
+    <div>
+      <h3>Arriving by car</h3>
+      <p>Customer parking is available at Abshot Country Club. Use Layla's <a href={maps} target="_blank" rel="noopener noreferrer">Google Maps directions</a>, and allow a little extra time on your first visit to locate her room inside the venue.</p>
+    </div>
+    <div>
+      <h3>Travelling by train</h3>
+      <p><a href="https://www.nationalrail.co.uk/stations/swanwick/" target="_blank" rel="noopener noreferrer">Swanwick railway station</a> is on Botley Road in Park Gate and may be a useful arrival point if you're travelling by rail. You will still need to arrange the onward journey to Abshot Country Club, such as a taxi; check current services and accessibility information before travelling.</p>
+    </div>
+    <div>
+      <h3>Before your visit</h3>
+      <p>Check your Treatwell booking confirmation for your appointment details. If you're unsure where to go when you arrive, <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">ask Layla on WhatsApp</a>. For treatment information and appointment availability, <a href={booking}>book through Treatwell</a>.</p>
+    </div>
+  </div>
+</section>
 <section class="contact"><h2>Ready to visit?</h2><p>Check Layla's current treatment options and appointment availability on Treatwell.</p><a class="button" href={booking}>Book on Treatwell</a><p><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla →</a></p></section>
 <nav aria-label="Treatments"><h2>Explore treatments</h2><p>Choose a treatment to learn more before booking directly with Layla.</p><div class="links">{TREATMENT_PAGES.map((t) => <a href={t.href}>{t.label} →</a>)}</div></nav>
 </div></main>
@@ -41,6 +80,14 @@ a.button{display:inline-flex;align-items:center;justify-content:center;min-heigh
 
 :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1b3a4c;background:#fff}*{box-sizing:border-box}body{margin:0;line-height:1.7}a{color:#1b3a4c}.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem max(1rem,calc((100vw - 1050px)/2));background:#1b3a4c;color:white}.top a{color:white;text-decoration:none}.top span{font-weight:700;text-align:center}.top em{font-family:Georgia,serif;color:#d9c79f;font-weight:400}.hero{background:linear-gradient(140deg,#1b3a4c,#31576a);color:white;padding:4.5rem 1.25rem}.inner{max-width:900px;margin:auto;text-align:center}.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:#dfc99b;font-size:.78rem;font-weight:700}h1,h2{font-family:Georgia,serif;line-height:1.2}h1{font-size:clamp(2rem,5vw,3.6rem);margin:.6rem 0 1rem}.lead{font-size:1.14rem;max-width:720px;margin:0 auto 2rem;color:#edf1f3}.button{display:inline-block;background:#b09a6e;color:#172f3b;text-decoration:none;padding:.85rem 1.4rem;border-radius:99px;font-weight:700}.button:hover{background:#dfc99b}.content{max-width:850px;margin:auto;padding:2.5rem 1.25rem}.content section{margin:0 0 2.5rem}.content h2{font-size:1.7rem;margin-bottom:.65rem}.content p{margin-top:0}.content video{width:100%;max-height:520px;background:#102733;border-radius:12px}.contact{background:#eef1f3;border-radius:18px;padding:2rem;margin-top:3rem!important}.contact .button{margin:1rem 0}.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.8rem}.links a{display:block;background:#eef1f3;padding:1rem;border-radius:12px;text-decoration:none;font-weight:600}footer{padding:2rem 1rem;text-align:center;background:#1b3a4c;color:white}footer a{color:white}@media(max-width:560px){.top{font-size:.78rem}.top span{max-width:150px}.hero{padding:3rem 1rem}}
 .top{position:relative;display:flex;align-items:center;justify-content:center;min-height:92px;padding:12px 78px 12px 16px}.top .brand{display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.3;text-decoration:none;color:#fff;max-width:100%}.brand strong{font-size:clamp(.95rem,3.4vw,1.3rem);white-space:nowrap}.brand span{font-family:Georgia,serif;color:#d9c79f;font-size:.96rem;margin-top:3px}.menu{position:absolute;right:14px;top:50%;transform:translateY(-50%);z-index:20}.menu summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px;color:#fff;padding:8px}.menu summary::-webkit-details-marker{display:none}.hamburger{font-size:1.55rem;line-height:1}.menu-label{font-size:.8rem}.menu nav{position:absolute;right:0;top:calc(100% + 9px);background:#fff;border:1px solid #d7dfe3;border-radius:12px;box-shadow:0 8px 22px #10273330;min-width:210px;display:flex;flex-direction:column;padding:8px}.menu nav a{color:#1b3a4c;text-decoration:none;padding:9px 12px;border-radius:7px}.menu nav a:hover,.menu nav a:focus-visible{background:#eef1f3}@media(max-width:560px){.top{padding-right:65px}.menu-label{display:none}.menu{right:9px}.brand strong{font-size:clamp(.84rem,3.8vw,1.05rem)}}.corner-logo{position:absolute;left:14px;right:auto;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;padding:5px;box-shadow:0 1px 5px #0002}.corner-logo img{width:100%;height:100%;object-fit:contain}.top{padding-left:85px;padding-right:75px}.menu{right:13px}@media(max-width:560px){.corner-logo{left:8px;right:auto;width:43px;height:43px;padding:4px}.top{padding-left:64px;padding-right:55px}.menu{right:6px}.top .brand{margin-left:0}}.menu nav{position:fixed;right:8px;top:72px;width:min(270px,calc(100vw - 16px));min-width:0;max-height:calc(100dvh - 85px);overflow-y:auto;box-sizing:border-box}.menu nav a{font-size:16px;line-height:1.3;white-space:normal}.corner-logo{width:62px;height:62px;padding:2px}.corner-logo img{object-fit:cover}@media(max-width:560px){.corner-logo{width:54px;height:54px;padding:2px}}
+/* Helpful, readable area guides: avoid stuffing town names into a single paragraph. */
+.area-guides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.25rem 0 .5rem}
+.area-group,.travel-tips>div{background:#f5f7f8;border:1px solid #dde5e9;border-radius:12px;padding:1.05rem 1.1rem}
+.area-group h3,.travel-tips h3{font-size:1.05rem;line-height:1.38;margin:0 0 .45rem;color:#1b3a4c}
+.area-group p,.travel-tips p{margin:0;line-height:1.6}
+.travel-tips{display:grid;gap:1rem;margin-top:1.15rem}
+.travel-section .eyebrow{margin-bottom:.35rem}
+@media(max-width:640px){.area-guides{grid-template-columns:1fr;gap:.75rem}.area-group,.travel-tips>div{padding:.9rem 1rem}}
 /* Our Location only: directions buttons and the venue photo. */
 .actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-top:1.25rem}@media(max-width:560px){.actions{flex-direction:column;align-items:stretch}.actions .button{width:100%}}.venue{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;align-items:center}.venue img{width:100%;height:auto;border-radius:14px;object-fit:cover;display:block}.venue h2{margin-top:0}@media(max-width:640px){.venue{grid-template-columns:1fr}}
 </style>
