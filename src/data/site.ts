@@ -29,6 +29,7 @@ export const NAV_LINKS = [
   { href: "/treatments/caci-facials-fareham/", label: "CACI Facials" },
   { href: "/treatments/dermaplaning-fareham/", label: "Dermaplaning" },
   { href: "/treatments/microneedling-fareham/", label: "Microneedling" },
+  { href: "/skin-concerns/acne-scarring-fareham/", label: "Acne Scarring & Skin Texture" },
   { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma" },
   { href: "/treatments/waxing-fareham/", label: "Waxing" },
   { href: "/treatments/massage-fareham/", label: "Massage" },
