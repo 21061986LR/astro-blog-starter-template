@@ -5,26 +5,41 @@ interface Props {
   currentPath?: string;
 }
 const { currentPath = "/" } = Astro.props;
-const treatmentLinks = NAV_LINKS.filter((link) => link.href.startsWith("/treatments/"));
-const concernLinks = NAV_LINKS.filter((link) => link.href.startsWith("/skin-concerns/"));
+// Keep original treatment URLs. Group by what the customer wants.
+const treatmentGroups = [
+  { title: "Face Treatments", links: [
+    { href: "/treatments/caci-facials-fareham/", label: "CACI Facials & Jowl Lift" },
+    { href: "/treatments/dermaplaning-fareham/", label: "Dermaplaning" },
+  ] },
+  { title: "Skin Treatments", links: [
+    { href: "/treatments/microneedling-fareham/", label: "Microneedling" },
+    { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma" },
+    { href: "/skin-concerns/acne-scarring-fareham/", label: "Acne Scarring & Skin Texture" },
+  ] },
+  { title: "Massage", links: [
+    { href: "/treatments/massage-fareham/", label: "Massage Treatments" },
+    { href: "/treatments/pregnancy-massage-fareham/", label: "Pregnancy Massage" },
+  ] },
+  { title: "Waxing & Brows", links: [
+    { href: "/treatments/waxing-fareham/", label: "Women's & Men's Waxing, Brows & Lash Tinting" },
+  ] },
+];
 const visitLinks = NAV_LINKS.filter((link) =>
   ["/our-location/", "/#find-us", "/links/"].includes(link.href)
 );
 ---
 <nav aria-label="Site navigation">
   <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
-  <details class="menu-group">
-    <summary>Treatments <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
-    <div class="menu-group-links">
-      {treatmentLinks.map((link) => (
-        <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
-      ))}
-      <span class="menu-subheading">Skin concerns</span>
-      {concernLinks.map((link) => (
-        <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
-      ))}
-    </div>
-  </details>
+  {treatmentGroups.map((group) => (
+    <details class="menu-group">
+      <summary>{group.title} <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
+      <div class="menu-group-links">
+        {group.links.map((link) => (
+          <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
+        ))}
+      </div>
+    </details>
+  ))}
   <a href="/#reviews">Client reviews</a>
   <details class="menu-group">
     <summary>Visit &amp; contact <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
