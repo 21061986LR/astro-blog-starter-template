@@ -107,6 +107,11 @@
   header.top > .menu > nav .menu-group > summary:focus-visible { background: #eef1f3; }
   .site-controls > .home-menu > nav .menu-group > summary:focus-visible,
   header.top > .menu > nav .menu-group > summary:focus-visible { outline: 2px solid #94804f; outline-offset: 1px; }
+  /* Homepage's older mobile rule hides generic summary spans; keep subgroup arrows visible. */
+  .site-controls > .home-menu > nav .menu-group > summary > .menu-chevron,
+  header.top > .menu > nav .menu-group > summary > .menu-chevron {
+    display: inline-block !important; font-size: 20px !important;
+  }
   .menu-group .menu-chevron { font-size: 20px; margin-left: 10px; transition: transform .18s ease; }
   .menu-group[open] .menu-chevron { transform: rotate(180deg); }
   .menu-group .menu-group-links {
