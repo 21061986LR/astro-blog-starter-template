@@ -32,6 +32,7 @@ export const NAV_LINKS = [
   { href: "/skin-concerns/acne-scarring-fareham/", label: "Acne Scarring & Skin Texture" },
   { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma" },
   { href: "/treatments/waxing-fareham/", label: "Waxing" },
+  { href: "/treatments/brows-lashes-fareham/", label: "Brows & Lashes" },
   { href: "/treatments/massage-fareham/", label: "Massage" },
   { href: "/treatments/pregnancy-massage-fareham/", label: "Pregnancy Massage" },
   { href: "/our-location/", label: "Our Location" },
@@ -47,6 +48,7 @@ export const TREATMENT_PAGES = [
   { href: "/treatments/microneedling-fareham/", label: "Microneedling in Fareham" },
   { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma in Fareham" },
   { href: "/treatments/waxing-fareham/", label: "Waxing in Fareham" },
+  { href: "/treatments/brows-lashes-fareham/", label: "Brows & Lashes in Fareham" },
   { href: "/treatments/massage-fareham/", label: "Massage in Fareham" },
   { href: "/treatments/pregnancy-massage-fareham/", label: "Pregnancy Massage in Fareham" },
 ];
