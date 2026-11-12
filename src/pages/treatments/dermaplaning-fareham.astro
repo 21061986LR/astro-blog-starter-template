@@ -1,7 +1,8 @@
 ---
 import TreatmentBreadcrumb from "../../components/TreatmentBreadcrumb.astro";
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL, WHATSAPP_URL } from "../../data/site";
+import SiteNavigation from "../../components/SiteNavigation.astro";
+import { TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL, WHATSAPP_URL } from "../../data/site";
 const path = "/treatments/dermaplaning-fareham/";
 const title = "Dermaplaning & Peach Fuzz Removal in Fareham | Layla";
 const description = "Love smoother-feeling skin? Explore dermaplaning for gentle exfoliation and peach fuzz removal with Layla near Fareham and Whiteley. Book on Treatwell.";
@@ -27,7 +28,7 @@ const schema = {
 <html lang="en-GB">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta name="robots" content="index,follow"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:type" content="website"/><script type="application/ld+json" set:html={JSON.stringify(schema)} /></head>
 <body>
-<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details></header>
+<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><SiteNavigation currentPath={path} /></details></header>
 <main><TreatmentBreadcrumb name="Dermaplaning in Fareham" path={path} /><section class="hero"><div class="inner"><p class="eyebrow">Forever Young Beauty by Layla · Titchfield Common</p><h1>Dermaplaning in Fareham</h1><p class="lead">Love the feeling of fresh, smooth skin? Dermaplaning gently removes surface dead skin cells and fine facial hair, helping your complexion look brighter and feel beautifully soft.</p><a class="button" href={booking}>Book on Treatwell</a></div></section>
 <div class="content">
 <section><h2>What is dermaplaning?</h2><p>Dermaplaning is a gentle, manual exfoliation treatment that lifts away surface dead skin cells and fine facial hair (often called peach fuzz). It's a lovely way to help your skin feel smoother and give skincare and make-up a more even base.</p></section>

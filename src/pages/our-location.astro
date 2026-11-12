@@ -1,6 +1,7 @@
 ---
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, DIRECTIONS_URL, SITE_URL, BOOKING_URL, WHATSAPP_URL } from "../data/site";
+import SiteNavigation from "../components/SiteNavigation.astro";
+import { TREATMENT_PAGES, DIRECTIONS_URL, SITE_URL, BOOKING_URL, WHATSAPP_URL } from "../data/site";
 const path = "/our-location/";
 const title = "Beauty Salon Location & Directions in Fareham | Forever Young Beauty";
 const description = "Find Forever Young Beauty by Layla at Abshot Country Club, Fareham PO14 4LN. Free parking and directions from Locks Heath, Park Gate, Whiteley and nearby areas.";
@@ -21,7 +22,7 @@ const schema = {
 <html lang="en-GB">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:type" content="website"/><script type="application/ld+json" set:html={JSON.stringify(schema)} /></head>
 <body>
-<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-header-logo.svg" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details></header>
+<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-header-logo.svg" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><SiteNavigation currentPath={path} /></details></header>
 <main><section class="hero"><div class="inner"><p class="eyebrow">Find us in Titchfield Common, Fareham</p><h1>Our Location at Abshot Country Club</h1><p class="lead">Visit Forever Young Beauty by Layla at Abshot Country Club. Layla runs her own independent beauty business at the country club, with her own treatments and online bookings. Convenient for Fareham, Locks Heath, Park Gate and Whiteley.</p><a class="button" href={booking}>Book on Treatwell</a></div></section>
 <div class="content">
 <section><h2>Where to find Layla’s beauty studio</h2><p>Forever Young Beauty by Layla is an independent beauty and skincare studio inside Abshot Country Club, Little Abshot Road, Titchfield Common, Fareham, Hampshire <strong>PO14 4LN</strong>. It is a convenient location for visitors from Locks Heath, Park Gate, Whiteley and the surrounding Hampshire villages.</p><p>There is free customer parking at Abshot Country Club. The venue has a distinctive red-brick building, landscaped grounds and paths leading towards its facilities. Follow the signs on arrival, and allow a few extra minutes on your first visit to find Layla’s treatment room.</p><p>The country club also has café/bar facilities and outdoor seating, which are separate from Layla’s business. Their availability depends on the venue’s own opening arrangements. Use the directions link to plan your route before travelling.</p><div class="actions"><a class="button" href={maps} target="_blank" rel="noopener noreferrer">Get directions on Google Maps ↗</a><a class="button" href={club} target="_blank" rel="noopener noreferrer">Explore Abshot Country Club ↗</a></div></section>
@@ -90,7 +91,7 @@ const schema = {
     </div>
     <div>
       <h3>Before your visit</h3>
-      <p>Check your Treatwell booking confirmation for your appointment details. If you're unsure where to go when you arrive, <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">ask Layla on WhatsApp</a>. For treatment information and appointment availability, <a href={booking}>book through Treatwell</a>.</p>
+      <p>Check your Treatwell booking confirmation for your appointment details. If you're coming for the first time, see <a href="/#first-visit">what to expect at your first appointment</a>. If you're unsure where to go when you arrive, <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">ask Layla on WhatsApp</a>. For treatment information and appointment availability, <a href={booking}>book through Treatwell</a>.</p>
     </div>
   </div>
 </section>

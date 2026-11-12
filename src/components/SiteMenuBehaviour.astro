@@ -5,10 +5,20 @@
     menu.querySelectorAll("nav a").forEach(function (link) {
       link.addEventListener("click", function () {
         menu.removeAttribute("open");
+        menu.querySelectorAll("details.menu-group[open]").forEach(function (group) { group.removeAttribute("open"); });
       });
     });
     document.addEventListener("click", function (event) {
       if (menu.hasAttribute("open") && !menu.contains(event.target)) menu.removeAttribute("open");
+    });
+  });
+  // Escape also closes the menu for keyboard users.
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
+    document.querySelectorAll("details.menu[open], details.home-menu[open]").forEach(function (menu) {
+      menu.removeAttribute("open");
+      menu.querySelectorAll("details.menu-group[open]").forEach(function (group) { group.removeAttribute("open"); });
+      menu.querySelector(":scope > summary")?.focus();
     });
   });
   // A page restored with the Back button can come back with the menu still open.
@@ -72,4 +82,66 @@
     .site-controls > .home-menu, header.top > .menu,
     .site-controls > .home-menu > nav, header.top > .menu > nav { right: 8px !important; }
   }
+
+  /* Short, grouped and keyboard-accessible navigation across every page. */
+  .site-controls > .home-menu > nav,
+  header.top > .menu > nav {
+    display: flex !important; flex-direction: column !important;
+    max-height: calc(100dvh - 94px) !important; overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  .site-controls > .home-menu > nav > .menu-group,
+  header.top > .menu > nav > .menu-group { width: 100%; flex: 0 0 auto; }
+  .site-controls > .home-menu > nav .menu-group > summary,
+  header.top > .menu > nav .menu-group > summary {
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 44px; padding: 10px 12px; border-radius: 7px;
+    color: #1b3a4c; background: transparent; font: inherit; font-size: 16px;
+    font-weight: 650; line-height: 1.3; cursor: pointer; list-style: none;
+  }
+  .site-controls > .home-menu > nav .menu-group > summary::-webkit-details-marker,
+  header.top > .menu > nav .menu-group > summary::-webkit-details-marker { display: none; }
+  .site-controls > .home-menu > nav .menu-group > summary:hover,
+  .site-controls > .home-menu > nav .menu-group > summary:focus-visible,
+  header.top > .menu > nav .menu-group > summary:hover,
+  header.top > .menu > nav .menu-group > summary:focus-visible { background: #eef1f3; }
+  .site-controls > .home-menu > nav .menu-group > summary:focus-visible,
+  header.top > .menu > nav .menu-group > summary:focus-visible { outline: 2px solid #94804f; outline-offset: 1px; }
+  /* Homepage's older mobile rule hides generic summary spans; keep subgroup arrows visible. */
+  .site-controls > .home-menu > nav .menu-group > summary > .menu-chevron,
+  header.top > .menu > nav .menu-group > summary > .menu-chevron {
+    display: inline-block !important; font-size: 20px !important;
+  }
+  .menu-group .menu-chevron { font-size: 20px; margin-left: 10px; transition: transform .18s ease; }
+  .menu-group[open] .menu-chevron { transform: rotate(180deg); }
+  .menu-group .menu-group-links {
+    display: flex; flex-direction: column; gap: 1px;
+    margin: 0 2px 5px 11px; padding-left: 8px; border-left: 2px solid #d9c79f;
+  }
+  .site-controls > .home-menu > nav .menu-group-links a,
+  header.top > .menu > nav .menu-group-links a {
+    display: flex; align-items: center; min-height: 44px; padding: 9px 10px;
+    font-size: 14px !important; line-height: 1.4; border-radius: 7px;
+    color: #1b3a4c; text-decoration: none;
+  }
+  .menu-group .menu-subheading {
+    padding: 8px 10px 2px; font-size: 11px; letter-spacing: .07em;
+    text-transform: uppercase; font-weight: 700; color: #57606b;
+  }
+  .site-controls > .home-menu > nav a[aria-current="page"],
+  header.top > .menu > nav a[aria-current="page"] {
+    background: #eef1f3; font-weight: 700;
+  }
+  .site-controls > .home-menu > nav > a.menu-book,
+  header.top > .menu > nav > a.menu-book {
+    background: #b09a6e !important; color: #142c3a !important;
+    font-weight: 700 !important; border-radius: 9px !important;
+    text-align: center; justify-content: center; margin-top: 4px;
+  }
+  .site-controls > .home-menu > nav > a.menu-book:hover,
+  header.top > .menu > nav > a.menu-book:hover { background: #d9c79f !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-group .menu-chevron { transition: none; }
+  }
+
 </style>

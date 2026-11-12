@@ -1,6 +1,7 @@
 ---
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, BOOKING_URL, WHATSAPP_URL } from "../../data/site";
+import SiteNavigation from "../../components/SiteNavigation.astro";
+import { TREATMENT_PAGES, BOOKING_URL, WHATSAPP_URL } from "../../data/site";
 const path = "/skin-concerns/acne-scarring-fareham/";
 const title = "Acne Scarring & Skin Texture in Fareham | Forever Young Beauty";
 const description = "Explore skincare for acne-prone skin, the appearance of certain acne scars and uneven texture in Fareham. Learn about microneedling and Layla's treatment approach.";
@@ -11,7 +12,7 @@ const schema = {"@context":"https://schema.org","@type":"WebPage","name":title,"
 <html lang="en-GB">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta name="robots" content="index,follow"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:type" content="website"/><script type="application/ld+json" set:html={JSON.stringify(schema)} /></head>
 <body>
-<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><nav aria-label="Site navigation">{NAV_LINKS.map(l => <a href={l.href}>{l.label}</a>)}</nav></details></header>
+<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><SiteNavigation currentPath={path} /></details></header>
 <main><section class="hero"><div class="inner"><p class="eyebrow">Skincare at Abshot Country Club · Titchfield Common</p><h1>Acne Scarring &amp; Skin Texture Treatments in Fareham</h1><p class="lead">Still noticing marks after acne, or feeling frustrated by uneven skin texture? You're not alone. Let's look at the treatments that may help with the appearance of acne marks, certain scars and uneven texture — and what might suit your skin.</p><a class="button" href={BOOKING_URL}>Book on Treatwell</a></div></section>
 <div class="content">
 <section><h2>Acne, acne marks and acne scars are not the same</h2><p>Active breakouts, lingering discolouration and changes in skin texture can need different approaches. Some depressed acne scars may respond to professional treatments, but not every type of scarring is suitable for a beauty treatment. No treatment can promise to erase scars completely.</p></section>

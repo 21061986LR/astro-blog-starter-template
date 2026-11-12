@@ -1,7 +1,8 @@
 ---
 import SiteMenuBehaviour from "../components/SiteMenuBehaviour.astro";
+import SiteNavigation from "../components/SiteNavigation.astro";
 // Forever Young Beauty by Layla — SEO-optimised homepage
-import { NAV_LINKS, DIRECTIONS_URL, GEO, BOOKING_URL, TREATWELL_URL, WHATSAPP_URL } from "../data/site";
+import { DIRECTIONS_URL, GEO, BOOKING_URL, TREATWELL_URL, WHATSAPP_URL } from "../data/site";
 const path = "/";
 
 const business = {
@@ -348,6 +349,25 @@ const schema = {
         background: var(--navy); display: block;
       }
 
+
+      /* A personal introduction without adding another homepage hero or large photo. */
+      .meet-layla {
+        margin: 1.1rem 0 1.25rem; padding: 1.25rem 1.4rem;
+        border-left: 4px solid var(--gold); border-radius: 0 12px 12px 0;
+        background: var(--mist);
+      }
+      .meet-layla h3 { color: var(--navy); font-size: 1.25rem; margin-bottom: .45rem; }
+      .meet-layla p + p { margin-top: .7rem; }
+      .first-visit-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+      .first-visit-steps > div { padding: 1.2rem; border: 1px solid var(--line); border-radius: 14px; background: var(--mist); }
+      .first-visit-steps h3 { font-size: 1.1rem; line-height: 1.35; margin-bottom: .5rem; }
+      .first-visit-steps p { font-size: .94rem; color: var(--soft); }
+      @media (max-width: 720px) {
+        .meet-layla { padding: 1rem; }
+        .first-visit-steps { grid-template-columns: 1fr; gap: .8rem; }
+        .first-visit-steps > div { padding: 1rem; }
+      }
+
       /* Reviews */
       .reviews { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
       blockquote {
@@ -495,7 +515,7 @@ const schema = {
   </head>
 
   <body>
-    <div class="site-controls"><details class="home-menu" style="order:2"><summary aria-label="Open site menu">☰</summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details><a style="order:1" class="home-corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="58" height="58" /></a></div>
+    <div class="site-controls"><details class="home-menu" style="order:2"><summary aria-label="Open site menu">☰</summary><SiteNavigation currentPath={path} /></details><a style="order:1" class="home-corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="58" height="58" /></a></div>
     <style is:global>.site-controls{position:absolute;top:12px;left:12px;right:12px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px}.home-corner-logo{width:52px;height:52px;border-radius:50%;background:white;display:grid;place-items:center;padding:5px;overflow:hidden;box-shadow:0 2px 8px #0003}.home-corner-logo img{width:100%;height:100%;object-fit:contain}.home-menu{position:relative}.home-menu summary{cursor:pointer;list-style:none;background:#1b3a4c;color:#fff;padding:9px 12px;border-radius:8px;font-weight:600}.home-menu summary::-webkit-details-marker{display:none}.home-menu nav{position:absolute;right:0;top:calc(100% + 8px);display:flex;flex-direction:column;min-width:210px;background:#fff;border-radius:12px;box-shadow:0 8px 24px #0004;padding:8px}.home-menu nav a{color:#1b3a4c;text-decoration:none;padding:9px 12px;border-radius:7px}.home-menu nav a:hover,.home-menu nav a:focus-visible{background:#eef1f3}@media(max-width:520px){.site-controls{top:8px;left:8px;right:8px;gap:7px}.home-corner-logo{width:44px;height:44px}.home-menu summary{font-size:.85rem;padding:8px}.home-menu summary span{display:none}}</style>
     <main id="main-content">
     <!-- HERO -->
@@ -623,6 +643,11 @@ const schema = {
         <p class="eyebrow">Your local beauty therapist</p>
         <h2>Facials, skincare and beauty treatments in Titchfield Common</h2>
         <p>Looking for a beauty salon near Fareham or a facial treatment close to Locks Heath? Forever Young Beauty by Layla offers a personal approach to skincare, beauty and relaxation in a private treatment room at Abshot Country Club. Clients visit from Titchfield, Park Gate, Whiteley, Warsash and nearby Portsmouth and Southampton.</p>
+        <div class="meet-layla" aria-labelledby="meet-layla-heading">
+          <h3 id="meet-layla-heading">Hello, I'm Layla</h3>
+          <p>Whether you're coming for your first facial, booking a regular waxing appointment or treating yourself to a massage, I want you to feel comfortable from the moment you arrive. I'll take time to listen to what you're looking for, explain your options and help you choose a treatment that feels right for you.</p>
+          <p>You'll find me in my own calm, private treatment room at Abshot Country Club. Not sure where to start? You're very welcome to <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">ask me a question on WhatsApp</a> before booking.</p>
+        </div>
         <p>Choose from <a href="/treatments/dermaplaning-fareham/">dermaplaning</a>, <a href="/treatments/microneedling-fareham/">microneedling</a>, <a href="/treatments/caci-facials-fareham/">CACI facial toning</a>, <a href="/treatments/waxing-fareham/">waxing and tinting</a>, or a <a href="/treatments/massage-fareham/">relaxing massage</a>. Not sure which treatment may suit your skin? Ask Layla on WhatsApp before booking through Treatwell.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
@@ -659,6 +684,29 @@ const schema = {
           <a class="btn btn-gold-ghost" href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/"
             >Verified reviews on Treatwell</a
           >
+        </div>
+      </div>
+    </section>
+
+    <!-- FIRST VISIT -->
+    <section id="first-visit" aria-labelledby="first-visit-heading">
+      <div class="wrap">
+        <p class="eyebrow">New here?</p>
+        <h2 id="first-visit-heading">Your first visit to Layla's beauty studio</h2>
+        <p>Never visited before? Here's how to make your first appointment easy.</p>
+        <div class="first-visit-steps">
+          <div>
+            <h3>1. Pick your treatment</h3>
+            <p>Explore facials, skincare, waxing and massage here, then check the current menu, prices and appointments on <a href={BOOKING_URL}>Treatwell</a>. If you're unsure which treatment to choose, <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">ask Layla on WhatsApp</a>.</p>
+          </div>
+          <div>
+            <h3>2. Find the studio</h3>
+            <p>We're inside Abshot Country Club on Little Abshot Road in Titchfield Common. There's free customer parking; leave a few extra minutes to find the treatment room on your first visit. <a href="/our-location/">See the photos and directions</a>.</p>
+          </div>
+          <div>
+            <h3>3. Feel at ease</h3>
+            <p>It's fine to ask questions. Tell Layla about any relevant skin concerns, sensitivities or health considerations so you can discuss treatment suitability and aftercare together.</p>
+          </div>
         </div>
       </div>
     </section>
