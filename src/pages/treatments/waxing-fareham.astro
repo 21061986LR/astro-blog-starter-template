@@ -1,6 +1,7 @@
 ---
 import SiteMenuBehaviour from "../../components/SiteMenuBehaviour.astro";
-import { NAV_LINKS, TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL, WHATSAPP_URL } from "../../data/site";
+import SiteNavigation from "../../components/SiteNavigation.astro";
+import { TREATMENT_PAGES, PROVIDER, DIRECTIONS_URL, BOOKING_URL, WHATSAPP_URL } from "../../data/site";
 const path = "/treatments/waxing-fareham/";
 const title = "Waxing for Women & Men in Fareham | Forever Young Beauty by Layla";
 const description = "Looking for waxing in Fareham? Explore Hollywood, Brazilian, bikini, leg and eyebrow waxing for women, plus men's waxing, with Layla. Book on Treatwell.";
@@ -12,7 +13,7 @@ const schema = {"@context":"https://schema.org","@type":"Service","name":"Waxing
 <html lang="en-GB">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:type" content="website"/><script type="application/ld+json" set:html={JSON.stringify(schema)} /></head>
 <body>
-<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><nav aria-label="Site navigation">{NAV_LINKS.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined}>{l.label}</a>)}</nav></details></header>
+<header class="top"><a class="brand" href="/" aria-label="Forever Young Beauty homepage"><strong>Forever Young Beauty</strong><span>by Layla</span></a><a class="corner-logo" href="/" aria-label="Return to homepage"><img src="/images/fyb-wordmark-1.png" alt="Forever Young Beauty logo" width="62" height="62" loading="eager" /></a><details class="menu"><summary aria-label="Open site menu"><span class="hamburger" aria-hidden="true">☰</span></summary><SiteNavigation currentPath={path} /></details></header>
 <main><section class="hero"><div class="inner"><p class="eyebrow">Forever Young Beauty by Layla · Titchfield Common</p><h1>Waxing for Women and Men in Fareham</h1><p class="lead">Waxing appointments for women and men in my welcoming, private treatment room at Abshot Country Club, Titchfield Common, Fareham. Whether you're a regular or it's your first visit, I'll help you feel at ease.</p><a class="button" href={booking}>Book waxing on Treatwell</a></div></section>
 <div class="content"><section><h2>Waxing treatments with Layla</h2><p>Layla offers a range of waxing services, including Hollywood, Brazilian, bikini, leg and eyebrow waxing. Check her current Treatwell menu for the precise treatments, combinations, prices and appointment times available.</p></section>
 <section><h2>Men's waxing in Fareham</h2><p>Layla also offers waxing for men. The treatment areas, durations and prices can differ from the ladies' menu, so check her current <a href={booking}>Treatwell booking options</a> or contact Layla if you're unsure which appointment to select. Her treatment room at Abshot Country Club is private and welcoming.</p></section>
