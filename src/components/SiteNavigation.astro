@@ -1,0 +1,39 @@
+---
+import { NAV_LINKS, BOOKING_URL } from "../data/site";
+
+interface Props {
+  currentPath?: string;
+}
+const { currentPath = "/" } = Astro.props;
+const treatmentLinks = NAV_LINKS.filter((link) => link.href.startsWith("/treatments/"));
+const concernLinks = NAV_LINKS.filter((link) => link.href.startsWith("/skin-concerns/"));
+const visitLinks = NAV_LINKS.filter((link) =>
+  ["/our-location/", "/#find-us", "/links/"].includes(link.href)
+);
+---
+<nav aria-label="Site navigation">
+  <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
+  <details class="menu-group">
+    <summary>Treatments <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
+    <div class="menu-group-links">
+      {treatmentLinks.map((link) => (
+        <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
+      ))}
+      <span class="menu-subheading">Skin concerns</span>
+      {concernLinks.map((link) => (
+        <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
+      ))}
+    </div>
+  </details>
+  <a href="/#reviews">Client reviews</a>
+  <details class="menu-group">
+    <summary>Visit &amp; contact <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
+    <div class="menu-group-links">
+      <a href="/#first-visit">Your first visit</a>
+      {visitLinks.map((link) => (
+        <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label === "Links" ? "Book & connect" : link.label}</a>
+      ))}
+    </div>
+  </details>
+  <a class="menu-book" href={BOOKING_URL}>Book on Treatwell</a>
+</nav>
