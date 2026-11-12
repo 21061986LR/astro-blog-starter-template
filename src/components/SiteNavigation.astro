@@ -5,8 +5,12 @@ interface Props {
   currentPath?: string;
 }
 const { currentPath = "/" } = Astro.props;
-// Keep original treatment URLs. Group by what the customer wants.
-const treatmentGroups = [
+// Keep treatment page URLs and group by what customers are looking for.
+// Massage is a single direct link: its page covers all types including pregnancy.
+type MenuEntry =
+  | { title: string; links: { href: string; label: string }[] }
+  | { title: string; href: string };
+const treatmentGroups: MenuEntry[] = [
   { title: "Face Treatments", links: [
     { href: "/treatments/caci-facials-fareham/", label: "CACI Facials & Jowl Lift" },
     { href: "/treatments/dermaplaning-fareham/", label: "Dermaplaning" },
@@ -16,10 +20,7 @@ const treatmentGroups = [
     { href: "/treatments/jet-plasma-fareham/", label: "Jet Plasma" },
     { href: "/skin-concerns/acne-scarring-fareham/", label: "Acne Scarring & Skin Texture" },
   ] },
-  { title: "Massage", links: [
-    { href: "/treatments/massage-fareham/", label: "Massage Treatments" },
-    { href: "/treatments/pregnancy-massage-fareham/", label: "Pregnancy Massage" },
-  ] },
+  { title: "Massage Treatments", href: "/treatments/massage-fareham/" },
   { title: "Waxing & Brows", links: [
     { href: "/treatments/waxing-fareham/", label: "Women's & Men's Waxing, Brows & Lash Tinting" },
   ] },
@@ -31,14 +32,18 @@ const visitLinks = NAV_LINKS.filter((link) =>
 <nav aria-label="Site navigation">
   <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
   {treatmentGroups.map((group) => (
-    <details class="menu-group">
-      <summary>{group.title} <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
-      <div class="menu-group-links">
-        {group.links.map((link) => (
-          <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
-        ))}
-      </div>
-    </details>
+    "href" in group ? (
+      <a href={group.href} aria-current={currentPath === group.href ? "page" : undefined}>{group.title}</a>
+    ) : (
+      <details class="menu-group">
+        <summary>{group.title} <span class="menu-chevron" aria-hidden="true">⌄</span></summary>
+        <div class="menu-group-links">
+          {group.links.map((link) => (
+            <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
+          ))}
+        </div>
+      </details>
+    )
   ))}
   <a href="/#reviews">Client reviews</a>
   <details class="menu-group">
