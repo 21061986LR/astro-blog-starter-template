@@ -24,7 +24,7 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
   if (response.headers.get("content-type")?.includes("text/html")) {
     let fixedHtml = await response.text();
 
-    // Review buttons should open existing review lists, not maps or review composers.
+    // Existing-review links should open the review list; leave direct write-review links intact.
     // Google: open Layla's existing Google reviews for this Place ID.
     const googleReviewsUrl =
       "https://search.google.com/local/reviews?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y";
@@ -35,10 +35,6 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
     );
     fixedHtml = fixedHtml.replaceAll(
       'href="https://www.google.com/maps/search/?api=1&amp;query=Forever+Young+Beauty+By+Layla+Fareham&amp;query_place_id=ChIJv57sYEpvdEgR78z1GvYSv7Y"',
-      `href="${googleReviewsUrl}"`
-    );
-    fixedHtml = fixedHtml.replaceAll(
-      'href="https://search.google.com/local/writereview?placeid=ChIJv57sYEpvdEgR78z1GvYSv7Y"',
       `href="${googleReviewsUrl}"`
     );
 
