@@ -38,6 +38,12 @@ export const onRequest = defineMiddleware(async ({ url }, next) => {
       `href="${googleReviewsUrl}"`
     );
 
+    // Brand WhatsApp action buttons green across the site; keep inline text links unchanged.
+    fixedHtml = fixedHtml.replace(
+      "</head>",
+      '<style id="fyb-whatsapp-button-colour">a.btn[href^="https://wa.me/"],a.button[href^="https://wa.me/"],.social-links a[href^="https://wa.me/"],.contact-actions a[href^="https://wa.me/"]{background:#25d366!important;border-color:#25d366!important;color:#102f1c!important}a.btn[href^="https://wa.me/"]:hover,a.btn[href^="https://wa.me/"]:focus-visible,a.button[href^="https://wa.me/"]:hover,a.button[href^="https://wa.me/"]:focus-visible,.social-links a[href^="https://wa.me/"]:hover,.social-links a[href^="https://wa.me/"]:focus-visible,.contact-actions a[href^="https://wa.me/"]:hover,.contact-actions a[href^="https://wa.me/"]:focus-visible{background:#1ebe57!important;border-color:#1ebe57!important;color:#102f1c!important}</style></head>'
+    );
+
     // Treatwell: go straight to Layla's working reviews page.
     fixedHtml = fixedHtml.replaceAll(
       'href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/"',
