@@ -59,6 +59,7 @@ const schema = {
       <h3>Where can I see prices and availability?</h3>
       <p>All current prices and available appointments are on <a href={booking}>Layla's Treatwell booking page</a>.</p>
     </section>
+    <section class="trust"><h2>Brows and lashes client reviews</h2><blockquote><p>“Layla always provides a careful, thorough tinting experience with good results.”</p><footer>Pat · Eyebrow &amp; Eyelash Tinting · Treatwell verified review</footer></blockquote><blockquote><p>“Great treatment and work, I love how it looks every time!”</p><footer>Allison · Eyebrow &amp; Eyelash Tinting · Treatwell verified review</footer></blockquote><p><a href="https://www.treatwell.co.uk/place/forever-young-beauty-by-layla/#reviews" target="_blank" rel="noopener noreferrer">Read verified Treatwell reviews</a></p></section>
     <section class="contact">
       <h2>Ready to book your brow or lash appointment?</h2>
       <p>Explore the current brow and lash treatments and appointment times on Treatwell, or ask Layla a question first.</p>
@@ -89,4 +90,9 @@ a.button{display:inline-flex;align-items:center;justify-content:center;min-heigh
 .contact-actions a.maps-action:hover,.contact-actions a.maps-action:focus-visible{background:#31576a!important;color:#fff!important}
 .contact-actions a.whatsapp-action:hover,.contact-actions a.whatsapp-action:focus-visible{background:#f8f9fa!important;color:#1b3a4c!important}
 @media(max-width:560px){.contact-actions{flex-direction:column}.contact-actions a.contact-action{width:100%}}
+
+/* Consistent verified review cards across treatment pages. */
+blockquote{background:#fff!important;border:1px solid #dce1e3!important;border-top:3px solid #b09a6e!important;border-radius:14px!important;padding:1.4rem 1.6rem!important;margin:1.25rem 0!important;box-shadow:none!important}
+blockquote p{font-style:italic;line-height:1.75}
+blockquote footer{background:transparent!important;color:#626a70!important;font-size:.9rem!important;text-align:left!important;padding:0!important;margin-top:.8rem}
 </style>
