@@ -280,6 +280,9 @@ const schema = {
       .hero .btn-ghost { border: 1.5px solid var(--silver); color: var(--silver); }
       .btn-ghost { border: 1.5px solid var(--navy); color: var(--navy); }
 
+      /* Homepage hero: WhatsApp uses the same gold treatment as the booking CTA. */
+      .hero .cta-row a.hero-whatsapp-gold { background: var(--gold) !important; color: var(--navy-deep) !important; border: 1.5px solid var(--gold) !important; }
+      .hero .cta-row a.hero-whatsapp-gold:hover, .hero .cta-row a.hero-whatsapp-gold:focus-visible { background: var(--gold-dark) !important; color: #fff !important; }
       /* Treatments */
       .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
       .card {
@@ -543,7 +546,7 @@ const schema = {
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
-            <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
+            <a class="btn btn-ghost hero-whatsapp-gold" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
           </div>
         </div>
       </div>
