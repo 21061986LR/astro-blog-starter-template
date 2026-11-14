@@ -280,9 +280,11 @@ const schema = {
       .hero .btn-ghost { border: 1.5px solid var(--silver); color: var(--silver); }
       .btn-ghost { border: 1.5px solid var(--navy); color: var(--navy); }
 
-      /* Homepage hero: white WhatsApp CTA contrasts with the gold Treatwell CTA. */
-      .hero .cta-row a.hero-whatsapp-gold { background: #fff !important; color: var(--navy-deep) !important; border: 1.5px solid #fff !important; }
-      .hero .cta-row a.hero-whatsapp-gold:hover, .hero .cta-row a.hero-whatsapp-gold:focus-visible { background: #eef1f3 !important; color: var(--navy-deep) !important; }
+      /* White WhatsApp CTAs contrast with gold Treatwell CTAs. */
+      .hero .cta-row a.whatsapp-white { background: #fff !important; color: var(--navy-deep) !important; border: 1.5px solid #fff !important; }
+      .hero .cta-row a.whatsapp-white:hover, .hero .cta-row a.whatsapp-white:focus-visible { background: #eef1f3 !important; color: var(--navy-deep) !important; }
+      .btn.whatsapp-white { background: #fff !important; color: var(--navy-deep) !important; border: 1.5px solid var(--navy) !important; }
+      .btn.whatsapp-white:hover, .btn.whatsapp-white:focus-visible { background: #eef1f3 !important; color: var(--navy-deep) !important; }
       /* Treatments */
       .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
       .card {
@@ -546,7 +548,7 @@ const schema = {
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
-            <a class="btn btn-ghost hero-whatsapp-gold" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
+            <a class="btn btn-ghost whatsapp-white" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
           </div>
         </div>
       </div>
@@ -599,7 +601,7 @@ const schema = {
         </p>
         <div class="btn-row">
           <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
-          <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
+          <a class="btn btn-ghost whatsapp-white" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp Layla</a>
         </div>
       </div>
     </section>
@@ -654,7 +656,7 @@ const schema = {
         <p>Choose from <a href="/treatments/dermaplaning-fareham/">dermaplaning</a>, <a href="/treatments/microneedling-fareham/">microneedling</a>, <a href="/treatments/caci-facials-fareham/">CACI facial toning</a>, <a href="/treatments/waxing-fareham/">waxing and tinting</a>, or a <a href="/treatments/massage-fareham/">relaxing massage</a>. Not sure which treatment may suit your skin? Ask Layla on WhatsApp before booking through Treatwell.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href={BOOKING_URL}>Book on Treatwell</a>
-          <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">Ask Layla on WhatsApp</a>
+          <a class="btn btn-ghost whatsapp-white" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">Ask Layla on WhatsApp</a>
         </div>
       </div>
     </section>
